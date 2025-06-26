@@ -6,4 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmokeZeroDigitalSolution.Application\SmokeZeroDigitalSolution.Application.csproj" />
+    <ProjectReference Include="..\SmokeZeroDigitalSolution.Domain\SmokeZeroDigitalSolution.Domain.csproj" />
+    <ProjectReference Include="..\SmokeZeroDigitalSolution.Infrastructure\SmokeZeroDigitalSolution.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

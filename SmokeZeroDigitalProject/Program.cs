@@ -1,3 +1,11 @@
+using eCommerce_BE.Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using SmokeZeroDigitalSolution.Domain.Entites;
+using SmokeZeroDigitalSolution.Infrastructure.DataAccessManager.EFCore.Data;
+using System.Reflection;
+
 namespace SmokeZeroDigitalProject
 {
     public class Program
@@ -8,7 +16,40 @@ namespace SmokeZeroDigitalProject
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MyDB")));
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(option =>
+            {
+                option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
+            builder.Services.AddInfrastructure(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
