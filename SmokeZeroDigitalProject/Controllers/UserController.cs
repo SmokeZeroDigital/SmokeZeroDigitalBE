@@ -11,40 +11,64 @@ namespace SmokeZeroDigitalProject.Controllers
     [ApiController]
     public class UserController : BaseApiController
     {
-        // Constructor đã có sẵn từ BaseApiController
-        public UserController(ISender sender) : base(sender)
-        {
-        }
+        public UserController(ISender sender) : base(sender) { }
 
-        // Đổi từ CreateCustomer thành RegisterUser
-        // Bỏ [Authorize] vì đây là endpoint đăng ký, người dùng chưa được xác thực
-        [HttpPost("RegisterUser")]
-        public async Task<ActionResult<ApiSuccessResult<LoginResultDto>>> RegisterUserAsync(
-            [FromBody] RegisterNewUserCommand command, // Sử dụng RegisterNewUserCommand làm request
-            CancellationToken cancellationToken)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
         {
-            // Gửi Command đến MediatR để xử lý việc đăng ký
-            var response = await _sender.Send(command, cancellationToken);
-
-            // Kiểm tra kết quả từ Command Handler
-            if (response.Succeeded) // response ở đây là LoginResultDto
+            var response = await _sender.Send(new RegisterNewUserCommand(request), cancellationToken);
+            if (!string.IsNullOrEmpty(response.Token))
             {
-                return Ok(new ApiSuccessResult<LoginResultDto> // return ApiSuccessResult<LoginResultDto>
+                return Ok(new ApiSuccessResult<LoginResultDto>
                 {
                     Code = StatusCodes.Status200OK,
-                    Message = "User registered successfully.", // Thông báo rõ ràng hơn
-                    Content = response // Trả về LoginResultDto với UserId, UserName, Token (nếu có)
+                    Message = "Đăng ký thành công.",
+                    Content = response
                 });
             }
             else
             {
-                // Xử lý trường hợp đăng ký thất bại
-                // Trả về BadRequest với thông tin lỗi từ LoginResultDto.Errors
-                return BadRequest(new ApiErrorResult // Giả định bạn có ApiErrorResult
+                return BadRequest(new ApiErrorResult
                 {
                     Code = StatusCodes.Status400BadRequest,
-                    Message = "User registration failed.",
-                    Error = (Error)response.Errors
+                    Message = "Đăng ký thất bại.",
+                    Error = response.Errors != null && response.Errors.Count > 0
+                        ? new Error(
+                            innerException: string.Join("; ", response.Errors),
+                            source: nameof(Register),
+                            stackTrace: null,
+                            exceptionType: "RegisterException")
+                        : null
+                });
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
+        {
+            var response = await _sender.Send(new LoginUserCommand(request), cancellationToken);
+            if (!string.IsNullOrEmpty(response.Token))
+            {
+                return Ok(new ApiSuccessResult<LoginResultDto>
+                {
+                    Code = StatusCodes.Status200OK,
+                    Message = "Đăng nhập thành công.",
+                    Content = response
+                });
+            }
+            else
+            {
+                return Unauthorized(new ApiErrorResult
+                {
+                    Code = StatusCodes.Status401Unauthorized,
+                    Message = "Sai tài khoản hoặc mật khẩu.",
+                    Error = response.Errors != null && response.Errors.Count > 0
+                        ? new Error(
+                            innerException: string.Join("; ", response.Errors),
+                            source: nameof(Login),
+                            stackTrace: null,
+                            exceptionType: "LoginException")
+                        : null
                 });
             }
         }
