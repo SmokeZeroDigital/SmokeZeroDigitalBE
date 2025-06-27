@@ -1,7 +1,7 @@
 using eCommerce_BE.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using SmokeZeroDigitalSolution.Infrastructure.DataAccessManager.EFCore.Data;
+using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
 using System.Reflection;
 
 namespace SmokeZeroDigitalProject

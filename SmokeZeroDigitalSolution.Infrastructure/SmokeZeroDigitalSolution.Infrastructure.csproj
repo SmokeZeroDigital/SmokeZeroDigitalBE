@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="ExternalServices\" />
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
 </Project>

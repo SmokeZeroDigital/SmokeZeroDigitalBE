@@ -1,4 +1,7 @@
 ﻿
+using SmokeZeroDigitalSolution.Infrastructure.Persistence.Common;
+using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
+
 namespace eCommerce_BE.Infrastructure
 {
     public static class DependencyInjection
