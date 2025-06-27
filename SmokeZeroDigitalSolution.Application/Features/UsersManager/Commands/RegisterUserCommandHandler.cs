@@ -1,57 +1,22 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs;
-using SmokeZeroDigitalSolution.Domain.Entites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SmokeZeroDigitalSolution.Application.Common.Models;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
+
 
 namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands
 {
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, AuthResponseDto>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, CommandResult<AuthResponseDto>>
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly IJwtTokenGenerator _tokenGenerator;
+        private readonly IIdentityService _identityService;
 
-        public RegisterUserCommandHandler(UserManager<AppUser> userManager, IJwtTokenGenerator tokenGenerator)
+        public RegisterUserCommandHandler(IIdentityService identityService)
         {
-            _userManager = userManager;
-            _tokenGenerator = tokenGenerator;
+            _identityService = identityService;
         }
 
-        public async Task<AuthResponseDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<CommandResult<AuthResponseDto>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new AppUser
-            {
-                Id = Guid.NewGuid(),
-                Email = request.Email,
-                UserName = request.Email,
-                FullName = request.FullName,
-                Gender = request.Gender,
-                DateOfBirth = request.DateOfBirth,
-                RegistrationDate = DateTime.UtcNow,
-            };
-
-            var result = await _userManager.CreateAsync(user, request.Password);
-            if (!result.Succeeded)
-            {
-                return new AuthResponseDto
-                {
-                    Errors = result.Errors.Select(e => e.Description).ToList(),
-                    Error = "Identity creation failed"
-                };
-            }
-            var token = _tokenGenerator.GenerateToken(user);
-
-            return new AuthResponseDto
-            {
-                UserId = user.Id,
-                Email = user.Email!,
-                Token = token
-            };
+            return await _identityService.RegisterAsync(request.User);
         }
     }
-
 }

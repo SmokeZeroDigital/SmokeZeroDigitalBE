@@ -1,11 +1,8 @@
-﻿using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
+﻿using SmokeZeroDigitalSolution.Application.Common.IPersistence;
+using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Common
 {
-    public interface IUnitOfWork
-    {
-        Task<bool> SaveChangeAsync();
-    }
     public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _applicationDbContext;

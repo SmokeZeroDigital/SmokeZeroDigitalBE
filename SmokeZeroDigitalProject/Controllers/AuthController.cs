@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SmokeZeroDigitalProject.Common.Base;
-using SmokeZeroDigitalProject.Common.Models;
-using SmokeZeroDigitalSolution.Application.Common.Services.SecurityManager;
+using SmokeZeroDigitalProject.Common.Interfaces;
 using SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
 using SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries;
+using SmokeZeroDigitalSolution.Contracts.Auth;
 
 namespace SmokeZeroDigitalProject.Controllers
 {
@@ -13,85 +13,48 @@ namespace SmokeZeroDigitalProject.Controllers
     [ApiController]
     public class AuthController : BaseApiController
     {
-        public AuthController(ISender sender) : base(sender) { }
+        private readonly IRequestExecutor _executor;
+
+        public AuthController(ISender sender, IRequestExecutor executor) : base(sender)
+        {
+            _executor = executor;
+        }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
         {
-            // Gửi command tới handler
-            var command = new RegisterUserCommand
-            {
-                Email = request.Email,
-                Password = request.Password,
-                FullName = request.FullName,
-                Gender = request.Gender,
-                DateOfBirth = request.DateOfBirth
-            };
-
-            var response = await _sender.Send(command, cancellationToken);
-
-            if (!string.IsNullOrEmpty(response.Token))
-            {
-                return Ok(new ApiSuccessResult<AuthResponseDto>
+            return await _executor.ExecuteAsync<RegisterRequest, AuthResponseDto>(
+                request,
+                req => new RegisterUserCommand
                 {
-                    Code = StatusCodes.Status200OK,
-                    Message = "Registration successful.",
-                    Content = response
-                });
-            }
-            else
-            {
-                return BadRequest(new ApiErrorResult
-                {
-                    Code = StatusCodes.Status400BadRequest,
-                    Message = "Registration failed.",
-                    Error = response.Errors != null && response.Errors.Count > 0
-                        ? new Error(
-                            innerException: string.Join("; ", response.Errors),
-                            source: nameof(Register),
-                            stackTrace: null,
-                            exceptionType: "RegisterException")
-                        : null
-                });
-            }
+                    User = new RegisterUserDto
+                    {
+                        Email = req.Email,
+                        Password = req.Password,
+                        FullName = req.FullName,
+                        DateOfBirth = req.DateOfBirth,
+                        Gender = req.Gender
+                    }
+                },
+                nameof(Register),
+                cancellationToken);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
         {
-            // Gửi query tới handler
-            var query = new LoginUserQuery
-            {
-                Email = request.UserName,
-                Password = request.Password
-            };
-
-            var response = await _sender.Send(query, cancellationToken);
-
-            if (!string.IsNullOrEmpty(response.Token))
-            {
-                return Ok(new ApiSuccessResult<AuthResponseDto>
+            return await _executor.ExecuteQueryAsync<LoginRequest, AuthResponseDto>(
+                request,
+                req => new LoginUserQuery
                 {
-                    Code = StatusCodes.Status200OK,
-                    Message = "Login successful.",
-                    Content = response
-                });
-            }
-            else
-            {
-                return Unauthorized(new ApiErrorResult
-                {
-                    Code = StatusCodes.Status401Unauthorized,
-                    Message = "Invalid email or password.",
-                    Error = response.Error != null && response.Errors.Count > 0
-                        ? new Error(
-                            innerException: string.Join("; ", response.Errors),
-                            source: nameof(Login),
-                            stackTrace: null,
-                            exceptionType: "LoginException")
-                        : null
-                });
-            }
+                    User = new LoginUserDto
+                    {
+                        Email = req.UserName,
+                        Password = req.Password
+                    }
+                },
+                nameof(Login),
+                cancellationToken);
         }
     }
 }

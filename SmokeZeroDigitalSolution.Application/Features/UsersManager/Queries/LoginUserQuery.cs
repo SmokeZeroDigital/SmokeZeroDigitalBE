@@ -1,16 +1,11 @@
 ﻿using MediatR;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SmokeZeroDigitalSolution.Application.Common.Models;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
 
 namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries
 {
-    public class LoginUserQuery : IRequest<AuthResponseDto>
+    public class LoginUserQuery : IRequest<QueryResult<AuthResponseDto>>
     {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
+        public LoginUserDto User { get; init; } = default!;
     }
 }

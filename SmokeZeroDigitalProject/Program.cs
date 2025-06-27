@@ -1,6 +1,9 @@
 using eCommerce_BE.Infrastructure;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using SmokeZeroDigitalProject.Common.Middlewares;
+using SmokeZeroDigitalSolution.Application.Common.Behaviors;
 using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
 using System.Reflection;
 
@@ -48,6 +51,10 @@ namespace SmokeZeroDigitalProject
                 option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
             builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
+            builder.Services.AddHttpContextAccessor();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -69,7 +76,7 @@ namespace SmokeZeroDigitalProject
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseMiddleware<GlobalApiExceptionHandlerMiddleware>();
             app.MapRazorPages();
 
             app.Run();
