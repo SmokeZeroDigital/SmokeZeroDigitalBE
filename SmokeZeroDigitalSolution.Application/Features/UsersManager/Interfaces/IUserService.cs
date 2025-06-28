@@ -12,7 +12,5 @@
         void Update(AppUser user);
         Task<bool> Remove(Guid id);
         Task<bool> CheckExist(Expression<Func<AppUser, bool>> where);
-        Task<bool> SaveChangeAsync();
-        object GetUserProfileFromToken(ClaimsPrincipal user);
     }
 }

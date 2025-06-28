@@ -1,4 +1,6 @@
 
+using SmokeZeroDigitalProject.Common.Converter;
+
 namespace SmokeZeroDigitalProject
 {
     public class Program
@@ -13,6 +15,8 @@ namespace SmokeZeroDigitalProject
             .AddJsonOptions(options =>
             {
               options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+              options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-ddTHH:mm:ss.fffZ", alwaysAssumeUtcOnRead: true));
+                options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-dd", alwaysAssumeUtcOnRead: true));
             });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.RegisterSwagger();

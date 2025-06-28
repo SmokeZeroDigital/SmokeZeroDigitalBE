@@ -19,7 +19,7 @@
                 .MaximumLength(100).WithMessage("Full name must be less than 100 characters.");
 
             RuleFor(x => x.User.DateOfBirth)
-                .LessThan(DateTime.Now).When(x => x.User.DateOfBirth.HasValue)
+                .LessThan(DateTime.UtcNow).When(x => x.User.DateOfBirth.HasValue)
                 .WithMessage("Date of birth must be in the past.");
         }
     }

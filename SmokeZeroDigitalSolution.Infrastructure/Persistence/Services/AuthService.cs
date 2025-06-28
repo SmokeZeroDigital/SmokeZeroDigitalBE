@@ -38,8 +38,7 @@ public class AuthService : IAuthService
             FullName = registerUserDto.FullName,
             DateOfBirth = registerUserDto.DateOfBirth,
             Gender = registerUserDto.Gender,
-            RegistrationDate = DateTime.UtcNow,
-        };  
+        };
 
         var result = await _userManager.CreateAsync(user, registerUserDto.Password);
 
@@ -51,7 +50,8 @@ public class AuthService : IAuthService
             Email = user.Email,
             FullName = user.FullName,
             DateOfBirth = user.DateOfBirth,
-            Gender = user.Gender
+            Gender = user.Gender,
+            CreateAt = user.CreatedAt
         };
     }
     public async Task<AuthResponseDto> LoginAsync(string username, string password, CancellationToken cancellationToken = default)
@@ -62,7 +62,7 @@ public class AuthService : IAuthService
         var result = await _signInManager.PasswordSignInAsync(user, password, true, false);
         if (!result.Succeeded) throw new Exception("Invalid login attempt.");
 
-        var token = await _jwtService.CreateTokenAsync(user); 
+        var token = await _jwtService.CreateTokenAsync(user);
 
         return new AuthResponseDto
         {

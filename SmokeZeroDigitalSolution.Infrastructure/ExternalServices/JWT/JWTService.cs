@@ -18,10 +18,11 @@
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim("FullName", user.UserName),
+                new Claim("FullName", user.FullName),
                 new Claim(ClaimTypes.Gender, user.Gender.ToString()),
                 new Claim("UserId" , user.Id.ToString()),
-                new Claim("BirthDate", user.DateOfBirth.ToString())
+                new Claim("BirthDate", user.DateOfBirth.ToString()),
+                new Claim("Username", user.UserName.ToString())
             };
 
             var roles = await _userManager.GetRolesAsync(user);

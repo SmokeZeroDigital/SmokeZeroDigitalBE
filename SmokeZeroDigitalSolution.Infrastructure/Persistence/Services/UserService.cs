@@ -55,46 +55,5 @@
         {
             _userRepository.Update(user);
         }
-
-        public async Task<bool> SaveChangeAsync()
-        {
-            throw new NotImplementedException("Use UnitOfWork to save changes.");
-        }
-        public object GetUserProfileFromToken(ClaimsPrincipal user)
-        {
-            var userId = user.FindFirst("UserId")?.Value;
-            var email = user.FindFirst(ClaimTypes.Email)?.Value;
-            var fullName = user.FindFirst("FullName")?.Value;
-            var gender = user.FindFirst(ClaimTypes.Gender)?.Value;
-            var role = user.FindFirst(ClaimTypes.Role)?.Value;
-            var birthdate = user.FindFirst("BirthDate")?.Value;
-
-            if (string.IsNullOrEmpty(userId)) return null;
-
-            return new
-            {
-                UserId = userId,
-                Email = email,
-                FullName = fullName,
-                Gender = gender,
-                Role = role,
-                BirthDate = birthdate
-            };
-        }
-
-
-        public async Task<(bool Success, string Token, string Message)> LoginAsync(string username, string password)
-        {
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null)
-                return (false, null, "User không tồn tại");
-
-            var checkPassword = await _userManager.CheckPasswordAsync(user, password);
-            if (!checkPassword)
-                return (false, null, "Mật khẩu không đúng");
-
-            var token = await _jwtService.CreateTokenAsync(user);
-            return (true, token, "Đăng nhập thành công");
-        }
     }
 }
