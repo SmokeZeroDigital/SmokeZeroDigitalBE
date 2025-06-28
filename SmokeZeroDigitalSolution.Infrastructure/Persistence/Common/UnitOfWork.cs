@@ -1,4 +1,5 @@
-﻿using SmokeZeroDigitalSolution.Application.Common.IPersistence;
+﻿using Microsoft.EntityFrameworkCore;
+using SmokeZeroDigitalSolution.Application.Common.IPersistence;
 using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Common
@@ -11,9 +12,14 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Common
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<bool> SaveChangeAsync()
+        public async Task SaveAsync(CancellationToken cancellationToken = default)
         {
-            return await _applicationDbContext.SaveChangesAsync() > 0;
+            await _applicationDbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public void Save()
+        {
+            _applicationDbContext.SaveChanges();
         }
     }
 }

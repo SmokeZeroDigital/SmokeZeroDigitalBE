@@ -391,6 +391,31 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tokens",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RefreshToken = table.Column<string>(type: "text", nullable: false),
+                    ExpiryDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    Device = table.Column<string>(type: "text", nullable: true),
+                    IPAddress = table.Column<string>(type: "text", nullable: true),
+                    IsRevoked = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserAchievements",
                 columns: table => new
                 {
@@ -534,9 +559,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("37d78ac2-2b75-4653-a751-6ca38a3abf22"), null, "Admin", "ADMIN" },
-                    { new Guid("99b1715f-dd55-4043-9639-66f5fc1d69f4"), null, "Coach", "COACH" },
-                    { new Guid("dc0de4f3-4136-4ba9-ad4d-038f38056f23"), null, "Member", "MEMBER" }
+                    { new Guid("c8f60325-239f-4aef-940f-ca8ed22fc2e2"), null, "Coach", "COACH" },
+                    { new Guid("dd917154-596e-421f-a1f3-9e2ca90c0afc"), null, "Admin", "ADMIN" },
+                    { new Guid("e1771e19-bade-4e83-afd3-72f8ef3e7b8a"), null, "Member", "MEMBER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -662,6 +687,11 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tokens_UserId",
+                table: "Tokens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserAchievements_AchievementId",
                 table: "UserAchievements",
                 column: "AchievementId");
@@ -711,6 +741,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "SmokingRecords");
+
+            migrationBuilder.DropTable(
+                name: "Tokens");
 
             migrationBuilder.DropTable(
                 name: "UserAchievements");

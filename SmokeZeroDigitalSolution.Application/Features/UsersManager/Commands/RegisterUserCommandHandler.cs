@@ -1,22 +1,31 @@
 ﻿using MediatR;
 using SmokeZeroDigitalSolution.Application.Common.Models;
 using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces;
 
 
 namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands
 {
-    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, CommandResult<AuthResponseDto>>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, CommandResult<RegisterResultDto>>
     {
-        private readonly IIdentityService _identityService;
+        private readonly IAuthService _jwtService;
 
-        public RegisterUserCommandHandler(IIdentityService identityService)
+        public RegisterUserCommandHandler(IAuthService jwtService)
         {
-            _identityService = identityService;
+            _jwtService = jwtService;
         }
 
-        public async Task<CommandResult<AuthResponseDto>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+        public async Task<CommandResult<RegisterResultDto>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            return await _identityService.RegisterAsync(request.User);
+            try
+            {
+                var result = await _jwtService.RegisterAsync(request.User, cancellationToken);
+                return CommandResult<RegisterResultDto>.Success(result);
+            }
+            catch (Exception ex)
+            {
+                return CommandResult<RegisterResultDto>.Failure(ex.Message);
+            }
         }
     }
 }

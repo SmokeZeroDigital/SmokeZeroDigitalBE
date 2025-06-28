@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
@@ -12,11 +11,9 @@ using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
 namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250626184409_InitDB")]
-    partial class InitDB
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,19 +51,19 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dc0de4f3-4136-4ba9-ad4d-038f38056f23"),
+                            Id = new Guid("e1771e19-bade-4e83-afd3-72f8ef3e7b8a"),
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = new Guid("99b1715f-dd55-4043-9639-66f5fc1d69f4"),
+                            Id = new Guid("c8f60325-239f-4aef-940f-ca8ed22fc2e2"),
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
-                            Id = new Guid("37d78ac2-2b75-4653-a751-6ca38a3abf22"),
+                            Id = new Guid("dd917154-596e-421f-a1f3-9e2ca90c0afc"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -773,6 +770,44 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.ToTable("SubscriptionPlans");
                 });
 
+            modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Token", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Device")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("ExpiryDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Tokens");
+                });
+
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.UserAchievement", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1008,6 +1043,17 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 {
                     b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
                         .WithMany("SmokingRecords")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Token", b =>
+                {
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

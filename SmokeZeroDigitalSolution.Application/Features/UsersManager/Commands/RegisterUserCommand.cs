@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands
 {
-    public class RegisterUserCommand : IRequest<CommandResult<AuthResponseDto>>
+    public class RegisterUserCommand : IRequest<CommandResult<RegisterResultDto>>
     {
         public RegisterUserDto User { get; init; } = default!;
     }

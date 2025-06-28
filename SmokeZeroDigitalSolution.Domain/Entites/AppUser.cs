@@ -1,10 +1,12 @@
-﻿namespace SmokeZeroDigitalSolution.Domain.Entites
+﻿using SmokeZeroDigitalSolution.Domain.Enums;
+
+namespace SmokeZeroDigitalSolution.Domain.Entites
 {
     public class AppUser : IdentityUser<Guid>
     {
         public string FullName { get; set; } = string.Empty;
         public DateTime? DateOfBirth { get; set; }
-        public int Gender { get; set; } // 0: Unknown, 1: Male, 2: Female
+        public GenderType Gender { get; set; } = GenderType.Unknown;
         public string? ProfilePictureUrl { get; set; }
         public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
 

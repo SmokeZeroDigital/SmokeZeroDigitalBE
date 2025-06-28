@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmokeZeroDigitalSolution.Domain.Enums;
 
 namespace SmokeZeroDigitalSolution.Contracts.Auth
 {
@@ -12,6 +8,6 @@ namespace SmokeZeroDigitalSolution.Contracts.Auth
         public string Password { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public DateTime? DateOfBirth { get; set; }
-        public int Gender { get; set; }
+        public GenderType Gender { get; set; }
     }
 }

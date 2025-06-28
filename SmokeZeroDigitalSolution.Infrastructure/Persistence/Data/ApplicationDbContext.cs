@@ -21,6 +21,7 @@
         public DbSet<SmokingRecord> SmokingRecords { get; set; } = default!;
         public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; } = default!;
         public DbSet<UserAchievement> UserAchievements { get; set; } = default!;
+        public DbSet<Token> Tokens { get; set; } = default!;
 
 
         protected override void OnModelCreating(ModelBuilder builder)

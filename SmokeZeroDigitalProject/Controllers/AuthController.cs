@@ -23,7 +23,7 @@ namespace SmokeZeroDigitalProject.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
         {
-            return await _executor.ExecuteAsync<RegisterRequest, AuthResponseDto>(
+            return await _executor.ExecuteAsync<RegisterRequest, RegisterResultDto>(
                 request,
                 req => new RegisterUserCommand
                 {
