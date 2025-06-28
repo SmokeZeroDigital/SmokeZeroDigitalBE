@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-
-namespace SmokeZeroDigitalProject.Common.Middlewares
+﻿namespace SmokeZeroDigitalProject.Common.Middlewares
 {
     public class GlobalApiExceptionHandlerMiddleware
     {

@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using SmokeZeroDigitalSolution.Domain.Entites;
-using System.Linq.Expressions;
-using System.Security.Claims;
-
-namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
+﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
 {
     public interface IUserService
     {

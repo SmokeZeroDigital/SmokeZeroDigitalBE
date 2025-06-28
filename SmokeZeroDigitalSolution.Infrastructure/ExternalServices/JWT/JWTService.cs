@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using SmokeZeroDigitalSolution.Application.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
 {
     public class JWTService : IJWTService
     {

@@ -1,8 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces;
-using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
-using SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Identity
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Identity
 {
     public static class DI
     {

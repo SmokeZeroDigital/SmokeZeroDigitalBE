@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
-using SmokeZeroDigitalSolution.Application.Interfaces;
-using System.Text;
-using System.Text.Json;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
 {
     public static class DI
     {

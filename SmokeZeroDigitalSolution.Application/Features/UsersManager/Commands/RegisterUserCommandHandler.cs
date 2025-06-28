@@ -1,10 +1,4 @@
-﻿using MediatR;
-using SmokeZeroDigitalSolution.Application.Common.Models;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces;
-
-
-namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands
+﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, CommandResult<RegisterResultDto>>
     {

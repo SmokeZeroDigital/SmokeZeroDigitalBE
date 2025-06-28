@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using SmokeZeroDigitalProject.Common.Models;
-using Error = SmokeZeroDigitalProject.Common.Models.Error;
-
-namespace SmokeZeroDigitalProject.Common.Handlers
+﻿namespace SmokeZeroDigitalProject.Common.Handlers
 {
     public class CustomExceptionHandler : IExceptionHandler
     {

@@ -1,11 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using SmokeZeroDigitalProject.Common.Interfaces;
-using SmokeZeroDigitalProject.Common.Models;
-using SmokeZeroDigitalSolution.Application.Common;
-using SmokeZeroDigitalSolution.Application.Common.Models;
-
-namespace SmokeZeroDigitalProject.Common.Services
+﻿namespace SmokeZeroDigitalProject.Common.Services
 {
     public class RequestExecutor : IRequestExecutor
     {

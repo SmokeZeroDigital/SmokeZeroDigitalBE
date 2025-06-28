@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Domain.Enums;
-
-namespace SmokeZeroDigitalSolution.Contracts.Auth
+﻿namespace SmokeZeroDigitalSolution.Contracts.Auth
 {
     public class RegisterRequest
     {

@@ -1,13 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using SmokeZeroDigitalProject.Common.Base;
-using SmokeZeroDigitalProject.Common.Interfaces;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries;
-using SmokeZeroDigitalSolution.Contracts.Auth;
-
-namespace SmokeZeroDigitalProject.Controllers
+﻿namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

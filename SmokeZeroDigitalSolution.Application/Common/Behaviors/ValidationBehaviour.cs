@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-
-namespace SmokeZeroDigitalSolution.Application.Common.Behaviors
+﻿namespace SmokeZeroDigitalSolution.Application.Common.Behaviors
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
        where TRequest : notnull

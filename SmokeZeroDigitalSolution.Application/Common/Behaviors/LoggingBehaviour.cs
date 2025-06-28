@@ -1,7 +1,4 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
-
-namespace SmokeZeroDigitalSolution.Application.Common.Behaviors
+﻿namespace SmokeZeroDigitalSolution.Application.Common.Behaviors
 {
     public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
     {

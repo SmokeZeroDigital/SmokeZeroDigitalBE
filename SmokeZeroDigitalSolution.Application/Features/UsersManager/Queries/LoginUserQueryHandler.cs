@@ -1,8 +1,3 @@
-using MediatR;
-using SmokeZeroDigitalSolution.Application.Common.Models;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces;
-
 namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries
 {
     public class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, QueryResult<AuthResponseDto>>

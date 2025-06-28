@@ -1,0 +1,17 @@
+﻿global using SmokeZeroDigitalProject.Common.Handlers;
+global using SmokeZeroDigitalProject.Common.Middlewares;
+global using SmokeZeroDigitalProject.Common.Swagger;
+global using SmokeZeroDigitalSolution.Application;
+global using SmokeZeroDigitalSolution.Infrastructure;
+global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using SmokeZeroDigitalProject.Common.Base;
+global using SmokeZeroDigitalProject.Common.Interfaces;
+global using SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
+global using SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries;
+global using SmokeZeroDigitalSolution.Contracts.Auth;
+global using Microsoft.AspNetCore.Diagnostics;
+global using SmokeZeroDigitalProject.Common.Models;
+global using Error = SmokeZeroDigitalProject.Common.Models.Error;
+global using SmokeZeroDigitalSolution.Application.Common.Models;

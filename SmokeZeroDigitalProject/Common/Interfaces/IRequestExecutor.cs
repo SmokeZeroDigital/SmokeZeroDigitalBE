@@ -1,8 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using SmokeZeroDigitalSolution.Application.Common.Models;
-
-namespace SmokeZeroDigitalProject.Common.Interfaces
+﻿namespace SmokeZeroDigitalProject.Common.Interfaces
 {
     public interface IRequestExecutor
     {

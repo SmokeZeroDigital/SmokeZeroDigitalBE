@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SmokeZeroDigitalSolution.Domain.Entites
+﻿namespace SmokeZeroDigitalSolution.Domain.Entites
 {
     public class Achievement : BaseEntity
     {

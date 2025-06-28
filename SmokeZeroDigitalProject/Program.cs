@@ -1,10 +1,3 @@
-using eCommerce_BE.Infrastructure;
-using MediatR;
-using SmokeZeroDigitalProject.Common.Handlers;
-using SmokeZeroDigitalProject.Common.Middlewares;
-using SmokeZeroDigitalProject.Common.Swagger;
-using SmokeZeroDigitalSolution.Application;
-
 namespace SmokeZeroDigitalProject
 {
     public class Program

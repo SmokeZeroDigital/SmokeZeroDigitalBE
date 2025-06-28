@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces;
-using SmokeZeroDigitalSolution.Application.Interfaces;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Identity;
-using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
 
 public class AuthService : IAuthService
 {

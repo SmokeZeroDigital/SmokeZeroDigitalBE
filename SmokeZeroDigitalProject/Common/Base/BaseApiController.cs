@@ -1,7 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-
-namespace SmokeZeroDigitalProject.Common.Base
+﻿namespace SmokeZeroDigitalProject.Common.Base
 {
     [ApiController]
     [Route("api/[controller]/[action]")]

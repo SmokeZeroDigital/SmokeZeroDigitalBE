@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Domain.Enums;
-
-namespace SmokeZeroDigitalSolution.Domain.Entites
+﻿namespace SmokeZeroDigitalSolution.Domain.Entites
 {
     public class AppUser : IdentityUser<Guid>
     {

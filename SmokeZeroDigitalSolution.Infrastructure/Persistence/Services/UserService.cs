@@ -1,10 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Common.IPersistence;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces;
-using SmokeZeroDigitalSolution.Application.Interfaces;
-using System.Security.Claims;
-
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
     public class UserService(IUnitOfWork unitOfWork, IUserRepository userRepository, UserManager<AppUser> userManager, IJWTService jWTService) : IUserService
     {

@@ -1,11 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth
+﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth
 {
     public class RegisterUserDto
     {

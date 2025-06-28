@@ -1,13 +1,4 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SmokeZeroDigitalSolution.Application.Common.Behaviors
+﻿namespace SmokeZeroDigitalSolution.Application.Common.Behaviors
 {
     public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
      where TRequest : notnull

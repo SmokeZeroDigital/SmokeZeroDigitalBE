@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace SmokeZeroDigitalProject.Common.Models
+﻿namespace SmokeZeroDigitalProject.Common.Models
 {
     public class ApiErrorResult
     {

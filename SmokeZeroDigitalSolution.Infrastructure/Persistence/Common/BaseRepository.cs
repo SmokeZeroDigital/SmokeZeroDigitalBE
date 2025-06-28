@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Common.IPersistence;
-using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Common
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Common
 {
    
     public class BaseRepository<T, Tkey> : IBaseRepository<T, Tkey> where T : class

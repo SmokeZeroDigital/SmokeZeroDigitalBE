@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands;
-namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Validators
+﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Validators
 {
 
 

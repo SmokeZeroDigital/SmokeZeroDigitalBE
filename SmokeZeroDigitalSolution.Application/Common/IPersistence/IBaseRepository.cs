@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
-namespace SmokeZeroDigitalSolution.Application.Common.IPersistence
+﻿namespace SmokeZeroDigitalSolution.Application.Common.IPersistence
 {
     public interface IBaseRepository<T, TKey> where T : class
     {

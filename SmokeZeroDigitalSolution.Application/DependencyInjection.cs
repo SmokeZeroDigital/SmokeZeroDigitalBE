@@ -1,8 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using SmokeZeroDigitalSolution.Application.Common.Behaviors;
-using System.Reflection;
+﻿
 
 namespace SmokeZeroDigitalSolution.Application
 {
