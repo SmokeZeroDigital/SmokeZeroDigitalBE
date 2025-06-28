@@ -21,7 +21,9 @@
                     User = new RegisterUserDto
                     {
                         Email = req.Email,
+                        Username = req.Username,
                         Password = req.Password,
+                        ConfirmPassword = req.ConfirmPassword,
                         FullName = req.FullName,
                         DateOfBirth = req.DateOfBirth,
                         Gender = req.Gender
@@ -40,7 +42,7 @@
                 {
                     User = new LoginUserDto
                     {
-                        Email = req.UserName,
+                        Username = req.UserName,
                         Password = req.Password
                     }
                 },

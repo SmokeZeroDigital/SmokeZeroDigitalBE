@@ -34,7 +34,7 @@ public class AuthService : IAuthService
         {
             Id = Guid.NewGuid(),
             Email = registerUserDto.Email,
-            UserName = registerUserDto.Email,
+            UserName = registerUserDto.Username,
             FullName = registerUserDto.FullName,
             DateOfBirth = registerUserDto.DateOfBirth,
             Gender = registerUserDto.Gender,
@@ -54,9 +54,9 @@ public class AuthService : IAuthService
             Gender = user.Gender
         };
     }
-    public async Task<AuthResponseDto> LoginAsync(string email, string password, CancellationToken cancellationToken = default)
+    public async Task<AuthResponseDto> LoginAsync(string username, string password, CancellationToken cancellationToken = default)
     {
-        var user = await _userManager.FindByEmailAsync(email);
+        var user = await _userManager.FindByNameAsync(username);
         if (user == null) throw new Exception("Invalid credentials.");
 
         var result = await _signInManager.PasswordSignInAsync(user, password, true, false);

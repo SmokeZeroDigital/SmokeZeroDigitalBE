@@ -22,14 +22,14 @@
                 .IsRequired(false);
 
             builder.Property(u => u.RegistrationDate)
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(u => u.CurrentMoneySaved)
                 .HasColumnType("decimal(18,2)") // Đảm bảo kiểu dữ liệu chính xác cho tiền tệ
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(u => u.DaysSmokingFree)
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(u => u.HealthImprovements)
                 .HasMaxLength(1000)
@@ -37,7 +37,7 @@
 
             // Audit properties (tự thêm vào AppUser, không phải từ BaseEntity kế thừa)
             builder.Property(u => u.CreatedAt)
-                   .IsRequired();
+                   .IsRequired(false);
             builder.Property(u => u.LastModifiedAt)
                    .IsRequired(false);
 

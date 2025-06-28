@@ -15,3 +15,4 @@ global using Microsoft.AspNetCore.Diagnostics;
 global using SmokeZeroDigitalProject.Common.Models;
 global using Error = SmokeZeroDigitalProject.Common.Models.Error;
 global using SmokeZeroDigitalSolution.Application.Common.Models;
+global using SmokeZeroDigitalProject.Common.Services;

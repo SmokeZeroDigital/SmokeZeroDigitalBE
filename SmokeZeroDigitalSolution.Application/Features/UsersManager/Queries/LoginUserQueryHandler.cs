@@ -13,7 +13,7 @@ namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries
         {
             try
             {
-                var result = await _identityService.LoginAsync(request.User.Email, request.User.Password, cancellationToken);
+                var result = await _identityService.LoginAsync(request.User.Username, request.User.Password, cancellationToken);
                 return QueryResult<AuthResponseDto>.Success(result);
             }
             catch (Exception ex)
