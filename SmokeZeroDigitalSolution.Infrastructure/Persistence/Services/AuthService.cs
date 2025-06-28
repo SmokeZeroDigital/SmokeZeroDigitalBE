@@ -1,4 +1,6 @@
-﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
+﻿using UAParser;
+
+namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
 
 public class AuthService : IAuthService
 {
@@ -8,6 +10,7 @@ public class AuthService : IAuthService
     private readonly ApplicationDbContext _context;
     private readonly IdentitySettings _identitySettings;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IUnitOfWork _unitOfWork;
 
     public AuthService(
         UserManager<AppUser> userManager,
@@ -16,6 +19,7 @@ public class AuthService : IAuthService
         ApplicationDbContext context,
         IOptions<IdentitySettings> identitySettings,
         IHttpContextAccessor httpContextAccessor
+        , IUnitOfWork unitOfWork 
     )
     {
         _userManager = userManager;
@@ -24,6 +28,7 @@ public class AuthService : IAuthService
         _context = context;
         _identitySettings = identitySettings.Value;
         _httpContextAccessor = httpContextAccessor;
+        _unitOfWork = unitOfWork;
     }
     public async Task<RegisterResultDto> RegisterAsync(RegisterUserDto registerUserDto, CancellationToken cancellationToken = default)
     {
@@ -41,7 +46,7 @@ public class AuthService : IAuthService
         };
 
         var result = await _userManager.CreateAsync(user, registerUserDto.Password);
-
+        await _userManager.AddToRoleAsync(user, "Member");
         if (!result.Succeeded)
             throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
 
@@ -62,13 +67,77 @@ public class AuthService : IAuthService
         var result = await _signInManager.PasswordSignInAsync(user, password, true, false);
         if (!result.Succeeded) throw new Exception("Invalid login attempt.");
 
-        var token = await _jwtService.CreateTokenAsync(user);
+        var accesstoken = await _jwtService.CreateTokenAsync(user);
+        var refreshToken = await _jwtService.GenerateRefreshToken();
+
+        var tokens = await _context.Tokens.Where(x => x.UserId == user.Id).ToListAsync(cancellationToken);
+        _context.Tokens.RemoveRange(tokens);
+
+        string? ipAddress = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+        string? userAgentString = _httpContextAccessor.HttpContext?.Request.Headers["User-Agent"].FirstOrDefault();
+
+        string? deviceDescription = "Unknown Device";
+
+        if (!string.IsNullOrEmpty(userAgentString))
+        {
+            var uaParser = Parser.GetDefault(); 
+            ClientInfo clientInfo = uaParser.Parse(userAgentString); 
+            deviceDescription = $"{clientInfo.OS.Family} {clientInfo.OS.Major}"; 
+            if (!string.IsNullOrEmpty(clientInfo.OS.Minor))
+            {
+                deviceDescription += $".{clientInfo.OS.Minor}"; 
+            }
+            deviceDescription += $" | {clientInfo.UA.Family} {clientInfo.UA.Major}"; 
+            if (!string.IsNullOrEmpty(clientInfo.UA.Minor))
+            {
+                deviceDescription += $".{clientInfo.UA.Minor}"; 
+            }
+
+            if (!string.IsNullOrEmpty(clientInfo.Device.Family) && clientInfo.Device.Family != "Other")
+            {
+                deviceDescription += $" | {clientInfo.Device.Family}";
+                if (!string.IsNullOrEmpty(clientInfo.Device.Model))
+                {
+                    deviceDescription += $" ({clientInfo.Device.Model})"; 
+                }
+            }
+            else if (!string.IsNullOrEmpty(clientInfo.Device.Model))
+            {
+                deviceDescription += $" | {clientInfo.Device.Model}"; 
+            }
+
+            if (!string.IsNullOrEmpty(clientInfo.Device.Brand) && !string.IsNullOrEmpty(clientInfo.Device.Model))
+            {
+                deviceDescription = $"{clientInfo.Device.Brand} {clientInfo.Device.Model} | {clientInfo.OS.Family} | {clientInfo.UA.Family}";
+            }
+            else if (!string.IsNullOrEmpty(clientInfo.Device.Family) && clientInfo.Device.Family != "Other")
+            {
+                deviceDescription = $"{clientInfo.Device.Family} | {clientInfo.OS.Family} | {clientInfo.UA.Family}";
+            }
+            else
+            {
+                deviceDescription = $"{clientInfo.OS.Family} | {clientInfo.UA.Family}";
+            }
+        }
+
+
+        var token = new Token();
+        token.UserId = user.Id;
+        token.RefreshToken = refreshToken;
+        token.ExpiryDate = DateTime.UtcNow.AddDays(_identitySettings.User.ExpireInDays);
+        token.IsRevoked = false;
+        token.IPAddress = ipAddress;
+        token.Device = deviceDescription;
+
+        await _context.AddAsync(token, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
         return new AuthResponseDto
         {
             UserId = user.Id,
             Email = user.Email,
-            Token = token,
+            Token = accesstoken,
+            RefreshToken = refreshToken
         };
     }
 }
