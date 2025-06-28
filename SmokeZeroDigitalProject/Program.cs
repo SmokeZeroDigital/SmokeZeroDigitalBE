@@ -1,13 +1,9 @@
 using eCommerce_BE.Infrastructure;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using SmokeZeroDigitalProject.Common.Handlers;
 using SmokeZeroDigitalProject.Common.Middlewares;
 using SmokeZeroDigitalProject.Common.Swagger;
-using SmokeZeroDigitalSolution.Application.Common.Behaviors;
-using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
-using System.Reflection;
+using SmokeZeroDigitalSolution.Application;
 
 namespace SmokeZeroDigitalProject
 {
@@ -22,11 +18,10 @@ namespace SmokeZeroDigitalProject
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.RegisterSwagger();
+            builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructure(builder.Configuration);
-            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
-            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddExceptionHandler<CustomExceptionHandler>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -47,9 +42,11 @@ namespace SmokeZeroDigitalProject
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseMiddleware<GlobalApiExceptionHandlerMiddleware>();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.MapRazorPages();
+            app.MapControllers();
 
             app.Run();
         }

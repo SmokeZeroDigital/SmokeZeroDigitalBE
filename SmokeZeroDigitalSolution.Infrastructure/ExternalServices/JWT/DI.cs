@@ -92,7 +92,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
             });
 
             services.AddTransient<IJWTService, JWTService>();
-
+            services.AddScoped<TokenSettings>();
             return services;
         }
     }
