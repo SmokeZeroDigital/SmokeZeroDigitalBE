@@ -16,8 +16,15 @@
             builder.Property(ua => ua.LastModifiedAt)
                    .IsRequired(false);
 
-            // Mối quan hệ với AppUser đã được cấu hình trong AppUserConfiguration
-            // Mối quan hệ với Achievement đã được cấu hình trong AchievementConfiguration
+            builder.HasOne(ua => ua.User)
+                .WithMany(u => u.UserAchievements)
+                .HasForeignKey(ua => ua.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(ua => ua.Achievement)
+                .WithMany(a => a.UserAchievements)
+                .HasForeignKey(ua => ua.AchievementId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Nếu bạn muốn cấu hình thêm ràng buộc độc nhất (UserId, AchievementId)
             builder.HasIndex(ua => new { ua.UserId, ua.AchievementId }).IsUnique();

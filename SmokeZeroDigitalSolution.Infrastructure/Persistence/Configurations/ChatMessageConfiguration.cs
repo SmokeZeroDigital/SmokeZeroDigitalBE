@@ -14,6 +14,10 @@
             builder.Property(cm => cm.Timestamp)
                 .IsRequired();
 
+            builder.Property(cm => cm.MessageType)
+                .HasMaxLength(50)
+                .IsRequired(false);
+
             builder.Property(cm => cm.IsRead)
                 .IsRequired();
 
@@ -23,15 +27,17 @@
             builder.Property(cm => cm.LastModifiedAt)
                    .IsRequired(false);
 
-            // Mối quan hệ với SenderUser đã được cấu hình trong AppUserConfiguration
-            // Mối quan hệ với ReceiverUser đã được cấu hình trong AppUserConfiguration
-
-            // Mối quan hệ 1-N với Coach (nếu tin nhắn được gửi đến/từ một Coach)
-            builder.HasOne(cm => cm.Coach)
+            // Quan hệ với Conversation
+            builder.HasOne(cm => cm.Conversation)
                 .WithMany(c => c.ChatMessages)
-                .HasForeignKey(cm => cm.CoachId)
-                .IsRequired(false) // Có thể là chat giữa 2 AppUser, không liên quan đến Coach
-                .OnDelete(DeleteBehavior.Restrict); // Không xóa Coach nếu còn tin nhắn liên quan
+                .HasForeignKey(cm => cm.ConversationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Quan hệ với User
+            builder.HasOne(cm => cm.User)
+                .WithMany(u => u.SentMessages)
+                .HasForeignKey(cm => cm.SenderUserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

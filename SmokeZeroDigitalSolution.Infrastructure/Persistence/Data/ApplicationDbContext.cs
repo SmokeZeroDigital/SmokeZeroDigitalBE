@@ -22,6 +22,7 @@
         public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; } = default!;
         public DbSet<UserAchievement> UserAchievements { get; set; } = default!;
         public DbSet<Token> Tokens { get; set; } = default!;
+        public DbSet<Conversation> Conversations { get; set; } = default!;
 
 
         protected override void OnModelCreating(ModelBuilder builder)

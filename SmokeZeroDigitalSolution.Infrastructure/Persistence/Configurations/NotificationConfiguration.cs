@@ -34,7 +34,10 @@
             builder.Property(n => n.LastModifiedAt)
                    .IsRequired(false);
 
-            // Mối quan hệ với AppUser đã được cấu hình trong AppUserConfiguration
+            builder.HasOne(n => n.User)
+                .WithMany()
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
