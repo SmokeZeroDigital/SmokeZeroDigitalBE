@@ -38,7 +38,10 @@
             builder.Property(pe => pe.LastModifiedAt)
                    .IsRequired(false);
 
-            // Mối quan hệ với AppUser đã được cấu hình trong AppUserConfiguration
+            builder.HasOne(pe => pe.User)
+                .WithMany(u => u.ProgressEntries)
+                .HasForeignKey(pe => pe.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

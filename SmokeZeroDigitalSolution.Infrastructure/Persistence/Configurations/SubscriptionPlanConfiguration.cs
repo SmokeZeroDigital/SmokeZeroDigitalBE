@@ -12,7 +12,8 @@
                 .HasMaxLength(100);
 
             builder.Property(sp => sp.Description)
-                .HasMaxLength(500);
+                .HasMaxLength(500)
+                .IsRequired();
 
             builder.Property(sp => sp.Price)
                 .HasColumnType("decimal(18,2)")

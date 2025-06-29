@@ -19,26 +19,28 @@
                 .IsRequired();
 
             builder.Property(ba => ba.Tags)
-                .HasMaxLength(500) // Dùng CSV hoặc JSON array string
+                .HasMaxLength(500)
                 .IsRequired(false);
 
             builder.Property(ba => ba.ViewCount)
                 .IsRequired();
 
-            // Audit properties from BaseEntity
             builder.Property(ba => ba.CreatedAt)
                    .IsRequired();
             builder.Property(ba => ba.LastModifiedAt)
                    .IsRequired(false);
 
-            // Mối quan hệ 1-N với Comment
             builder.HasMany(ba => ba.Comments)
                 .WithOne(c => c.Article)
                 .HasForeignKey(c => c.ArticleId)
-                .IsRequired(false) // Comment có thể thuộc về Post hoặc Article
-                .OnDelete(DeleteBehavior.Cascade); // Khi BlogArticle bị xóa, Comments liên quan cũng bị xóa
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // Mối quan hệ với AuthorUser đã được cấu hình trong AppUserConfiguration
+            builder.HasOne(ba => ba.AuthorUser)
+                .WithMany()
+                .HasForeignKey(ba => ba.AuthorUserId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

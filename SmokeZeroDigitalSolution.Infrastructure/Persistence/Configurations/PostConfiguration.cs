@@ -31,6 +31,11 @@
                 .HasForeignKey(c => c.PostId)
                 .IsRequired(false) // Comment có thể thuộc về Article
                 .OnDelete(DeleteBehavior.Cascade); // Khi Post bị xóa, Comments liên quan cũng bị xóa
+
+            builder.HasOne(p => p.User)
+                .WithMany(u => u.Posts)
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
