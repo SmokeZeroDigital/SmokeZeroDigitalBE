@@ -102,6 +102,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     HealthImprovements = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: true, defaultValue: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -224,7 +225,6 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     PublishDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Tags = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     ViewCount = table.Column<int>(type: "integer", nullable: false),
-                    AppUserId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -232,16 +232,11 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_BlogArticles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BlogArticles_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_BlogArticles_AspNetUsers_AuthorUserId",
                         column: x => x.AuthorUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -254,7 +249,6 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     Specialization = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Rating = table.Column<decimal>(type: "numeric(3,2)", nullable: false),
                     IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -266,7 +260,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -292,7 +286,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -315,7 +309,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -451,29 +445,36 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Conversations",
+                name: "ChatMessages",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CoachId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LastMessage = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
-                    LastMessageSender = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    SenderUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ReceiverUserId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CoachId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Content = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsRead = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Conversations", x => x.Id);
+                    table.PrimaryKey("PK_ChatMessages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Conversations_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_ChatMessages_AspNetUsers_ReceiverUserId",
+                        column: x => x.ReceiverUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Conversations_Coaches_CoachId",
+                        name: "FK_ChatMessages_AspNetUsers_SenderUserId",
+                        column: x => x.SenderUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ChatMessages_Coaches_CoachId",
                         column: x => x.CoachId,
                         principalTable: "Coaches",
                         principalColumn: "Id",
@@ -486,12 +487,11 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CoachId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Content = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    TargetEntityId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TargetEntityType = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Rating = table.Column<int>(type: "integer", nullable: false),
+                    Comment = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     FeedbackDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    AppUserId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -499,22 +499,17 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Feedbacks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Feedbacks_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Feedbacks_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Feedbacks_Coaches_CoachId",
-                        column: x => x.CoachId,
+                        name: "FK_Feedbacks_Coaches_TargetEntityId",
+                        column: x => x.TargetEntityId,
                         principalTable: "Coaches",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -528,8 +523,6 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     Content = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     CommentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ParentCommentId = table.Column<Guid>(type: "uuid", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    AppUserId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -537,16 +530,11 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Comments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_BlogArticles_ArticleId",
                         column: x => x.ArticleId,
@@ -567,51 +555,14 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ChatMessages",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ConversationId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SenderUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CoachId = table.Column<Guid>(type: "uuid", nullable: true),
-                    Content = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    MessageType = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    IsRead = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChatMessages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ChatMessages_AspNetUsers_SenderUserId",
-                        column: x => x.SenderUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ChatMessages_Coaches_CoachId",
-                        column: x => x.CoachId,
-                        principalTable: "Coaches",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ChatMessages_Conversations_ConversationId",
-                        column: x => x.ConversationId,
-                        principalTable: "Conversations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("0768fdda-d872-46d7-9a76-e44411d10066"), null, "Admin", "ADMIN" },
-                    { new Guid("76c930b8-4692-4e30-9868-194d6a442fce"), null, "Member", "MEMBER" },
-                    { new Guid("ad224fa1-2e59-4808-bfd5-5bb33f449d9c"), null, "Coach", "COACH" }
+                    { new Guid("04b28b32-3df6-4c5e-8e57-e53e77de3cab"), null, "Member", "MEMBER" },
+                    { new Guid("42d03ea2-600f-4125-8230-a4f6c06fc05c"), null, "Coach", "COACH" },
+                    { new Guid("ef223c7b-a71d-4104-bedc-acc5ba93f8dc"), null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -657,11 +608,6 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlogArticles_AppUserId",
-                table: "BlogArticles",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BlogArticles_AuthorUserId",
                 table: "BlogArticles",
                 column: "AuthorUserId");
@@ -672,9 +618,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 column: "CoachId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChatMessages_ConversationId",
+                name: "IX_ChatMessages_ReceiverUserId",
                 table: "ChatMessages",
-                column: "ConversationId");
+                column: "ReceiverUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChatMessages_SenderUserId",
@@ -684,13 +630,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Coaches_UserId",
                 table: "Coaches",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_AppUserId",
-                table: "Comments",
-                column: "AppUserId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ArticleId",
@@ -713,24 +653,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Conversations_CoachId",
-                table: "Conversations",
-                column: "CoachId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Conversations_UserId",
-                table: "Conversations",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Feedbacks_AppUserId",
+                name: "IX_Feedbacks_TargetEntityId",
                 table: "Feedbacks",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Feedbacks_CoachId",
-                table: "Feedbacks",
-                column: "CoachId");
+                column: "TargetEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feedbacks_UserId",
@@ -828,19 +753,16 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Conversations");
-
-            migrationBuilder.DropTable(
                 name: "BlogArticles");
 
             migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "Achievements");
+                name: "Coaches");
 
             migrationBuilder.DropTable(
-                name: "Coaches");
+                name: "Achievements");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

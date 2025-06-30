@@ -18,6 +18,7 @@
         public string? HealthImprovements { get; set; }
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? LastModifiedAt { get; set; }
+        public bool? IsDeleted { get; set; } = false;
         // Navigation Properties cho các quan hệ 1-N
         public ICollection<QuittingPlan> QuittingPlans { get; set; } = new List<QuittingPlan>();
         public ICollection<SmokingRecord> SmokingRecords { get; set; } = new List<SmokingRecord>();
