@@ -10,7 +10,6 @@ global using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfac
 global using SmokeZeroDigitalSolution.Domain.Enums;
 global using SmokeZeroDigitalSolution.Application.Common.IPersistence;
 global using SmokeZeroDigitalSolution.Domain.Entites;
-global using System.Security.Claims;
 global using SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands;
 global using Microsoft.Extensions.DependencyInjection;
 global using SmokeZeroDigitalSolution.Application.Common.Behaviors;

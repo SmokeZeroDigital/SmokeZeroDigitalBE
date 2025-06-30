@@ -1,4 +1,5 @@
-﻿using UAParser;
+﻿using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
+using UAParser;
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
 
@@ -43,6 +44,7 @@ public class AuthService : IAuthService
             FullName = registerUserDto.FullName,
             DateOfBirth = registerUserDto.DateOfBirth,
             Gender = registerUserDto.Gender,
+            CreatedAt = registerUserDto.CreateAt,
         };
 
         var result = await _userManager.CreateAsync(user, registerUserDto.Password);
@@ -138,6 +140,42 @@ public class AuthService : IAuthService
             Email = user.Email,
             Token = accesstoken,
             RefreshToken = refreshToken
+        };
+    }
+
+    public async Task<UpdateUserResultDto> UpdateUserAsync(UpdateUserDto updateUserDto, CancellationToken cancellationToken = default)
+    {
+        var user = await _context.Users.Where(x => x.Id == updateUserDto.UserId).SingleOrDefaultAsync(cancellationToken);
+
+        if (user == null)
+        {
+            throw new Exception($"Unable to load user with id: {updateUserDto.UserId}");
+        }
+
+        user.Email = updateUserDto.Email;
+        user.DateOfBirth = updateUserDto.DateOfBirth;
+        user.EmailConfirmed = updateUserDto.EmailConfirmed;
+        user.FullName = updateUserDto.FullName;
+        user.IsDeleted = updateUserDto.IsDeleted;
+        user.LastModifiedAt = DateTime.UtcNow;
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (!result.Succeeded)
+        {
+            throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+        }
+
+        return new UpdateUserResultDto
+        {
+            UserId = user.Id,
+            Email = user.Email,
+            FullName = user.FullName,
+            PlanId = user.CurrentSubscriptionPlanId,
+            EmailConfirmed = user.EmailConfirmed,
+            LastModifiedAt = user.LastModifiedAt,
+            DateOfBirth = user.DateOfBirth,
+            IsDeleted = user.IsDeleted,
         };
     }
 }
