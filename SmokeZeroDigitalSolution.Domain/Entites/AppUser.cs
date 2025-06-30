@@ -25,10 +25,9 @@
         public ICollection<UserAchievement> UserAchievements { get; set; } = new List<UserAchievement>();
         public ICollection<Post> Posts { get; set; } = new List<Post>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
-        public ICollection<ChatMessage> SentMessages { get; set; } = new List<ChatMessage>();
-        public ICollection<ChatMessage> ReceivedMessages { get; set; } = new List<ChatMessage>();
         public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
         public ICollection<BlogArticle> AuthoredArticles { get; set; } = new List<BlogArticle>(); // Nếu User có thể là tác giả bài blog
-        public ICollection<Coach> Coaches { get; set; } = new List<Coach>(); // Nếu một User có thể là Coach
+        public Coach? Coach { get; set; } // Navigation property nếu user là coach
+        public ICollection<ChatMessage> SentMessages { get; set; } = new List<ChatMessage>();
     }
 }

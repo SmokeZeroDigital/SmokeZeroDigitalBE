@@ -1,4 +1,8 @@
-﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Configurations
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SmokeZeroDigitalSolution.Domain.Entites;
+
+namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Configurations
 {
     public class CoachConfiguration : IEntityTypeConfiguration<Coach>
     {
@@ -21,6 +25,8 @@
 
             builder.Property(c => c.IsAvailable)
                 .IsRequired();
+            builder.Property(c => c.IsActive)
+                .IsRequired();
 
             // Audit properties from BaseEntity
             builder.Property(c => c.CreatedAt)
@@ -28,24 +34,24 @@
             builder.Property(c => c.LastModifiedAt)
                    .IsRequired(false);
 
-            // Mối quan hệ 1-1 hoặc 1-N với AppUser đã được cấu hình trong AppUserConfiguration
-            // (AppUser HasMany Coaches, Coach HasOne User)
+            // Quan hệ 1-1 với AppUser
+            builder.HasOne(c => c.User)
+                .WithOne(u => u.Coach)
+                .HasForeignKey<Coach>(c => c.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasIndex(c => c.UserId).IsUnique();
 
-            // Mối quan hệ 1-N với ChatMessage
-            builder.HasMany(c => c.ChatMessages)
-                .WithOne(cm => cm.Coach)
-                .HasForeignKey(cm => cm.CoachId)
-                .IsRequired(false) // ChatMessage có thể không có Coach
-                .OnDelete(DeleteBehavior.Restrict); // Không xóa Coach nếu còn tin nhắn liên quan
+            // Quan hệ 1-n với Feedback
+            builder.HasMany(c => c.Feedbacks)
+                .WithOne(f => f.Coach)
+                .HasForeignKey(f => f.CoachId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // Mối quan hệ 1-N với Feedback (FeedbacksGiven)
-            builder.HasMany(c => c.FeedbacksGiven)
-                .WithOne() // Feedback có trường TargetEntityId và TargetEntityType, không phải CoachId cụ thể
-                .HasForeignKey(f => f.TargetEntityId) // Đây là FK đến Coach.Id
-                .IsRequired(); // Feedback cho Coach thì phải có TargetEntityId
-            // Lưu ý: Cần thêm một điều kiện để phân biệt TargetEntityType == "COACH" trong query
-            // hoặc tạo một navigation property riêng trong Feedback nếu bạn muốn mối quan hệ rõ ràng hơn.
-            // Để đơn giản, tôi sẽ để mối quan hệ này là "không rõ ràng" theo FK, và dựa vào TargetEntityType để phân loại.
+            // Quan hệ 1-n với Conversation
+            builder.HasMany(c => c.Conversations)
+                .WithOne(conv => conv.Coach)
+                .HasForeignKey(conv => conv.CoachId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

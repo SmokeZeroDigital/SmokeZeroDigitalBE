@@ -18,5 +18,6 @@
         public Comment? ParentComment { get; set; } // Navigation Property
 
         public ICollection<Comment> Replies { get; set; } = new List<Comment>(); // Navigation Property cho các bình luận con
+        public bool IsDeleted { get; set; } = false;
     }
 }

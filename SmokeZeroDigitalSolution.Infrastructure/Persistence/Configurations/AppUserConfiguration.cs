@@ -40,7 +40,9 @@
                    .IsRequired(false);
             builder.Property(u => u.LastModifiedAt)
                    .IsRequired(false);
-
+            builder.Property(u => u.IsDeleted)
+                   .HasDefaultValue(false)
+                   .IsRequired(false);
 
             // Mối quan hệ 1-0..1 với SubscriptionPlan
             builder.HasOne(u => u.CurrentSubscriptionPlan)
@@ -85,19 +87,6 @@
                 .HasForeignKey(c => c.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Mối quan hệ 1-N với ChatMessage (SentMessages)
-            builder.HasMany(u => u.SentMessages)
-                .WithOne(cm => cm.SenderUser)
-                .HasForeignKey(cm => cm.SenderUserId)
-                .OnDelete(DeleteBehavior.Restrict); // Không xóa User nếu còn tin nhắn đã gửi
-
-            // Mối quan hệ 1-N với ChatMessage (ReceivedMessages)
-            builder.HasMany(u => u.ReceivedMessages)
-                .WithOne(cm => cm.ReceiverUser)
-                .HasForeignKey(cm => cm.ReceiverUserId)
-                .IsRequired(false) // Có thể có tin nhắn không có người nhận cụ thể (VD: tin broadcast nếu có)
-                .OnDelete(DeleteBehavior.Restrict); // Không xóa User nếu còn tin nhắn đã nhận
-
             // Mối quan hệ 1-N với Feedback
             builder.HasMany(u => u.Feedbacks)
                 .WithOne(f => f.User)
@@ -112,10 +101,16 @@
                 .OnDelete(DeleteBehavior.SetNull); // Khi AppUser tác giả bị xóa, AuthorUserId được đặt null
 
             // Mối quan hệ 1-N với Coach (một AppUser có thể là một Coach)
-            builder.HasMany(u => u.Coaches)
+            builder.HasOne(u => u.Coach)
                 .WithOne(c => c.User)
-                .HasForeignKey(c => c.UserId)
+                .HasForeignKey<Coach>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Cascade); // Khi AppUser bị xóa, Coach liên kết cũng bị xóa
+
+            // Mối quan hệ 1-N với ChatMessage (SentMessages)
+            builder.HasMany(u => u.SentMessages)
+                .WithOne(m => m.User)
+                .HasForeignKey(m => m.SenderUserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

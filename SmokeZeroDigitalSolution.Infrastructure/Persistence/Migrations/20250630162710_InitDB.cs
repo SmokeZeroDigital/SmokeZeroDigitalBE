@@ -94,14 +94,15 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Gender = table.Column<int>(type: "integer", nullable: false),
                     ProfilePictureUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    RegistrationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CurrentSubscriptionPlanId = table.Column<Guid>(type: "uuid", nullable: true),
                     SubscriptionEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CurrentMoneySaved = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    DaysSmokingFree = table.Column<int>(type: "integer", nullable: false),
+                    CurrentMoneySaved = table.Column<decimal>(type: "numeric(18,2)", nullable: true),
+                    DaysSmokingFree = table.Column<int>(type: "integer", nullable: true),
                     HealthImprovements = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LastModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: true, defaultValue: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -559,9 +560,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("c8f60325-239f-4aef-940f-ca8ed22fc2e2"), null, "Coach", "COACH" },
-                    { new Guid("dd917154-596e-421f-a1f3-9e2ca90c0afc"), null, "Admin", "ADMIN" },
-                    { new Guid("e1771e19-bade-4e83-afd3-72f8ef3e7b8a"), null, "Member", "MEMBER" }
+                    { new Guid("04b28b32-3df6-4c5e-8e57-e53e77de3cab"), null, "Member", "MEMBER" },
+                    { new Guid("42d03ea2-600f-4125-8230-a4f6c06fc05c"), null, "Coach", "COACH" },
+                    { new Guid("ef223c7b-a71d-4104-bedc-acc5ba93f8dc"), null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

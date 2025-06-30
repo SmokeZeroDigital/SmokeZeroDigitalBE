@@ -51,19 +51,19 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fab29afd-afe2-426e-87ed-70acec76c222"),
+                            Id = new Guid("04b28b32-3df6-4c5e-8e57-e53e77de3cab"),
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = new Guid("966eed05-235b-4728-9494-ac7b23e0f524"),
+                            Id = new Guid("42d03ea2-600f-4125-8230-a4f6c06fc05c"),
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
-                            Id = new Guid("47fa4661-4fa8-4948-956c-4c4468e74ff0"),
+                            Id = new Guid("ef223c7b-a71d-4104-bedc-acc5ba93f8dc"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -257,6 +257,11 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.Property<string>("HealthImprovements")
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("LastModifiedAt")
                         .HasColumnType("timestamp with time zone");

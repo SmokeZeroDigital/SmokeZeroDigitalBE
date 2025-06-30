@@ -2,17 +2,18 @@
 {
     public class ChatMessage : BaseEntity
     {
-        public Guid SenderUserId { get; set; } // Foreign Key
-        public AppUser SenderUser { get; set; } = default!; // Navigation Property
+        public Guid ConversationId { get; set; } // Foreign Key tới Conversation
+        public Conversation Conversation { get; set; } = default!;
 
-        public Guid? ReceiverUserId { get; set; } // Foreign Key (nếu là chat 1-1 giữa user)
-        public AppUser? ReceiverUser { get; set; } // Navigation Property
+        public Guid SenderUserId { get; set; } // Người gửi (User hoặc Coach)
+        public AppUser User { get; set; } = default!;
 
-        public Guid? CoachId { get; set; } // Foreign Key (nếu là chat với HLV)
-        public Coach? Coach { get; set; } // Navigation Property
+        public Guid? CoachId { get; set; } // Nếu là Coach gửi
+        public Coach? Coach { get; set; }
 
         public string Content { get; set; } = string.Empty;
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
-        public bool IsRead { get; set; }
+        public string? MessageType { get; set; } // TEXT, IMAGE, VIDEO, FILE
+        public bool IsRead { get; set; } = false;
     }
 }

@@ -12,7 +12,7 @@ using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
 namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250628070623_InitDB")]
+    [Migration("20250630162710_InitDB")]
     partial class InitDB
     {
         /// <inheritdoc />
@@ -54,19 +54,19 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e1771e19-bade-4e83-afd3-72f8ef3e7b8a"),
+                            Id = new Guid("04b28b32-3df6-4c5e-8e57-e53e77de3cab"),
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = new Guid("c8f60325-239f-4aef-940f-ca8ed22fc2e2"),
+                            Id = new Guid("42d03ea2-600f-4125-8230-a4f6c06fc05c"),
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
-                            Id = new Guid("dd917154-596e-421f-a1f3-9e2ca90c0afc"),
+                            Id = new Guid("ef223c7b-a71d-4104-bedc-acc5ba93f8dc"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -227,10 +227,10 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal>("CurrentMoneySaved")
+                    b.Property<decimal?>("CurrentMoneySaved")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("CurrentSubscriptionPlanId")
@@ -239,7 +239,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DaysSmokingFree")
+                    b.Property<int?>("DaysSmokingFree")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -260,6 +260,11 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.Property<string>("HealthImprovements")
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("LastModifiedAt")
                         .HasColumnType("timestamp with time zone");
@@ -291,7 +296,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<DateTime>("RegistrationDate")
+                    b.Property<DateTime?>("RegistrationDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("SecurityStamp")

@@ -14,6 +14,9 @@
             builder.Property(c => c.CommentDate)
                 .IsRequired();
 
+            builder.Property(c => c.IsDeleted)
+                .IsRequired();
+
             // Audit properties from BaseEntity
             builder.Property(c => c.CreatedAt)
                    .IsRequired();
@@ -35,6 +38,12 @@
                 .HasForeignKey(c => c.ArticleId)
                 .IsRequired(false) // Nullable
                 .OnDelete(DeleteBehavior.Cascade); // Khi BlogArticle bị xóa, Comments liên quan cũng bị xóa
+
+            // Mối quan hệ với AppUser
+            builder.HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Mối quan hệ tự tham chiếu (ParentComment)
             builder.HasOne(c => c.ParentComment)
