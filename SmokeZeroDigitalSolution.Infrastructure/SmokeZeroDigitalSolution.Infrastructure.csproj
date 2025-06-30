@@ -23,8 +23,4 @@
     <ProjectReference Include="..\SmokeZeroDigitalSolution.Domain\SmokeZeroDigitalSolution.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
-  </ItemGroup>
-
 </Project>
