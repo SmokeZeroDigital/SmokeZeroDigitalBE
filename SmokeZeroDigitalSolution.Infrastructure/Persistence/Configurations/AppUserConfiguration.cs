@@ -40,7 +40,9 @@
                    .IsRequired(false);
             builder.Property(u => u.LastModifiedAt)
                    .IsRequired(false);
-
+            builder.Property(u => u.IsDeleted)
+                   .HasDefaultValue(false)
+                   .IsRequired(false);
 
             // Mối quan hệ 1-0..1 với SubscriptionPlan
             builder.HasOne(u => u.CurrentSubscriptionPlan)
