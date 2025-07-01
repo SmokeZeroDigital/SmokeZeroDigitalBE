@@ -1,19 +1,16 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
     public class ScriptionPlanServices(IScriptionPlanRepository scriptionPlanRepository, IUnitOfWork unitOfWork) : IScriptionPlanService
     {
         private readonly IScriptionPlanRepository _scriptionPlanRepository = scriptionPlanRepository;
-        public async Task<SubscriptionPlan> CreatePlanAsync(SubscriptionPlan plan)
+        public async Task<CreatePlanResultDto> CreatePlanAsync(CreatePlanDTO plan)
         {
-            await _scriptionPlanRepository.AddAsync(plan);
-            return plan;
+             return await _scriptionPlanRepository.CreatePlanAsync(plan);
         }
 
-        public async Task<SubscriptionPlan> GetPlanByIdAsync(Guid planId)
+        public async Task<GetPlanResponseDto> GetPlanByPlanIdAsync(Guid planId)
         {
-            return await _scriptionPlanRepository.FindAsync(planId);
+            return await _scriptionPlanRepository.GetPlanByIdAsync(planId);
         }
 
     }

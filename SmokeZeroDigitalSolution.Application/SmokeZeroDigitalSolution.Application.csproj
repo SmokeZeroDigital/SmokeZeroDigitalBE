@@ -19,9 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\SubScriptionPlanManager\Commands\" />
     <Folder Include="Features\SubScriptionPlanManager\Validators\" />
-    <Folder Include="Features\SubScriptionPlanManager\Queries\" />
   </ItemGroup>
 
 </Project>

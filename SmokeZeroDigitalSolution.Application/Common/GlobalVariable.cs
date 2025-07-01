@@ -14,4 +14,5 @@ global using SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands
 global using Microsoft.Extensions.DependencyInjection;
 global using SmokeZeroDigitalSolution.Application.Common.Behaviors;
 global using System.Reflection;
-
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;

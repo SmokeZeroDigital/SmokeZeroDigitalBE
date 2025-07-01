@@ -26,3 +26,6 @@ global using SmokeZeroDigitalSolution.Infrastructure.Persistence.Common;
 global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Identity;
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT;
+
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;
