@@ -10,8 +10,8 @@ namespace SmokeZeroDigitalSolution.Application.Interfaces
         /// </summary>
         /// <param name="model">The payment information used to construct the VNPay request.</param>
         /// <param name="context">The HTTP context containing client request details.</param>
-        /// <returns>A signed VNPay payment URL for redirecting the user to complete the transaction.</returns>
-        string CreatePaymentUrl(PaymentInformationModel model, HttpContext context);
+        /// <returns>A PaymentResponseModel containing the payment URL and related info.</returns>
+        PaymentResponseModel CreatePaymentUrl(PaymentInformationModel model, HttpContext context);
         /// <summary>
         /// Processes a VNPay payment response from the provided query parameters.
         /// </summary>

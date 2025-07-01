@@ -1,11 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment
 {
     public static class DI
     {
@@ -13,6 +6,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment
         {
             services.AddScoped<IScriptionPlanRepository, ScriptionPlanRepository>();
             services.AddScoped<IScriptionPlanService, ScriptionPlanServices>();
+            services.AddScoped<IVNPayService, VNPayService>();
             return services;
         }
     }

@@ -25,7 +25,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY
         /// <remarks>
         /// Throws a generic exception with a user-friendly message if payment URL generation fails.
         /// </remarks>
-        public string CreatePaymentUrl(PaymentInformationModel model, HttpContext context)
+        public PaymentResponseModel CreatePaymentUrl(PaymentInformationModel model, HttpContext context)
         {
             var timeZoneById = TimeZoneInfo.FindSystemTimeZoneById(_configuration["TimeZoneId"]);
             var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);
@@ -51,13 +51,24 @@ namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY
                     .CreateRequestUrl(
                     _configuration["Vnpay:BaseUrl"], _configuration["Vnpay:HashSecret"]);
 
-                return paymentUrl;
+                return new PaymentResponseModel
+                {
+                    QuotationId = model.QuotationId,
+                    OrderDescription = model.OrderDescription,
+                    TransactionId = tick,
+                    OrderId = tick,
+                    PaymentId = null,
+                    Success = true,
+                    Token = paymentUrl, // Use Token or add a new property for the URL
+                    VnPayResponseCode = null
+                };
             }
             catch
             {
                 throw new Exception("Đã xảy ra lối trong qua trình thanh toán. Vui lòng thanh toán lại sau!");
             }
         }
+
 
         /// <summary>
         /// Processes the VNPay payment response from the provided query parameters and returns the payment result.

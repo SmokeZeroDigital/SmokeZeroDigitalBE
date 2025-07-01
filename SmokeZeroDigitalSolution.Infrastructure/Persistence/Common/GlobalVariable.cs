@@ -29,3 +29,6 @@ global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT;
 
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;
+
+global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY;
+global using SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;

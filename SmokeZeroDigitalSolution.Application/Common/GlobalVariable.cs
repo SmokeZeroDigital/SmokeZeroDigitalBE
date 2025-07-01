@@ -16,3 +16,5 @@ global using SmokeZeroDigitalSolution.Application.Common.Behaviors;
 global using System.Reflection;
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
+global using SmokeZeroDigitalSolution.Application.Interfaces;

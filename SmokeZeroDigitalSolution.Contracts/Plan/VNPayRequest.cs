@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmokeZeroDigitalSolution.Contracts.Plan
 {
-    internal class VNPayRequest
+    public class VNPayRequest
     {
         public int QuotationId { get; set; }
         public string OrderType { get; set; }

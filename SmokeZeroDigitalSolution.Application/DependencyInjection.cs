@@ -1,6 +1,4 @@
-﻿
-
-namespace SmokeZeroDigitalSolution.Application
+﻿namespace SmokeZeroDigitalSolution.Application
 {
     public static class DependencyInjection
     {
@@ -20,6 +18,9 @@ namespace SmokeZeroDigitalSolution.Application
                 x.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
                 x.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
             });
+
+            // Ensure the required namespace is included for AddHttpContextAccessor
+            services.AddHttpContextAccessor();
 
             //>>> Register services in Application.Features 
             var assembly = Assembly.GetExecutingAssembly();

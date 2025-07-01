@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
-using SmokeZeroDigitalSolution.Application.Interfaces;
 
 namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
 {
@@ -9,19 +7,22 @@ namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.
         private readonly IVNPayService _vnPayService;
         private readonly IAuthService _authService;
         private readonly IUnitOfWork _unitOfWork;
-        public VNPayCommandHandler(IVNPayService vnPayService, IUnitOfWork unitOfWork, IAuthService authService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public VNPayCommandHandler(IVNPayService vnPayService, IUnitOfWork unitOfWork, IAuthService authService, IHttpContextAccessor httpContextAccessor)
         {
             _vnPayService = vnPayService;
             _authService = authService;
             _unitOfWork = unitOfWork;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<CommandResult<PaymentResponseModel>> Handle(VNPayCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var result = await _vnPayService.CreatePaymentUrl(request.Payment, HttpContext context);
+                var context = _httpContextAccessor.HttpContext;
+                var result = _vnPayService.CreatePaymentUrl(request.Payment, context);
                 await _unitOfWork.SaveAsync(cancellationToken);
-                return CommandResult<CreatePlanResultDto>.Success(result);
+                return CommandResult<PaymentResponseModel>.Success(result);
             }
             catch (Exception ex)
             {
