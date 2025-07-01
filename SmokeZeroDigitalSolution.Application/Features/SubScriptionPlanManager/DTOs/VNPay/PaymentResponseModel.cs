@@ -8,7 +8,8 @@ namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.
 {
     public class PaymentResponseModel
     {
-        public int QuotationId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid SubscriptionPlanId { get; set; }
         public string OrderDescription { get; set; }
         public string TransactionId { get; set; }
         public string OrderId { get; set; }

@@ -58,7 +58,8 @@ namespace SmokeZeroDigitalProject.Controllers
                  {
                      Payment = new PaymentInformationModel
                      {
-                         QuotationId = req.QuotationId,
+                         UserId = req.UserId,
+                         SubscriptionPlanId = req.SubscriptionPlanId,
                          Name = req.Name,
                          Amount = req.Amount,
                          OrderDescription = req.OrderDescription,
@@ -68,29 +69,34 @@ namespace SmokeZeroDigitalProject.Controllers
                  nameof(CreatePaymentUrl),
                  cancellationToken);
         }
+
         [HttpGet("callback")]
-        public IActionResult PaymentCallback()
+        public async Task<IActionResult> VNPayCallback(CancellationToken cancellationToken)
         {
-            try
+            var result = await _executor.ExecuteAsync<VNPayCallbackRequest, VNPayCallbackResultDto>(
+                new VNPayCallbackRequest { Query = Request.Query },
+                req => new VNPayCallbackCommand { Query = req.Query },
+                nameof(VNPayCallback),
+                cancellationToken);
+
+            if (result is ObjectResult objectResult && objectResult.Value is CommandResult<VNPayCallbackResultDto> commandResult)
             {
-                var response = _vnPayService.PaymentExecute(Request.Query);
-                var amount = Request.Query["vnp_Amount"];
-                var actualAmount = int.Parse(amount) / 100;
-                var successUrl = configuration["FrontendRedirect:SuccessUrl"];
-                var failedUrl = configuration["FrontendRedirect:FailedUrl"];
-                if (Request.Query["vnp_ResponseCode"] == "00")
+                var callbackResult = commandResult.Content;
+                var successUrl = "https://your-frontend.com/payment-success";
+                var failedUrl = "https://your-frontend.com/payment-failed";
+
+                if (callbackResult != null && callbackResult.IsSuccess)
                 {
-                    return Redirect($"{successUrl}?status=success&amount={actualAmount}");
+                    return Redirect($"{successUrl}?status=success&amount={callbackResult.Amount}");
                 }
                 else
                 {
-                    return Redirect($"{failedUrl}?status=failed&amount={actualAmount}");
+                    return Redirect($"{failedUrl}?status=failed&amount={callbackResult?.Amount ?? 0}");
                 }
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            return BadRequest();
         }
+
     }
 }

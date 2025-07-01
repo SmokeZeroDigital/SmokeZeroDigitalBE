@@ -41,7 +41,8 @@ namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY
             pay.AddRequestData("vnp_CurrCode", _configuration["Vnpay:CurrCode"]);
             pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
             pay.AddRequestData("vnp_Locale", _configuration["Vnpay:Locale"]);
-            pay.AddRequestData("vnp_OrderInfo", $"{model.Name} {model.OrderDescription} {model.Amount}");
+            pay.AddRequestData("vnp_OrderInfo", $"{model.UserId}|{model.SubscriptionPlanId}|{model.Name} {model.OrderDescription} {model.Amount}");
+
             pay.AddRequestData("vnp_OrderType", model.OrderType);
             pay.AddRequestData("vnp_ReturnUrl", urlCallBack);
             pay.AddRequestData("vnp_TxnRef", tick);
@@ -53,7 +54,8 @@ namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY
 
                 return new PaymentResponseModel
                 {
-                    QuotationId = model.QuotationId,
+                    UserId = model.UserId,
+                    SubscriptionPlanId = model.SubscriptionPlanId,
                     OrderDescription = model.OrderDescription,
                     TransactionId = tick,
                     OrderId = tick,

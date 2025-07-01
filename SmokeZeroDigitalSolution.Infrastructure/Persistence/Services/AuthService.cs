@@ -20,7 +20,7 @@ public class AuthService : IAuthService
         ApplicationDbContext context,
         IOptions<IdentitySettings> identitySettings,
         IHttpContextAccessor httpContextAccessor
-        , IUnitOfWork unitOfWork 
+        , IUnitOfWork unitOfWork
     )
     {
         _userManager = userManager;
@@ -82,17 +82,17 @@ public class AuthService : IAuthService
 
         if (!string.IsNullOrEmpty(userAgentString))
         {
-            var uaParser = Parser.GetDefault(); 
-            ClientInfo clientInfo = uaParser.Parse(userAgentString); 
-            deviceDescription = $"{clientInfo.OS.Family} {clientInfo.OS.Major}"; 
+            var uaParser = Parser.GetDefault();
+            ClientInfo clientInfo = uaParser.Parse(userAgentString);
+            deviceDescription = $"{clientInfo.OS.Family} {clientInfo.OS.Major}";
             if (!string.IsNullOrEmpty(clientInfo.OS.Minor))
             {
-                deviceDescription += $".{clientInfo.OS.Minor}"; 
+                deviceDescription += $".{clientInfo.OS.Minor}";
             }
-            deviceDescription += $" | {clientInfo.UA.Family} {clientInfo.UA.Major}"; 
+            deviceDescription += $" | {clientInfo.UA.Family} {clientInfo.UA.Major}";
             if (!string.IsNullOrEmpty(clientInfo.UA.Minor))
             {
-                deviceDescription += $".{clientInfo.UA.Minor}"; 
+                deviceDescription += $".{clientInfo.UA.Minor}";
             }
 
             if (!string.IsNullOrEmpty(clientInfo.Device.Family) && clientInfo.Device.Family != "Other")
@@ -100,12 +100,12 @@ public class AuthService : IAuthService
                 deviceDescription += $" | {clientInfo.Device.Family}";
                 if (!string.IsNullOrEmpty(clientInfo.Device.Model))
                 {
-                    deviceDescription += $" ({clientInfo.Device.Model})"; 
+                    deviceDescription += $" ({clientInfo.Device.Model})";
                 }
             }
             else if (!string.IsNullOrEmpty(clientInfo.Device.Model))
             {
-                deviceDescription += $" | {clientInfo.Device.Model}"; 
+                deviceDescription += $" | {clientInfo.Device.Model}";
             }
 
             if (!string.IsNullOrEmpty(clientInfo.Device.Brand) && !string.IsNullOrEmpty(clientInfo.Device.Model))
@@ -142,7 +142,6 @@ public class AuthService : IAuthService
             RefreshToken = refreshToken
         };
     }
-
     public async Task<UpdateUserResultDto> UpdateUserAsync(UpdateUserDto updateUserDto, CancellationToken cancellationToken = default)
     {
         var user = await _context.Users.Where(x => x.Id == updateUserDto.UserId).SingleOrDefaultAsync(cancellationToken);
@@ -152,11 +151,24 @@ public class AuthService : IAuthService
             throw new Exception($"Unable to load user with id: {updateUserDto.UserId}");
         }
 
-        user.Email = updateUserDto.Email;
-        user.DateOfBirth = updateUserDto.DateOfBirth;
-        user.EmailConfirmed = updateUserDto.EmailConfirmed;
-        user.FullName = updateUserDto.FullName;
-        user.IsDeleted = updateUserDto.IsDeleted;
+        // Only update fields that are provided (not null)
+        if (updateUserDto.Email != null)
+            user.Email = updateUserDto.Email;
+
+        if (updateUserDto.DateOfBirth.HasValue)
+            user.DateOfBirth = updateUserDto.DateOfBirth;
+
+        if (updateUserDto.FullName != null)
+            user.FullName = updateUserDto.FullName;
+
+        if (updateUserDto.IsDeleted.HasValue)
+            user.IsDeleted = updateUserDto.IsDeleted;
+
+        if (updateUserDto.PlanId.HasValue)
+            user.CurrentSubscriptionPlanId = updateUserDto.PlanId;
+
+        user.EmailConfirmed = updateUserDto.EmailConfirmed; // If you want to keep this, otherwise check for a flag
+
         user.LastModifiedAt = DateTime.UtcNow;
 
         var result = await _userManager.UpdateAsync(user);
