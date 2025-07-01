@@ -1,4 +1,6 @@
-﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
+﻿using System.Security.Cryptography;
+
+namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
 {
     public class JWTService : IJWTService
     {
@@ -47,6 +49,15 @@
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+        public async Task<string> GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
         }
     }
 }

@@ -6,17 +6,16 @@
         public DateTime? DateOfBirth { get; set; }
         public GenderType Gender { get; set; } = GenderType.Unknown;
         public string? ProfilePictureUrl { get; set; }
-        public DateTime? RegistrationDate { get; set; } = DateTime.UtcNow;
+        public DateTime? RegistrationDate { get; set; } 
 
         // Các thuộc tính liên quan đến logic cai thuốc và gói thành viên
         public Guid? CurrentSubscriptionPlanId { get; set; }
         public SubscriptionPlan? CurrentSubscriptionPlan { get; set; }
         public DateTime? SubscriptionEndDate { get; set; }
-
         public decimal? CurrentMoneySaved { get; set; }
         public int? DaysSmokingFree { get; set; }
         public string? HealthImprovements { get; set; }
-        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? CreatedAt { get; set; } 
         public DateTime? LastModifiedAt { get; set; }
         public bool? IsDeleted { get; set; } = false;
         // Navigation Properties cho các quan hệ 1-N

@@ -10,9 +10,14 @@ global using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfac
 global using SmokeZeroDigitalSolution.Domain.Enums;
 global using SmokeZeroDigitalSolution.Application.Common.IPersistence;
 global using SmokeZeroDigitalSolution.Domain.Entites;
-global using System.Security.Claims;
 global using SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands;
 global using Microsoft.Extensions.DependencyInjection;
 global using SmokeZeroDigitalSolution.Application.Common.Behaviors;
 global using System.Reflection;
-
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
+global using SmokeZeroDigitalSolution.Application.Interfaces;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
+global using Microsoft.AspNetCore.Http;

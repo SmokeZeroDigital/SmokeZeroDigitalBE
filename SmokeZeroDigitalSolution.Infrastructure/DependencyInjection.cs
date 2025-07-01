@@ -1,4 +1,6 @@
-﻿namespace SmokeZeroDigitalSolution.Infrastructure
+﻿using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
+
+namespace SmokeZeroDigitalSolution.Infrastructure
 {
     public static class DependencyInjection
     {
@@ -7,6 +9,7 @@
             services.RegisterDataAccess(configuration);
             services.RegisterToken(configuration);
             services.RegisterSecurityManager(configuration);
+            services.RegisterPaymentPlan(configuration);
             return services;
         }
     }
