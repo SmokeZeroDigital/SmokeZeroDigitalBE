@@ -1,5 +1,8 @@
 
 using SmokeZeroDigitalProject.Common.Converter;
+using SmokeZeroDigitalProject.Common.Realtime;
+using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
+using SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
 
 namespace SmokeZeroDigitalProject
 {
@@ -14,8 +17,8 @@ namespace SmokeZeroDigitalProject
             builder.Services.AddControllers()
             .AddJsonOptions(options =>
             {
-              options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
-              options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-ddTHH:mm:ss.fffZ", alwaysAssumeUtcOnRead: true));
+                options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-ddTHH:mm:ss.fffZ", alwaysAssumeUtcOnRead: true));
                 options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-dd", alwaysAssumeUtcOnRead: true));
             });
             builder.Services.AddEndpointsApiExplorer();
@@ -25,6 +28,9 @@ namespace SmokeZeroDigitalProject
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
             builder.Services.AddScoped<IRequestExecutor, RequestExecutor>();
+            builder.Services.AddScoped<IChatService, ChatService>();
+            builder.Services.AddSignalR();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -50,7 +56,7 @@ namespace SmokeZeroDigitalProject
             app.UseAuthorization();
             app.MapRazorPages();
             app.MapControllers();
-
+            app.MapHub<ChatHub>("/hubs/chat");
             app.Run();
         }
     }
