@@ -18,3 +18,6 @@ global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManag
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
 global using SmokeZeroDigitalSolution.Application.Interfaces;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
+global using Microsoft.AspNetCore.Http;

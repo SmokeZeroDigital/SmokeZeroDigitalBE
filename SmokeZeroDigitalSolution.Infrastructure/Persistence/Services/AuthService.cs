@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
-using UAParser;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
 
 public class AuthService : IAuthService
 {

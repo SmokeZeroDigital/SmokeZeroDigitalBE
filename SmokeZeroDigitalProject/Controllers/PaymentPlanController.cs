@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
-
-namespace SmokeZeroDigitalProject.Controllers
+﻿namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

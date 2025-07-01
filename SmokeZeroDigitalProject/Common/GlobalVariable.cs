@@ -20,3 +20,4 @@ global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManag
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Queries;
 global using SmokeZeroDigitalSolution.Contracts.Plan;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;

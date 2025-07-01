@@ -32,3 +32,8 @@ global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManag
 
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY;
 global using SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;
+ 
+global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
+global using UAParser;
+
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;

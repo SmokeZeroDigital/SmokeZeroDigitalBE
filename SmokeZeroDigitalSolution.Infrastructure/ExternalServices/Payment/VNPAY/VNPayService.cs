@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY
 {
     public class VNPayService : IVNPayService
     {

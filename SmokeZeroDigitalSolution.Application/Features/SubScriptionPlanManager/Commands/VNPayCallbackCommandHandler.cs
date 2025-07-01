@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
-
-public class VNPayCallbackCommandHandler : IRequestHandler<VNPayCallbackCommand, CommandResult<VNPayCallbackResultDto>>
+﻿public class VNPayCallbackCommandHandler : IRequestHandler<VNPayCallbackCommand, CommandResult<VNPayCallbackResultDto>>
 {
     private readonly IVNPayService _vnPayService;
     private readonly IUnitOfWork _unitOfWork;

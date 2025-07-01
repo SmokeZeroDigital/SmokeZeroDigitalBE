@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
+﻿namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
 {
     public class VNPayCommandHandler : IRequestHandler<VNPayCommand, CommandResult<PaymentResponseModel>>
     {
