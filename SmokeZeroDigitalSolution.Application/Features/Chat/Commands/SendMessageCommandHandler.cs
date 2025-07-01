@@ -1,26 +1,58 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.Chat.Commands;
+﻿using SmokeZeroDigitalSolution.Application.Common.Interfaces;
+using SmokeZeroDigitalSolution.Application.Features.Chat.Commands;
 using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
 using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
 
+namespace SmokeZeroDigitalSolution.Application.Features.Chat.Handlers;
+
 public class SendMessageCommandHandler : IRequestHandler<SendMessageCommand, CommandResult<ChatMessageDto>>
 {
-    private readonly IChatService _chatService;
+    private readonly IChatMessageRepository _messageRepository;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IChatNotifier _notifier;
 
-    public SendMessageCommandHandler(IChatService chatService)
+    public SendMessageCommandHandler(
+        IChatMessageRepository messageRepository,
+        IUnitOfWork unitOfWork,
+        IChatNotifier notifier)
     {
-        _chatService = chatService;
+        _messageRepository = messageRepository;
+        _unitOfWork = unitOfWork;
+        _notifier = notifier;
     }
 
     public async Task<CommandResult<ChatMessageDto>> Handle(SendMessageCommand request, CancellationToken cancellationToken)
     {
-        try
+        var dto = request.Message;
+
+        var chatMessage = new ChatMessage
         {
-            var result = await _chatService.SendMessageAsync(request.Message, cancellationToken);
-            return CommandResult<ChatMessageDto>.Success(result);
-        }
-        catch (Exception ex)
+            ConversationId = dto.ConversationId,
+            SenderUserId = dto.SenderUserId,
+            CoachId = dto.CoachId,
+            Content = dto.Content,
+            MessageType = dto.MessageType,
+            IsRead = false,
+            Timestamp = DateTime.UtcNow
+        };
+
+        _messageRepository.Add(chatMessage);
+        await _unitOfWork.SaveAsync(cancellationToken);
+
+        var response = new ChatMessageDto
         {
-            return CommandResult<ChatMessageDto>.Failure(ex.Message);
-        }
+            Id = chatMessage.Id,
+            ConversationId = chatMessage.ConversationId,
+            SenderUserId = chatMessage.SenderUserId,
+            CoachId = chatMessage.CoachId,
+            Content = chatMessage.Content,
+            Timestamp = chatMessage.Timestamp,
+            MessageType = chatMessage.MessageType,
+            IsRead = chatMessage.IsRead
+        };
+
+        await _notifier.NotifyNewMessageAsync(response, cancellationToken);
+
+        return CommandResult<ChatMessageDto>.Success(response);
     }
 }

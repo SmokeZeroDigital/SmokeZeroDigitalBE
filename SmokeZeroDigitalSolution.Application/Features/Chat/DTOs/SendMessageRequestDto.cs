@@ -1,6 +1,6 @@
 ﻿namespace SmokeZeroDigitalSolution.Application.Features.Chat.DTOs
 {
-    public class SendMessageDto
+    public class SendMessageRequestDto
     {
         public Guid ConversationId { get; init; }
         public Guid SenderUserId { get; init; }

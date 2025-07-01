@@ -1,0 +1,82 @@
+﻿@page
+@model ChatPageModel
+@{
+    ViewData["Title"] = "Real-time Chat Test";
+}
+
+<h2>Test Chat Realtime</h2>
+
+<div>
+    <input type="text" id="conversationId" placeholder="Conversation ID" />
+    <input type="text" id="senderUserId" placeholder="Sender User ID" />
+    <input type="text" id="coachId" placeholder="Coach ID (optional)" />
+    <input type="text" id="message" placeholder="Your message" />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<hr />
+<h4>Message Logs</h4>
+<ul id="messagesList"></ul>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chathub")
+            .build();
+
+        const conversationId = document.getElementById("conversationId");
+
+        connection.on("ReceiveMessage", (message) => {
+            const li = document.createElement("li");
+            li.textContent = `[${message.timestamp}] ${message.content}`;
+            document.getElementById("messagesList").appendChild(li);
+        });
+
+        async function startConnection() {
+            try {
+                await connection.start();
+                console.log("SignalR Connected");
+            } catch (err) {
+                console.error(err);
+                setTimeout(startConnection, 5000);
+            }
+        }
+
+        connection.onclose(async () => {
+            await startConnection();
+        });
+
+        startConnection();
+
+        async function sendMessage() {
+            const body = {
+                conversationId: document.getElementById("conversationId").value,
+                senderUserId: document.getElementById("senderUserId").value,
+                coachId: document.getElementById("coachId").value || null,
+                content: document.getElementById("message").value,
+                messageType: "TEXT"
+            };
+
+            const response = await fetch("/api/chat/send", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (!response.ok) {
+                alert("Send failed");
+            }
+        }
+
+        // Auto join group
+        document.getElementById("conversationId").addEventListener("blur", async function () {
+            const convId = conversationId.value;
+            if (convId) {
+                await connection.invoke("JoinConversation", convId);
+            }
+        });
+    </script>
+}

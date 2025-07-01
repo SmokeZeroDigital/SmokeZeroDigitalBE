@@ -4,7 +4,7 @@ namespace SmokeZeroDigitalSolution.Application.Features.Chat.Commands
 {
     public class SendMessageCommand : IRequest<CommandResult<ChatMessageDto>>
     {
-        public SendMessageDto Message { get; init; } = default!;
+        public SendMessageRequestDto Message { get; init; } = default!;
 
     }
 }

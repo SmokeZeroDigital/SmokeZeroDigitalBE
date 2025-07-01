@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokeZeroDigitalProject", "SmokeZeroDigitalProject\SmokeZeroDigitalProject.csproj", "{1B8E9C26-772E-4464-9645-EEDF8784F6E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmokeZeroDigitalProject", "SmokeZeroDigitalProject\SmokeZeroDigitalProject.csproj", "{1B8E9C26-772E-4464-9645-EEDF8784F6E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokeZeroDigitalSolution.Infrastructure", "SmokeZeroDigitalSolution.Infrastructure\SmokeZeroDigitalSolution.Infrastructure.csproj", "{FFBDC747-C9F9-412B-AB67-10F421583004}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmokeZeroDigitalSolution.Infrastructure", "SmokeZeroDigitalSolution.Infrastructure\SmokeZeroDigitalSolution.Infrastructure.csproj", "{FFBDC747-C9F9-412B-AB67-10F421583004}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokeZeroDigitalSolution.Domain", "SmokeZeroDigitalSolution.Domain\SmokeZeroDigitalSolution.Domain.csproj", "{F068AE84-AD03-4819-A4DD-662F308E1B4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmokeZeroDigitalSolution.Domain", "SmokeZeroDigitalSolution.Domain\SmokeZeroDigitalSolution.Domain.csproj", "{F068AE84-AD03-4819-A4DD-662F308E1B4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokeZeroDigitalSolution.Application", "SmokeZeroDigitalSolution.Application\SmokeZeroDigitalSolution.Application.csproj", "{1AA19052-7BDC-41A3-9F61-8D00FC873CA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmokeZeroDigitalSolution.Application", "SmokeZeroDigitalSolution.Application\SmokeZeroDigitalSolution.Application.csproj", "{1AA19052-7BDC-41A3-9F61-8D00FC873CA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmokeZeroDigitalSolution.Contracts", "SmokeZeroDigitalSolution.Contracts\SmokeZeroDigitalSolution.Contracts.csproj", "{46E84360-3ADD-4369-B39E-560FCEAF90CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmokeZeroDigitalSolution.Contracts", "SmokeZeroDigitalSolution.Contracts\SmokeZeroDigitalSolution.Contracts.csproj", "{46E84360-3ADD-4369-B39E-560FCEAF90CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +42,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2B026BB-93D0-42AE-83A0-E29699C8D2B3}
 	EndGlobalSection
 EndGlobal
