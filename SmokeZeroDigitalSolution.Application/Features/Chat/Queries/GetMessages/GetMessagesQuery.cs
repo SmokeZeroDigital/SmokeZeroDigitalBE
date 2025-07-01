@@ -1,6 +1,9 @@
-﻿namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetMessages
+﻿using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
+
+namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetMessages
 {
-    public class GetMessagesQuery
+    public class GetMessagesQuery : IRequest<QueryResult<List<ChatMessageDto>>>
     {
+        public Guid ConversationId { get; set; }
     }
 }

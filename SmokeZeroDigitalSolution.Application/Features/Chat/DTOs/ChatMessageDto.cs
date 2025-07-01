@@ -11,6 +11,6 @@
         public string? MessageType { get; set; }
         public DateTime Timestamp { get; set; }
         public bool IsRead { get; set; } = false;
-
+        public DateTime CreatedAt { get; set; }
     }
 }

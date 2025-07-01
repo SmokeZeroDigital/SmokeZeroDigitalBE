@@ -1,6 +1,10 @@
-﻿namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetOrCreateConversation
+﻿using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
+
+namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetOrCreateConversation
 {
-    public class GetOrCreateConversationQuery
+    public class GetOrCreateConversationQuery : IRequest<QueryResult<ConversationDto>>
     {
+        public Guid AppUserId { get; set; }
+        public Guid CoachId { get; set; }
     }
 }
