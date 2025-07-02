@@ -1,4 +1,7 @@
-﻿namespace SmokeZeroDigitalSolution.Infrastructure
+﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
+using SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;
+
+namespace SmokeZeroDigitalSolution.Infrastructure
 {
     public static class DependencyInjection
     {
@@ -7,6 +10,8 @@
             services.RegisterDataAccess(configuration);
             services.RegisterToken(configuration);
             services.RegisterSecurityManager(configuration);
+            services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             return services;
         }
     }

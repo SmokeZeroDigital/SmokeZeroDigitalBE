@@ -1,5 +1,7 @@
 ﻿
 
+using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
+
 namespace SmokeZeroDigitalSolution.Application
 {
     public static class DependencyInjection
@@ -39,7 +41,6 @@ namespace SmokeZeroDigitalSolution.Application
                     services.AddScoped(type);
                 }
             }
-
             return services;
         }
     }
