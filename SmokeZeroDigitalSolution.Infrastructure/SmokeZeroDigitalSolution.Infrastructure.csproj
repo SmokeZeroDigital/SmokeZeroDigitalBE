@@ -16,11 +16,16 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="UAParser" Version="3.1.47" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SmokeZeroDigitalSolution.Application\SmokeZeroDigitalSolution.Application.csproj" />
     <ProjectReference Include="..\SmokeZeroDigitalSolution.Domain\SmokeZeroDigitalSolution.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
 </Project>

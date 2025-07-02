@@ -1,4 +1,6 @@
-﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
+﻿using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
+
+namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
 {
     public interface IAuthService
     {
@@ -7,6 +9,10 @@
         Task<RegisterResultDto> RegisterAsync(
           RegisterUserDto registerUsertDto,
             CancellationToken cancellationToken = default
+        );
+      Task<UpdateUserResultDto> UpdateUserAsync(
+        UpdateUserDto updateUserDto,
+        CancellationToken cancellationToken = default
         );
     }
 } 

@@ -51,19 +51,19 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("04b28b32-3df6-4c5e-8e57-e53e77de3cab"),
+                            Id = new Guid("cfdac6e3-e0c2-4c17-802f-6646b77c6b42"),
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = new Guid("42d03ea2-600f-4125-8230-a4f6c06fc05c"),
+                            Id = new Guid("e9164871-2502-4a07-b245-413c49c3b46b"),
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
-                            Id = new Guid("ef223c7b-a71d-4104-bedc-acc5ba93f8dc"),
+                            Id = new Guid("d99a3db1-c6a4-450d-b842-4f379d1c9f9f"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -329,6 +329,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("AppUserId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid?>("AuthorUserId")
                         .HasColumnType("uuid");
 
@@ -359,6 +362,8 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.HasIndex("AuthorUserId");
 
                     b.ToTable("BlogArticles");
@@ -378,6 +383,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
+                    b.Property<Guid>("ConversationId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -387,8 +395,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("ReceiverUserId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("MessageType")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<Guid>("SenderUserId")
                         .HasColumnType("uuid");
@@ -400,7 +409,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
                     b.HasIndex("CoachId");
 
-                    b.HasIndex("ReceiverUserId");
+                    b.HasIndex("ConversationId");
 
                     b.HasIndex("SenderUserId");
 
@@ -419,6 +428,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("boolean");
@@ -439,7 +451,8 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Coaches");
                 });
@@ -448,6 +461,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("AppUserId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("ArticleId")
@@ -464,6 +480,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime?>("LastModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -478,6 +497,8 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.HasIndex("ArticleId");
 
                     b.HasIndex("ParentCommentId");
@@ -489,13 +510,58 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Conversation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CoachId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastMessage")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<string>("LastMessageSender")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoachId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Conversations");
+                });
+
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Feedback", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Comment")
+                    b.Property<Guid?>("AppUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CoachId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
@@ -505,26 +571,23 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.Property<DateTime>("FeedbackDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime?>("LastModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("TargetEntityId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("TargetEntityType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TargetEntityId");
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("CoachId");
 
                     b.HasIndex("UserId");
 
@@ -907,10 +970,14 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.BlogArticle", b =>
                 {
-                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "AuthorUser")
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", null)
                         .WithMany("AuthoredArticles")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "AuthorUser")
+                        .WithMany()
                         .HasForeignKey("AuthorUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("AuthorUser");
                 });
@@ -918,16 +985,16 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.ChatMessage", b =>
                 {
                     b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.Coach", "Coach")
+                        .WithMany()
+                        .HasForeignKey("CoachId");
+
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.Conversation", "Conversation")
                         .WithMany("ChatMessages")
-                        .HasForeignKey("CoachId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ConversationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "ReceiverUser")
-                        .WithMany("ReceivedMessages")
-                        .HasForeignKey("ReceiverUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "SenderUser")
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
                         .WithMany("SentMessages")
                         .HasForeignKey("SenderUserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -935,17 +1002,17 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
                     b.Navigation("Coach");
 
-                    b.Navigation("ReceiverUser");
+                    b.Navigation("Conversation");
 
-                    b.Navigation("SenderUser");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Coach", b =>
                 {
                     b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
-                        .WithMany("Coaches")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne("Coach")
+                        .HasForeignKey("SmokeZeroDigitalSolution.Domain.Entites.Coach", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -953,6 +1020,10 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Comment", b =>
                 {
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("AppUserId");
+
                     b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.BlogArticle", "Article")
                         .WithMany("Comments")
                         .HasForeignKey("ArticleId")
@@ -969,9 +1040,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Article");
@@ -983,19 +1054,44 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Feedback", b =>
+            modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Conversation", b =>
                 {
-                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.Coach", null)
-                        .WithMany("FeedbacksGiven")
-                        .HasForeignKey("TargetEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.Coach", "Coach")
+                        .WithMany("Conversations")
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
-                        .WithMany("Feedbacks")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Feedback", b =>
+                {
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", null)
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.Coach", "Coach")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Coach");
 
                     b.Navigation("User");
                 });
@@ -1005,7 +1101,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -1016,7 +1112,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasOne("SmokeZeroDigitalSolution.Domain.Entites.AppUser", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -1094,7 +1190,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 {
                     b.Navigation("AuthoredArticles");
 
-                    b.Navigation("Coaches");
+                    b.Navigation("Coach");
 
                     b.Navigation("Comments");
 
@@ -1105,8 +1201,6 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.Navigation("ProgressEntries");
 
                     b.Navigation("QuittingPlans");
-
-                    b.Navigation("ReceivedMessages");
 
                     b.Navigation("SentMessages");
 
@@ -1122,14 +1216,19 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Coach", b =>
                 {
-                    b.Navigation("ChatMessages");
+                    b.Navigation("Conversations");
 
-                    b.Navigation("FeedbacksGiven");
+                    b.Navigation("Feedbacks");
                 });
 
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Comment", b =>
                 {
                     b.Navigation("Replies");
+                });
+
+            modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Conversation", b =>
+                {
+                    b.Navigation("ChatMessages");
                 });
 
             modelBuilder.Entity("SmokeZeroDigitalSolution.Domain.Entites.Post", b =>
