@@ -1,9 +1,7 @@
 
 using SmokeZeroDigitalProject.Common.Converter;
 using SmokeZeroDigitalProject.Common.Realtime;
-using SmokeZeroDigitalSolution.Application.Common.Interfaces;
-using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
-using SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
 
 namespace SmokeZeroDigitalProject
 {
@@ -29,17 +27,7 @@ namespace SmokeZeroDigitalProject
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
             builder.Services.AddScoped<IRequestExecutor, RequestExecutor>();
-
-
-
-            builder.Services.AddSignalR();
-            builder.Services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
-            builder.Services.AddScoped<IChatNotifier, ChatNotifier>();
-
-
-
-
-
+            builder.Services.RegisterChatRealTime(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
