@@ -26,3 +26,14 @@ global using SmokeZeroDigitalSolution.Infrastructure.Persistence.Common;
 global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Identity;
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT;
+
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;
+
+global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY;
+global using SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;
+ 
+global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
+global using UAParser;
+
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;

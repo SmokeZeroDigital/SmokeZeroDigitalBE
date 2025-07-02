@@ -9,6 +9,7 @@
         public string FullName { get; init; } = string.Empty;
         public DateTime? DateOfBirth { get; init; }
         public GenderType Gender { get; init; } = GenderType.Unknown;
+        public DateTime? CreateAt { get; init; } = DateTime.UtcNow;
 
     }
 }

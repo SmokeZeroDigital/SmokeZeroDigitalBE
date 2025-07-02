@@ -51,19 +51,19 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3d1433ea-de5d-4311-9771-19e23e217c13"),
+                            Id = new Guid("cfdac6e3-e0c2-4c17-802f-6646b77c6b42"),
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = new Guid("8ea9581d-267e-4224-9253-a5c01a17d200"),
+                            Id = new Guid("e9164871-2502-4a07-b245-413c49c3b46b"),
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
-                            Id = new Guid("d373a6bf-f094-4b89-a82b-06c90642dcd6"),
+                            Id = new Guid("d99a3db1-c6a4-450d-b842-4f379d1c9f9f"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

@@ -1,5 +1,5 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
-using SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;
+using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
+﻿using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
 
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
@@ -12,6 +12,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.RegisterSecurityManager(configuration);
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+            services.RegisterPaymentPlan(configuration);
             return services;
         }
     }

@@ -6,7 +6,6 @@
         public LockoutOptions Lockout { get; init; } = null!;
         public UserOptions User { get; init; } = null!;
         public SignInOptions SignIn { get; init; } = null!;
-        public DefaultAdminOptions DefaultAdmin { get; init; } = null!;
         public class PasswordOptions
         {
             public bool RequireDigit { get; init; }
@@ -26,17 +25,12 @@
         public class UserOptions
         {
             public bool RequireUniqueEmail { get; init; }
+            public int ExpireInDays { get; init; }
         }
 
         public class SignInOptions
         {
             public bool RequireConfirmedEmail { get; init; }
-        }
-
-        public class DefaultAdminOptions
-        {
-            public string Email { get; init; } = null!;
-            public string Password { get; init; } = null!;
         }
     }
 }

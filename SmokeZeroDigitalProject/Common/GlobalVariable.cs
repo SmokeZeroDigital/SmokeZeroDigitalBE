@@ -16,3 +16,8 @@ global using SmokeZeroDigitalProject.Common.Models;
 global using Error = SmokeZeroDigitalProject.Common.Models.Error;
 global using SmokeZeroDigitalSolution.Application.Common.Models;
 global using SmokeZeroDigitalProject.Common.Services;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Queries;
+global using SmokeZeroDigitalSolution.Contracts.Plan;
+global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
