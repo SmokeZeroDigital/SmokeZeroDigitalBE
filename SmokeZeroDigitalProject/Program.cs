@@ -1,5 +1,7 @@
-
+using Microsoft.AspNetCore.Localization;
 using SmokeZeroDigitalProject.Common.Converter;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT;
+using System.Globalization;
 
 namespace SmokeZeroDigitalProject
 {
@@ -12,12 +14,12 @@ namespace SmokeZeroDigitalProject
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddControllers()
-            .AddJsonOptions(options =>
-            {
-              options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
-              options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-ddTHH:mm:ss.fffZ", alwaysAssumeUtcOnRead: true));
-                options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-dd", alwaysAssumeUtcOnRead: true));
-            });
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                    options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-ddTHH:mm:ss.fffZ", alwaysAssumeUtcOnRead: true));
+                    options.JsonSerializerOptions.Converters.Add(new FlexibleDateTimeConverterFactory("yyyy-MM-dd", alwaysAssumeUtcOnRead: true));
+                });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.RegisterSwagger();
             builder.Services.AddApplicationServices();
@@ -25,13 +27,15 @@ namespace SmokeZeroDigitalProject
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
             builder.Services.AddScoped<IRequestExecutor, RequestExecutor>();
+
+            //builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("Jwt"));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             if (app.Environment.IsDevelopment())
@@ -48,6 +52,14 @@ namespace SmokeZeroDigitalProject
             app.UseMiddleware<GlobalApiExceptionHandlerMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("vi-VN"),
+                SupportedCultures = new List<CultureInfo> { new CultureInfo("vi-VN") },
+                SupportedUICultures = new List<CultureInfo> { new CultureInfo("vi-VN") }
+            });
+
             app.MapRazorPages();
             app.MapControllers();
 

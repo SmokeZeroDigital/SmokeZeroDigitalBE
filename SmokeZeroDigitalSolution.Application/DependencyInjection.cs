@@ -1,4 +1,4 @@
-﻿namespace SmokeZeroDigitalSolution.Application
+namespace SmokeZeroDigitalSolution.Application
 {
     public static class DependencyInjection
     {
@@ -40,7 +40,6 @@
                     services.AddScoped(type);
                 }
             }
-
             return services;
         }
     }
