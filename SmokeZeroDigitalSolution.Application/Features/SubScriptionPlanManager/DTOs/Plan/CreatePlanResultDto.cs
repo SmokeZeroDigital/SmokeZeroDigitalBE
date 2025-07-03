@@ -10,7 +10,7 @@ namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.
         public decimal Price { get; set; }
         public int DurationInDays { get; set; }
         public bool IsActive { get; set; } = true;
-        [JsonConverter(typeof(SimpleNullableDateOnlyConverter))]
+        [JsonConverter(typeof(SimpleNonNullableDateOnlyConverter))]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
