@@ -5,15 +5,17 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;
 public class ChatMessageRepository : IChatMessageRepository
 {
     private readonly ApplicationDbContext _context;
-
-    public ChatMessageRepository(ApplicationDbContext context)
+    private readonly IUnitOfWork _unitOfWork;
+    public ChatMessageRepository(ApplicationDbContext context, IUnitOfWork unitOfWork)
     {
         _context = context;
+        _unitOfWork = unitOfWork;
     }
 
     public void Add(ChatMessage message)
     {
         _context.ChatMessages.Add(message);
+        _unitOfWork.Save();
     }
 
     public async Task<ChatMessage?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
