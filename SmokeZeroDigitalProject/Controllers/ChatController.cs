@@ -1,5 +1,7 @@
 ﻿using SmokeZeroDigitalSolution.Application.Features.Chat.Commands;
 using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
+using SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetMessages;
+using SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetOrCreateConversation;
 
 namespace SmokeZeroDigitalProject.Controllers
 {
@@ -33,5 +35,37 @@ namespace SmokeZeroDigitalProject.Controllers
                 nameof(Send),
                 cancellationToken);
         }
+
+        [HttpGet("message/{messageId:guid}")]
+        public async Task<IActionResult> GetMessageById([FromRoute] Guid messageId, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<Guid, ChatMessageDto>(
+                messageId,
+                id => new GetMessageByIdQuery { MessageId = id },
+                nameof(GetMessageById),
+                cancellationToken);
+        }
+
+        [HttpPost("conversation")]
+        public async Task<IActionResult> GetOrCreateConversation([FromBody] GetOrCreateConversationQuery request, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<GetOrCreateConversationQuery, ConversationDto>(
+                request,
+                req => req,
+                nameof(GetOrCreateConversation),
+                cancellationToken);
+        }
+
+        [HttpGet("messages/{conversationId:guid}")]
+        public async Task<IActionResult> GetMessages([FromRoute] Guid conversationId, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<Guid, List<ChatMessageDto>>(
+                conversationId,
+                id => new GetMessagesQuery { ConversationId = id },
+                nameof(GetMessages),
+                cancellationToken);
+        }
+
+
     }
 }

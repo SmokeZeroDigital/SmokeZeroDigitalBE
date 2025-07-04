@@ -33,8 +33,16 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
             return await _context.Conversations
                .Include(c => c.User)
                .Include(c => c.Coach)
+                    .ThenInclude(coach => coach.User)
                .Include(c => c.ChatMessages)
                .FirstOrDefaultAsync(c => c.UserId == userId && c.CoachId == coachId && c.IsActive, cancellationToken);
         }
+
+        public async Task UpdateAsync(Conversation conversation, CancellationToken cancellationToken = default)
+        {
+            _context.Conversations.Update(conversation);
+            await _unitOfWork.SaveAsync(cancellationToken);
+        }
+
     }
 }

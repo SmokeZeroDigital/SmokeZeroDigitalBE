@@ -4,10 +4,10 @@
     {
         public Guid Id { get; set; }
         public Guid CoachId { get; set; }
-        public string CoachName { get; set; } = string.Empty;
+        public string CoachName { get; set; }
 
         public Guid UserId { get; set; }
-        public string UserName { get; set; } = string.Empty;
+        public string UserName { get; set; }
 
         public string? LastMessage { get; set; }
         public string? LastMessageSender { get; set; }

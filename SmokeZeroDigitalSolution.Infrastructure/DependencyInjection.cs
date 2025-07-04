@@ -1,4 +1,5 @@
-﻿using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
+﻿using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
 
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
@@ -10,6 +11,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.RegisterToken(configuration);
             services.RegisterSecurityManager(configuration);
             services.RegisterPaymentPlan(configuration);
+            services.RegisterChatRealTime();
             return services;
         }
     }

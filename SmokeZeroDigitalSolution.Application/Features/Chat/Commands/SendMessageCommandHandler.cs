@@ -8,17 +8,20 @@ namespace SmokeZeroDigitalSolution.Application.Features.Chat.Handlers;
 public class SendMessageCommandHandler : IRequestHandler<SendMessageCommand, CommandResult<ChatMessageDto>>
 {
     private readonly IChatMessageRepository _messageRepository;
+    private readonly IConversationRepository _conversationRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IChatNotifier _notifier;
 
     public SendMessageCommandHandler(
         IChatMessageRepository messageRepository,
         IUnitOfWork unitOfWork,
-        IChatNotifier notifier)
+        IChatNotifier notifier,
+        IConversationRepository conversationRepository)
     {
         _messageRepository = messageRepository;
         _unitOfWork = unitOfWork;
         _notifier = notifier;
+        _conversationRepository = conversationRepository;
     }
 
     public async Task<CommandResult<ChatMessageDto>> Handle(SendMessageCommand request, CancellationToken cancellationToken)
@@ -33,11 +36,26 @@ public class SendMessageCommandHandler : IRequestHandler<SendMessageCommand, Com
             Content = dto.Content,
             MessageType = dto.MessageType,
             IsRead = false,
-            Timestamp = DateTime.UtcNow
+            Timestamp = DateTime.UtcNow,
+            CreatedAt = DateTime.UtcNow,
+
         };
 
         _messageRepository.Add(chatMessage);
-        await _unitOfWork.SaveAsync(cancellationToken);
+
+        var conversation = await _conversationRepository.GetByIdAsync(request.Message.ConversationId, cancellationToken);
+        if (conversation != null)
+        {
+            conversation.LastMessage = request.Message.Content;
+
+            var senderName = conversation.UserId == request.Message.SenderUserId
+                ? conversation.User?.UserName
+                : conversation.Coach?.User.UserName;
+
+            conversation.LastMessageSender = senderName ?? "Unknown";
+
+            await _conversationRepository.UpdateAsync(conversation, cancellationToken);
+        }
 
         var response = new ChatMessageDto
         {
@@ -48,7 +66,9 @@ public class SendMessageCommandHandler : IRequestHandler<SendMessageCommand, Com
             Content = chatMessage.Content,
             Timestamp = chatMessage.Timestamp,
             MessageType = chatMessage.MessageType,
-            IsRead = chatMessage.IsRead
+            IsRead = chatMessage.IsRead,
+            CreatedAt = DateTime.UtcNow,
+
         };
 
         await _notifier.NotifyNewMessageAsync(response, cancellationToken);

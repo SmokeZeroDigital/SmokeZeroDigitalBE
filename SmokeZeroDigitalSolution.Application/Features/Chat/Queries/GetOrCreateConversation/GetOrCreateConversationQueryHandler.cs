@@ -34,7 +34,9 @@ namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetOrCreate
             {
                 Id = conversation.Id,
                 UserId = conversation.UserId,
+                UserName = conversation.User?.UserName ?? "Unknown User",
                 CoachId = conversation.CoachId,
+                CoachName = conversation.Coach?.User.UserName ?? "Unknown Coach",
                 LastMessage = conversation.LastMessage,
                 LastMessageSender = conversation.LastMessageSender
             };
