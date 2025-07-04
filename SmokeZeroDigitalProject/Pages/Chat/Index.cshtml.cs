@@ -21,8 +21,8 @@ public class ChatPageModel : PageModel
     {
         try
         {
-            Console.WriteLine("======= DEBUG START =======");
-            Console.WriteLine($"BaseAddress: {_http.BaseAddress}");
+            //Console.WriteLine("======= DEBUG START =======");
+            //Console.WriteLine($"BaseAddress: {_http.BaseAddress}");
 
             var payload = new
             {
@@ -30,10 +30,10 @@ public class ChatPageModel : PageModel
                 CoachId = CoachId
             };
 
-            Console.WriteLine($"Calling POST /api/Chat/conversation with payload: {System.Text.Json.JsonSerializer.Serialize(payload)}");
+            //Console.WriteLine($"Calling POST /api/Chat/conversation with payload: {System.Text.Json.JsonSerializer.Serialize(payload)}");
 
             var response = await _http.PostAsJsonAsync("/api/Chat/conversation", payload);
-            Console.WriteLine($"Conversation response status: {response.StatusCode}");
+            //Console.WriteLine($"Conversation response status: {response.StatusCode}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -50,10 +50,10 @@ public class ChatPageModel : PageModel
             }
 
             ConversationId = apiResponse.Content.Id;
-            Console.WriteLine("✅ Conversation ID: " + ConversationId);
+            //Console.WriteLine("✅ Conversation ID: " + ConversationId);
 
             var msgUrl = $"/api/Chat/messages/{ConversationId}";
-            Console.WriteLine("Calling GET " + msgUrl);
+            //Console.WriteLine("Calling GET " + msgUrl);
 
             var msgResponse = await _http.GetAsync(msgUrl);
             if (!msgResponse.IsSuccessStatusCode)
@@ -65,8 +65,8 @@ public class ChatPageModel : PageModel
 
             var msgApi = await msgResponse.Content.ReadFromJsonAsync<ApiSuccessResult<List<ChatMessageDto>>>();
             Messages = msgApi?.Content ?? new();
-            Console.WriteLine($"✅ Message count: {Messages.Count}");
-            Console.WriteLine("======= DEBUG END =======");
+            //Console.WriteLine($"✅ Message count: {Messages.Count}");
+            //Console.WriteLine("======= DEBUG END =======");
         }
         catch (Exception ex)
         {
