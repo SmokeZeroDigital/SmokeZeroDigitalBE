@@ -27,7 +27,6 @@ public class SendMessageCommandHandler : IRequestHandler<SendMessageCommand, Com
     public async Task<CommandResult<ChatMessageDto>> Handle(SendMessageCommand request, CancellationToken cancellationToken)
     {
         var dto = request.Message;
-
         var chatMessage = new ChatMessage
         {
             ConversationId = dto.ConversationId,
@@ -43,19 +42,18 @@ public class SendMessageCommandHandler : IRequestHandler<SendMessageCommand, Com
 
         _messageRepository.Add(chatMessage);
 
-        var conversation = await _conversationRepository.GetByIdAsync(request.Message.ConversationId, cancellationToken);
+        var conversation = await _conversationRepository.GetByIdAsync(dto.ConversationId, cancellationToken);
         if (conversation != null)
         {
-            conversation.LastMessage = request.Message.Content;
+            conversation.LastMessage = dto.Content;
 
-            var senderName = conversation.UserId == request.Message.SenderUserId
-                ? conversation.User?.UserName
-                : conversation.Coach?.User.UserName;
-
-            conversation.LastMessageSender = senderName ?? "Unknown";
+            conversation.LastMessageSender = dto.CoachId.HasValue
+                ? conversation.Coach?.User?.UserName ?? "Unknown Coach"
+                : conversation.User?.UserName ?? "Unknown User";
 
             await _conversationRepository.UpdateAsync(conversation, cancellationToken);
         }
+
 
         var response = new ChatMessageDto
         {

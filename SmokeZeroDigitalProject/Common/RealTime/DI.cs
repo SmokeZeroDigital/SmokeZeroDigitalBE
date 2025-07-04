@@ -13,7 +13,10 @@ namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat
             services.AddSignalR();
             services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
             services.AddScoped<IChatNotifier, ChatNotifier>();
-
+            services.AddHttpClient("ChatClient", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7146");
+            });
             return services;
         }
     }
