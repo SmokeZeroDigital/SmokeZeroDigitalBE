@@ -38,13 +38,13 @@ namespace SmokeZeroDigitalProject.Controllers
         [HttpGet("by-post/{id}")]
         public async Task<IActionResult> GetCommentByPostId([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var request = new GetCommentByPostRequest { PostId = id };
+            var request = new RequestById { Id = id };
 
-            return await _executor.ExecuteQueryAsync<GetCommentByPostRequest, IEnumerable<CommentDto>>(
+            return await _executor.ExecuteQueryAsync<RequestById, IEnumerable<CommentDto>>(
                 request,
                 req => new GetByPostQuery
                 {
-                    Id = req.PostId
+                    Id = req.Id
                 },
                 nameof(GetCommentByPostId),
                 cancellationToken);
@@ -53,13 +53,13 @@ namespace SmokeZeroDigitalProject.Controllers
         [HttpGet("by-article/{id}")]
         public async Task<IActionResult> GetCommentByAriticleId([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var request = new GetCommentByArticleRequest { ArrticleId = id };
+            var request = new RequestById { Id = id };
 
-            return await _executor.ExecuteQueryAsync<GetCommentByArticleRequest, IEnumerable<CommentDto>>(
+            return await _executor.ExecuteQueryAsync<RequestById, IEnumerable<CommentDto>>(
                 request,
                 req => new GetByAriticleQuery
                 {
-                    Id = req.ArrticleId
+                    Id = req.Id
                 },
                 nameof(GetCommentByPostId),
                 cancellationToken);
@@ -68,13 +68,13 @@ namespace SmokeZeroDigitalProject.Controllers
         [HttpGet("replies/{id}")]
         public async Task<IActionResult> GetReplies([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var request = new GetRepliesRequest { ParentCommentId = id };
+            var request = new RequestById { Id = id };
 
-            return await _executor.ExecuteQueryAsync<GetRepliesRequest, IEnumerable<CommentDto>>(
+            return await _executor.ExecuteQueryAsync<RequestById, IEnumerable<CommentDto>>(
                 request,
                 req => new GetRepliesQuery
                 {
-                    Id = req.ParentCommentId
+                    Id = req.Id
                 },
                 nameof(GetCommentByPostId),
                 cancellationToken);
@@ -82,8 +82,8 @@ namespace SmokeZeroDigitalProject.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var request = new DeleteCommentRequest { Id = id };
-            return await _executor.ExecuteAsync<DeleteCommentRequest, bool>(
+            var request = new RequestById { Id = id };
+            return await _executor.ExecuteAsync<RequestById, bool>(
                 request,
                 req => new DeleteCommentCommand
                 {
