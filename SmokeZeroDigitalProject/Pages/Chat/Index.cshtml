@@ -1,0 +1,37 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Chat.ChatPageModel
+@{
+    ViewData["Title"] = "Chat với Chồn VN";
+}
+
+@section Scripts {
+    <script>
+        window.chatConfig = {
+            conversationId: '@Model.ConversationId',
+            senderUserId: '@Model.CurrentUserId',
+            coachId: '@Model.CoachId'
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="~/js/chat.js"></script>
+}
+
+<div class="container mt-5">
+    <div class="card shadow" style="height: 600px;">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0 text-center">Chat với Chồn VN</h5>
+        </div>
+        <div class="card-body d-flex flex-column p-0">
+            <div id="messageList" class="flex-grow-1 overflow-auto p-3 bg-light">
+                @foreach (var msg in Model.Messages)
+                {
+                    <partial name="_ChatMessage" model="msg" />
+                }
+            </div>
+            <form id="sendMessageForm" class="d-flex border-top p-2">
+                <input id="messageInput" class="form-control me-2" placeholder="Nhập tin nhắn vao di aloalo" />
+                <button type="submit" class="btn btn-primary">Gửi</button>
+            </form>
+        </div>
+    </div>
+</div>

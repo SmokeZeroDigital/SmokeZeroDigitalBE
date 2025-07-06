@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Localization;
 using SmokeZeroDigitalProject.Common.Converter;
 using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT;
 using System.Globalization;
+using SmokeZeroDigitalProject.Common.Realtime;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
 
 namespace SmokeZeroDigitalProject
 {
@@ -30,6 +32,7 @@ namespace SmokeZeroDigitalProject
 
             //builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("Jwt"));
 
+            builder.Services.RegisterChatRealTime(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -62,7 +65,7 @@ namespace SmokeZeroDigitalProject
 
             app.MapRazorPages();
             app.MapControllers();
-
+            app.MapHub<ChatHub>("/hubs/chat");
             app.Run();
         }
     }

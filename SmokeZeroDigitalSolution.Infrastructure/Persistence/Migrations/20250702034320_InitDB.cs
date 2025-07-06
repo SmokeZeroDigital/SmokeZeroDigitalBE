@@ -610,9 +610,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("cfdac6e3-e0c2-4c17-802f-6646b77c6b42"), null, "Member", "MEMBER" },
-                    { new Guid("d99a3db1-c6a4-450d-b842-4f379d1c9f9f"), null, "Admin", "ADMIN" },
-                    { new Guid("e9164871-2502-4a07-b245-413c49c3b46b"), null, "Coach", "COACH" }
+                    { new Guid("2e93902f-3896-4a36-becd-636df1da85e7"), null, "Admin", "ADMIN" },
+                    { new Guid("e8393a8d-2ef9-4a47-9d95-4fa0f6d15cd9"), null, "Member", "MEMBER" },
+                    { new Guid("f465f4d6-aaa6-4bb3-a33a-7d33c0089af4"), null, "Coach", "COACH" }
                 });
 
             migrationBuilder.CreateIndex(
