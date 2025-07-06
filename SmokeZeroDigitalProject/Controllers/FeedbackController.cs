@@ -48,6 +48,19 @@ namespace SmokeZeroDigitalProject.Controllers
                 nameof(GetFeedbackById),
                 cancellationToken);
         }
+        [HttpGet("by-coach/{id}")]
+        public async Task<IActionResult> GetFeedbackByCoach([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            var request = new GetFeedbackByIdRequest { Id = id };
+            return await _executor.ExecuteQueryAsync<GetFeedbackByIdRequest, IEnumerable<FeedbackResponseDto>>(
+                request,
+                req => new FeedbackQueryByCoach
+                {
+                    CoachId = req.Id
+                },
+                nameof(GetFeedbackByCoach),
+                cancellationToken);
+        }
 
     }
 }
