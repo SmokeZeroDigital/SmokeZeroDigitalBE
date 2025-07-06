@@ -1,5 +1,7 @@
 using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
 ﻿using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
 
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
@@ -13,6 +15,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.RegisterPaymentPlan(configuration);
+            services.RegisterChatRealTime();
             return services;
         }
     }
