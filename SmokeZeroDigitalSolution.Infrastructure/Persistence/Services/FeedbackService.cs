@@ -3,13 +3,11 @@ using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
-     public class FeedbackService : IFeedbackService
+     public class FeedbackService(IFeedbackRepository feedbackRepository, IUnitOfWork unitOfWork) : IFeedbackService
     {
-        private readonly IFeedbackRepository _feedbackRepository;
-        public FeedbackService(IFeedbackRepository feedbackRepository)
-        {
-            _feedbackRepository = feedbackRepository;
-        }
+        private readonly IFeedbackRepository _feedbackRepository = feedbackRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+
         public async Task<FeedbackResponseDto> CreateFeedbackAsync(CreateFeedbackDto data, CancellationToken cancellationToken)
         {
             if (data == null || string.IsNullOrEmpty(data.Content) || data.Rating < 1 || data.Rating > 5)
