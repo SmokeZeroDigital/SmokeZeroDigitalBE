@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
@@ -12,11 +11,9 @@ using SmokeZeroDigitalSolution.Infrastructure.Persistence.Data;
 namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250702003132_InitDB")]
-    partial class InitDB
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,19 +51,19 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cfdac6e3-e0c2-4c17-802f-6646b77c6b42"),
+                            Id = new Guid("e8393a8d-2ef9-4a47-9d95-4fa0f6d15cd9"),
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = new Guid("e9164871-2502-4a07-b245-413c49c3b46b"),
+                            Id = new Guid("f465f4d6-aaa6-4bb3-a33a-7d33c0089af4"),
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
-                            Id = new Guid("d99a3db1-c6a4-450d-b842-4f379d1c9f9f"),
+                            Id = new Guid("2e93902f-3896-4a36-becd-636df1da85e7"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
