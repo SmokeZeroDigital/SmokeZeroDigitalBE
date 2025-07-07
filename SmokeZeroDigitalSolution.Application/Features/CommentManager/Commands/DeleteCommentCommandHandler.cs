@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Commands
+﻿namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Commands
 {
     public class DeleteCommentCommandHandler : IRequestHandler<DeleteCommentCommand, CommandResult<bool>>
     {

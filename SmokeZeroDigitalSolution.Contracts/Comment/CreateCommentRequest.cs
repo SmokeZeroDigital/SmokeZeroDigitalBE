@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SmokeZeroDigitalSolution.Contracts.Comment
+﻿namespace SmokeZeroDigitalSolution.Contracts.Comment
 {
     public class CreateCommentRequest
     {

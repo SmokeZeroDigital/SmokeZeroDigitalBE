@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan;
-using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface;
-namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
+﻿namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
 {
     public class RegisterPlanCommandHandler : IRequestHandler<RegisterPlanCommand, CommandResult<CreatePlanResultDto>>
     {

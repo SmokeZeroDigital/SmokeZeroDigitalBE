@@ -1,8 +1,3 @@
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Comment;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
-
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
     public static class DependencyInjection
@@ -16,6 +11,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.RegisterCommentFeature(configuration);
             services.RegisterPaymentPlan(configuration);
+            services.RegisterGooglePlan(configuration);
             services.RegisterChatRealTime();
             return services;
         }

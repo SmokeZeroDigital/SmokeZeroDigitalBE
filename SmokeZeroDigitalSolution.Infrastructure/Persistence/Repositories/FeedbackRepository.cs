@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
 {
     public class FeedbackRepository(ApplicationDbContext applicationDbContext) : BaseRepository<Feedback, Guid>(applicationDbContext), IFeedbackRepository
     {

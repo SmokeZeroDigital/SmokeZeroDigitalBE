@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
      public class FeedbackService(IFeedbackRepository feedbackRepository, IUnitOfWork unitOfWork) : IFeedbackService
     {

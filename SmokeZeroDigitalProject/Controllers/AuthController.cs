@@ -1,4 +1,5 @@
-﻿namespace SmokeZeroDigitalProject.Controllers
+﻿
+namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -47,6 +48,22 @@
                     }
                 },
                 nameof(Login),
+                cancellationToken);
+        }
+
+        [HttpPost("google-login")]
+        public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginRequest request, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<GoogleLoginRequest, AuthResponseDto>(
+                request,
+                req => new GoogleLoginQuery
+                {
+                    User = new GoogleLoginDTO
+                    {
+                        Token = req.Token
+                    }
+                },
+                nameof(GoogleLogin),
                 cancellationToken);
         }
     }

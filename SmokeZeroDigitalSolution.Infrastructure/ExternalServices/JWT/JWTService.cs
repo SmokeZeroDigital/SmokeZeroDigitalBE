@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT
 {
     public class JWTService : IJWTService
     {

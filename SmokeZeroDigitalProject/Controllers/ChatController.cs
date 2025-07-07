@@ -1,9 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.Chat.Commands;
-using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetMessages;
-using SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetOrCreateConversation;
-
-namespace SmokeZeroDigitalProject.Controllers
+﻿namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

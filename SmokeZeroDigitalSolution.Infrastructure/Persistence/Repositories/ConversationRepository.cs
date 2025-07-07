@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
 {
     public class ConversationRepository : IConversationRepository
     {

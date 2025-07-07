@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Commands;
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
-
-namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces
+﻿namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces
 {
     public interface IFeedbackService
     {

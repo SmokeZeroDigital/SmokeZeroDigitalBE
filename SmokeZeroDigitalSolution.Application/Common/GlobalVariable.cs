@@ -21,3 +21,25 @@ global using SmokeZeroDigitalSolution.Application.Interfaces;
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands;
 global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
 global using Microsoft.AspNetCore.Http;
+
+global using System.Globalization;
+global using System.Text.Json.Serialization;
+global using System.Text.Json;
+global using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
+
+global using SmokeZeroDigitalSolution.Application.Common.Interfaces;
+global using SmokeZeroDigitalSolution.Application.Features.Chat.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
+
+global using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
+global using SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces;
+global using SmokeZeroDigitalSolution.Application.Features.CommentManager.Commands;
+
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queries;
+
+global using SmokeZeroDigitalSolution.Application.Common.Converter;
+
+global using Microsoft.AspNetCore.Identity;

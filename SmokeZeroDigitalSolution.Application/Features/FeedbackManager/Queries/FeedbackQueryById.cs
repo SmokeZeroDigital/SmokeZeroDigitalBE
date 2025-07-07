@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
-
-namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queries
+﻿namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queries
 {
     public class FeedbackQueryById : IRequest<QueryResult<FeedbackResponseDto>>
     {

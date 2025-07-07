@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
     public class CommentService(ICommentRepository commentRepository, IUnitOfWork unitOfWork) : ICommentService
     {

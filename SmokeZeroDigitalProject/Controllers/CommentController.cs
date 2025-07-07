@@ -1,9 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.Commands;
-using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.CommentManager.Queries;
-using SmokeZeroDigitalSolution.Contracts.Comment;
-
-namespace SmokeZeroDigitalProject.Controllers
+﻿namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

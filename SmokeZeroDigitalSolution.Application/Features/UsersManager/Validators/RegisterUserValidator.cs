@@ -1,7 +1,5 @@
 ﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Validators
 {
-
-
     public class RegisterUserValidator : AbstractValidator<RegisterUserCommand>
     {
         public RegisterUserValidator()

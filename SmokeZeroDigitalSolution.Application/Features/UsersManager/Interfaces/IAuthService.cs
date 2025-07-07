@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
-
-namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
+﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
 {
     public interface IAuthService
     {
@@ -14,5 +12,7 @@ namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
         UpdateUserDto updateUserDto,
         CancellationToken cancellationToken = default
         );
+        Task<AuthResponseDto> GoogleLoginAsync(AppUser user, CancellationToken cancellationToken = default);
+        Task<bool> DeleteAsync(Guid userId, CancellationToken cancellationToken = default);
     }
 } 

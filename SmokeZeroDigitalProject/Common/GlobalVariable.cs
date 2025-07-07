@@ -21,3 +21,40 @@ global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManag
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Queries;
 global using SmokeZeroDigitalSolution.Contracts.Plan;
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
+global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
+global using SmokeZeroDigitalSolution.Contracts.User;
+global using Microsoft.AspNetCore.SignalR;
+global using SmokeZeroDigitalSolution.Application.Common.Interfaces;
+global using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
+
+global using SmokeZeroDigitalProject.Common.Realtime;
+global using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
+global using SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories;
+
+global using System.Globalization;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+
+global using System.Reflection;
+
+global using Microsoft.OpenApi.Any;
+global using Microsoft.OpenApi.Models;
+global using Swashbuckle.AspNetCore.SwaggerGen;
+
+global using SmokeZeroDigitalSolution.Application.Features.Chat.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetMessages;
+global using SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetOrCreateConversation;
+
+global using SmokeZeroDigitalSolution.Application.Features.CommentManager.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
+global using SmokeZeroDigitalSolution.Application.Features.CommentManager.Queries;
+global using SmokeZeroDigitalSolution.Contracts.Comment;
+
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queries;
+global using SmokeZeroDigitalSolution.Contracts.Feedback;
+
+global using Microsoft.AspNetCore.Localization;
+global using SmokeZeroDigitalProject.Common.Converter;
+global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;

@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Comment
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Comment
 {
     public static class DI
     {

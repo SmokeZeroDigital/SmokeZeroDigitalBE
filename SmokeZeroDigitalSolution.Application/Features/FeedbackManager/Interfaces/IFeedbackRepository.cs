@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
-
-namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces
+﻿namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces
 {
     public interface IFeedbackRepository : IBaseRepository<Feedback, Guid>
     {

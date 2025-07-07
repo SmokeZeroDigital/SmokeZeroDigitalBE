@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace SmokeZeroDigitalProject.Common.Swagger
+﻿namespace SmokeZeroDigitalProject.Common.Swagger
 {
     public static class DI
     {
