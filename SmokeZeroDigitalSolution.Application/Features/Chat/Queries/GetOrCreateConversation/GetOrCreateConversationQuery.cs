@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
-
-namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetOrCreateConversation
+﻿namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetOrCreateConversation
 {
     public class GetOrCreateConversationQuery : IRequest<QueryResult<ConversationDto>>
     {

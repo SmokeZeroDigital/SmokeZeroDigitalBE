@@ -1,10 +1,3 @@
-using Microsoft.AspNetCore.Localization;
-using SmokeZeroDigitalProject.Common.Converter;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.JWT;
-using System.Globalization;
-using SmokeZeroDigitalProject.Common.Realtime;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
-
 namespace SmokeZeroDigitalProject
 {
     public class Program

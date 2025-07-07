@@ -1,6 +1,4 @@
-﻿using Google.Apis.Auth;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google.Auth
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google.Auth
 {
     public class GoogleAuthService : IGoogleAuthService
     {

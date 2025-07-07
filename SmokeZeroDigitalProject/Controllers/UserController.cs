@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
-using SmokeZeroDigitalSolution.Contracts.User;
-
-namespace SmokeZeroDigitalProject.Controllers
+﻿namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

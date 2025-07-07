@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
 {
     public class CommentRepository(ApplicationDbContext applicationDbContext) : BaseRepository<Comment, Guid>(applicationDbContext), ICommentRepository
     {

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
-
-namespace SmokeZeroDigitalProject.Common.Realtime;
+﻿namespace SmokeZeroDigitalProject.Common.Realtime;
 
 public class ChatHub : Hub
 {

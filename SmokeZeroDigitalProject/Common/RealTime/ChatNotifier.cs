@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using SmokeZeroDigitalSolution.Application.Common.Interfaces;
-using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
-
-namespace SmokeZeroDigitalProject.Common.Realtime;
+﻿namespace SmokeZeroDigitalProject.Common.Realtime;
 
 public class ChatNotifier : IChatNotifier
 {

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries
+﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries
 {
     public class GoogleLoginQueryHandler : IRequestHandler<GoogleLoginQuery, QueryResult<AuthResponseDto>>
     {

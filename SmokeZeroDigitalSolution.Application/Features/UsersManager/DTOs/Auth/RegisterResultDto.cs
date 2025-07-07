@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Common.Converter;
-using System.Text.Json.Serialization;
-
-namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth
+﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth
 {
     public class RegisterResultDto
     {

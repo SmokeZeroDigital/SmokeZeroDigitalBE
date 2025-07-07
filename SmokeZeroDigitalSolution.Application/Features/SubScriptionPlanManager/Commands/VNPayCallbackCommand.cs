@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
+﻿namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
 {
     public class VNPayCallbackCommand : IRequest<CommandResult<VNPayCallbackResultDto>>
     {

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using SmokeZeroDigitalSolution.Domain.Entites;
-
+﻿
 namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]

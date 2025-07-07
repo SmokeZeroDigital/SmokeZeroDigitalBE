@@ -1,5 +1,4 @@
-﻿
-namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
+﻿namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Commands
 {
     public class VNPayCallbackResultDto
     {

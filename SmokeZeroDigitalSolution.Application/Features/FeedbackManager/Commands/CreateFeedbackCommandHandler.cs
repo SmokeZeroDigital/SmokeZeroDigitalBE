@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Commands
+﻿namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Commands
 {
     public class CreateFeedbackCommandHandler : IRequestHandler<CreateFeedbackCommand, CommandResult<FeedbackResponseDto>>
     {

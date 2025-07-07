@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
-
-namespace SmokeZeroDigitalSolution.Application.Interfaces
+﻿namespace SmokeZeroDigitalSolution.Application.Interfaces
 {
     public interface IVNPayService
     {

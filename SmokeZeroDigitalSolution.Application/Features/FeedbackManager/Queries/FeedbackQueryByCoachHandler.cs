@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queries
+﻿namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queries
 {
     public class FeedbackQueryByCoachHandler : IRequestHandler<FeedbackQueryByCoach, QueryResult<IEnumerable<FeedbackResponseDto>>>
     {

@@ -1,11 +1,4 @@
-﻿using System.Globalization;
-using System.Net.Sockets;
-using System.Net;
-using System.Security.Cryptography;
-using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
-
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment.VNPAY
 {
     public class VNPayLibrary
     {

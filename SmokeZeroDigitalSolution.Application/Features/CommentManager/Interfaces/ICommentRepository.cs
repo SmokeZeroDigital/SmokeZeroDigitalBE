@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
-
-namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces
+﻿namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces
 {
     public interface ICommentRepository : IBaseRepository<Comment, Guid>
     {

@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Common.Converter;
-using System.Text.Json.Serialization;
-
-namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan
+﻿namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.Plan
 {
     public class GetPlanResponseDto
     {

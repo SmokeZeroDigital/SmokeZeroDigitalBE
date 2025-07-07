@@ -37,3 +37,28 @@ global using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Use
 global using UAParser;
 
 global using SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.DTOs.VNPay;
+
+global using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
+
+global using SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces;
+
+global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google.Auth;
+
+global using Google.Apis.Auth;
+
+global using System.Security.Cryptography;
+
+
+global using System.Globalization;
+global using System.Net.Sockets;
+global using System.Net;
+
+global using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
+
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
+global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
+
+global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Comment;
+global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
+global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
+global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google;

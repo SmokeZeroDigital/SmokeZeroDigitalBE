@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat
 {
     public static class DI
     {

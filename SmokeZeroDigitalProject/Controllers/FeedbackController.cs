@@ -1,8 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Commands;
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queries;
-using SmokeZeroDigitalSolution.Contracts.Feedback;
-namespace SmokeZeroDigitalProject.Controllers
+﻿namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,8 +1,4 @@
-﻿using System.Globalization;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-
-namespace SmokeZeroDigitalProject.Common.Converter
+﻿namespace SmokeZeroDigitalProject.Common.Converter
 {
     public class SimpleDateOnlyConverter : JsonConverter<DateTime>
     {

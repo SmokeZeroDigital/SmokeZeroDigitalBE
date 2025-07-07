@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
-
-namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Commands
+﻿namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Commands
 {
     public class CreateCommentCommand : IRequest<CommandResult<CommentDto>>
     {

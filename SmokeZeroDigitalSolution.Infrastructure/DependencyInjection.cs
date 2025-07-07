@@ -1,9 +1,3 @@
-using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Comment;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
-using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google;
-
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
     public static class DependencyInjection

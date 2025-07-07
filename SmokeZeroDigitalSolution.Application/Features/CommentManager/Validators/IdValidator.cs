@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Validators
+﻿namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Validators
 {
     public class IdValidator<T> : AbstractValidator<T> where T : IHasId
     {

@@ -1,5 +1,4 @@
-﻿
-namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface
+﻿namespace SmokeZeroDigitalSolution.Application.Features.SubScriptionPlanManager.Interface
 {
     public interface IScriptionPlanRepository : IBaseRepository<SubscriptionPlan, Guid>
     {

@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.Commands;
-
-namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Validators
+﻿namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Validators
 {
     public class UpdateCommentValidator : AbstractValidator<UpdateCommentCommand>
     {

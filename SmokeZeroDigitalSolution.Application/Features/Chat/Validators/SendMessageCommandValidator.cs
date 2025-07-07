@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.Chat.Commands;
-using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Application.Features.Chat.Validators
+﻿namespace SmokeZeroDigitalSolution.Application.Features.Chat.Validators
 {
     public class SendMessageCommandValidator : AbstractValidator<SendMessageCommand>
     {

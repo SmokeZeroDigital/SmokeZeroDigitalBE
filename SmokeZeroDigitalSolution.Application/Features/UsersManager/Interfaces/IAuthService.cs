@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.User;
-
-namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
+﻿namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
 {
     public interface IAuthService
     {

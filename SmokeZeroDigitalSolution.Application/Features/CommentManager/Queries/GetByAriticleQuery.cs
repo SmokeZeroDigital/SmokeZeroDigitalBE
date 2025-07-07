@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.CommentManager.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.CommentManager.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Queries
+﻿namespace SmokeZeroDigitalSolution.Application.Features.CommentManager.Queries
 {
     public class GetByAriticleQuery : IRequest<QueryResult<IEnumerable<CommentDto>>>, IHasId
     {

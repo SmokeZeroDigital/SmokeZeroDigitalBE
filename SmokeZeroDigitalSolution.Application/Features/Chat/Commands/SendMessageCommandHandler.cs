@@ -1,9 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Common.Interfaces;
-using SmokeZeroDigitalSolution.Application.Features.Chat.Commands;
-using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Application.Features.Chat.Handlers;
+﻿namespace SmokeZeroDigitalSolution.Application.Features.Chat.Handlers;
 
 public class SendMessageCommandHandler : IRequestHandler<SendMessageCommand, CommandResult<ChatMessageDto>>
 {

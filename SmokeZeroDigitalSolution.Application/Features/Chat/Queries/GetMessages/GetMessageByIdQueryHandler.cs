@@ -1,7 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
-using SmokeZeroDigitalSolution.Application.Features.Chat.Interfaces;
-
-namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetMessages
+﻿namespace SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetMessages
 {
     public class GetMessageByIdQueryHandler : IRequestHandler<GetMessageByIdQuery, QueryResult<ChatMessageDto>>
     {

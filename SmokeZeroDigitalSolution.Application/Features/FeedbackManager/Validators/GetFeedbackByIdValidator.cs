@@ -1,6 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queries;
-
-namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Validators
+﻿namespace SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Validators
 {
     public class GetFeedbackByIdValidator : AbstractValidator<FeedbackQueryById>
     {

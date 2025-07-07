@@ -1,5 +1,4 @@
-﻿using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google.Auth;
-namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google
+﻿namespace SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google
 {
     public static class DI
     {
