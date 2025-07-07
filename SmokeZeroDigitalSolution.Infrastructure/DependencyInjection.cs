@@ -2,6 +2,7 @@ using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Interfaces;
 using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Comment;
 using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
 using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google;
 
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
@@ -16,6 +17,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.RegisterCommentFeature(configuration);
             services.RegisterPaymentPlan(configuration);
+            services.RegisterGooglePlan(configuration);
             services.RegisterChatRealTime();
             return services;
         }
