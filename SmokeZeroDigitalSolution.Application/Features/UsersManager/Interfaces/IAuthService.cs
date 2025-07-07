@@ -15,6 +15,6 @@ namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces
         CancellationToken cancellationToken = default
         );
         Task<AuthResponseDto> GoogleLoginAsync(AppUser user, CancellationToken cancellationToken = default);
-
+        Task<bool> DeleteAsync(Guid userId, CancellationToken cancellationToken = default);
     }
 } 

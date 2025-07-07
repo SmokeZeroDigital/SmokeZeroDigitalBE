@@ -61,7 +61,9 @@ public class AuthService : IAuthService
     public async Task<AuthResponseDto> LoginAsync(string username, string password, CancellationToken cancellationToken = default)
     {
         var user = await _userManager.FindByNameAsync(username);
-        if (user == null) throw new Exception("Invalid credentials.");
+        if (user == null || user.IsDeleted == true)
+            throw new Exception("Invalid credentials.");
+
 
         var result = await _signInManager.PasswordSignInAsync(user, password, true, false);
         if (!result.Succeeded) throw new Exception("Invalid login attempt.");
@@ -261,5 +263,17 @@ public class AuthService : IAuthService
             DateOfBirth = user.DateOfBirth,
             IsDeleted = user.IsDeleted,
         };
+    }
+    public async Task<bool> DeleteAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+            return false;
+        user.IsDeleted = true;
+        var tokens = await _context.Tokens.Where(t => t.UserId == user.Id).ToListAsync(cancellationToken);
+        _context.Tokens.RemoveRange(tokens);
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return true;
     }
 }
