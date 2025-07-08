@@ -12,8 +12,6 @@ namespace SmokeZeroDigitalProject.Pages.Login
         [BindProperty]
         public LoginRequest LoginRequest { get; set; } = new();
 
-        public string ErrorMessage { get; set; }
-
         public void OnGet()
         {
         }
@@ -22,7 +20,7 @@ namespace SmokeZeroDigitalProject.Pages.Login
         {
             if (string.IsNullOrWhiteSpace(LoginRequest.UserName) || string.IsNullOrWhiteSpace(LoginRequest.Password))
             {
-                ErrorMessage = "Username and password are required.";
+                TempData["ToastMessage"] = "error:Vui lòng nhập tên đăng nhập và mật khẩu.";
                 return Page();
             }
 
@@ -33,11 +31,12 @@ namespace SmokeZeroDigitalProject.Pages.Login
 
             if (response.IsSuccessStatusCode)
             {
+                TempData["ToastMessage"] = "success:Đăng nhập thành công!";
                 return RedirectToPage("/Index");
             }
             else
             {
-                ErrorMessage = "Invalid username or password.";
+                TempData["ToastMessage"] = "error:Tên đăng nhập hoặc mật khẩu không đúng.";
                 return Page();
             }
         }

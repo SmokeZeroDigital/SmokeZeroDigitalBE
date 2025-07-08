@@ -9,10 +9,6 @@
 
 <div class="form-container">
     <div class="form-title">Register</div>
-    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-    {
-        <div class="error-message">@Model.ErrorMessage</div>
-    }
     <form method="post">
         <div class="form-group">
             <label asp-for="RegisterRequest.Email">Email</label>

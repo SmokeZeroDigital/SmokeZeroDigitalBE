@@ -4,6 +4,7 @@
     ViewData["Title"] = "Login";
 }
 
+@* Bạn có thể giữ lại phần style này, hoặc chuyển nó ra file css riêng cho gọn gàng *@
 <style>
     .login-container {
         max-width: 350px;
@@ -56,20 +57,10 @@
         .btn-login:hover {
             background: #125ea2;
         }
-
-    .error-message {
-        color: #d32f2f;
-        margin-bottom: 12px;
-        text-align: center;
-    }
 </style>
 
 <div class="login-container">
     <div class="login-title">Sign In</div>
-    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-    {
-        <div class="error-message">@Model.ErrorMessage</div>
-    }
     <form method="post">
         <div class="form-group">
             <label asp-for="LoginRequest.UserName">Username</label>

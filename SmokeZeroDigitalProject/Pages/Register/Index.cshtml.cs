@@ -2,19 +2,15 @@ namespace SmokeZeroDigitalProject.Pages.Register
 {
     public class IndexModel : PageModel
     {
-        private readonly IConfiguration _configuration;
+        private readonly ApiConfig _apiConfig;
 
         public IndexModel(IConfiguration configuration)
         {
-            _configuration = configuration;
+            _apiConfig = new ApiConfig(configuration);
         }
 
         [BindProperty]
         public RegisterRequest RegisterRequest { get; set; } = new();
-
-        public string ErrorMessage { get; set; }
-        public string SuccessMessage { get; set; }
-
         public void OnGet()
         {
         }
@@ -28,30 +24,29 @@ namespace SmokeZeroDigitalProject.Pages.Register
                 string.IsNullOrWhiteSpace(RegisterRequest.ConfirmPassword) ||
                 string.IsNullOrWhiteSpace(RegisterRequest.FullName))
             {
-                ErrorMessage = "Please fill in all required fields.";
+                TempData["ToastMessage"] = "error:Vui lòng điền đầy đủ các trường bắt buộc.";
                 return Page();
             }
 
             if (RegisterRequest.Password != RegisterRequest.ConfirmPassword)
             {
-                ErrorMessage = "Passwords do not match.";
+                TempData["ToastMessage"] = "error:Mật khẩu không khớp.";
                 return Page();
             }
 
-            var baseUrl = _configuration["ApiSettings:BaseUrl"];
-            var registerUrl = $"{baseUrl}/api/Auth/register";
+            var registerUrl = _apiConfig.GetEndpoint(ApiEndpoints.Register);
 
             using var httpClient = new HttpClient();
             var response = await httpClient.PostAsJsonAsync(registerUrl, RegisterRequest);
 
             if (response.IsSuccessStatusCode)
             {
-                SuccessMessage = "Registration successful! Please login.";
+                TempData["ToastMessage"] = "success:Đăng ký thành công! Vui lòng đăng nhập.";
                 return RedirectToPage("/Login/Index");
             }
             else
             {
-                ErrorMessage = "Registration failed. Please check your information.";
+                TempData["ToastMessage"] = "error:Đăng ký thất bại. Email hoặc Username có thể đã tồn tại.";
                 return Page();
             }
         }

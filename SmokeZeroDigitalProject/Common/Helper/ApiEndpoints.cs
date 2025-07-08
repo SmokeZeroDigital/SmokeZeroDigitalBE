@@ -3,6 +3,7 @@
     public static class ApiEndpoints
     {
         public const string Login = "/api/Auth/login";
+        public const string Register = "/api/Auth/register"; 
     }
 
     public class ApiConfig
