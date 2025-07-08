@@ -31,6 +31,19 @@ namespace SmokeZeroDigitalProject.Pages.Login
 
             if (response.IsSuccessStatusCode)
             {
+                var responseBodyAsString = await response.Content.ReadAsStringAsync();
+                var options = new System.Text.Json.JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var apiResult = System.Text.Json.JsonSerializer.Deserialize<ApiSuccessResult<AuthResponseDto>>(responseBodyAsString, options);
+
+                var fullName = apiResult?.Content?.UserName;
+                if (string.IsNullOrWhiteSpace(fullName))
+                    fullName = apiResult?.Content?.UserName ?? apiResult?.Content?.UserName ?? "";
+
+                HttpContext.Session.SetString("FullName", fullName);
+
                 TempData["ToastMessage"] = "success:Đăng nhập thành công!";
                 return RedirectToPage("/Index");
             }

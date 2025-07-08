@@ -22,7 +22,7 @@ namespace SmokeZeroDigitalProject
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
             builder.Services.AddScoped<IRequestExecutor, RequestExecutor>();
-
+            builder.Services.AddSession();
             //builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("Jwt"));
 
             builder.Services.RegisterChatRealTime(builder.Configuration);
@@ -55,7 +55,7 @@ namespace SmokeZeroDigitalProject
                 SupportedCultures = new List<CultureInfo> { new CultureInfo("vi-VN") },
                 SupportedUICultures = new List<CultureInfo> { new CultureInfo("vi-VN") }
             });
-
+            app.UseSession();
             app.MapRazorPages();
             app.MapControllers();
             app.MapHub<ChatHub>("/hubs/chat");

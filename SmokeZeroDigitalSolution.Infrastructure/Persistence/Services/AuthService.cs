@@ -138,6 +138,7 @@ public class AuthService : IAuthService
             UserId = user.Id,
             Email = user.Email,
             Token = accesstoken,
+            UserName = user.UserName,
             RefreshToken = refreshToken
         };
     }
@@ -212,6 +213,7 @@ public class AuthService : IAuthService
             UserId = user.Id,
             Email = user.Email,
             Token = accesstoken,
+            UserName = user.UserName,
             RefreshToken = refreshToken
         };
     }
