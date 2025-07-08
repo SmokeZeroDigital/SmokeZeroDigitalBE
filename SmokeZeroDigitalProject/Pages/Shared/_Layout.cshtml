@@ -258,12 +258,30 @@
                                 <i class="isax isax-moon"></i>
                             </a>
                         </li>
-                        <li class="register-btn">
-                            <a href="login-email.html" class="btn log-btn"><i class="feather-lock"></i>Login</a>
-                        </li>
-                        <li class="register-btn">
-                            <a href="signup.html" class="btn reg-btn"><i class="feather-user"></i>Sign Up</a>
-                        </li>
+                        @{
+                            var fullName = Context.Session.GetString("FullName");
+                            var isLoggedIn = !string.IsNullOrEmpty(fullName);
+                        }
+                        @if (isLoggedIn)
+                        {
+                            <li class="register-btn">
+                                <span class="btn log-btn" style="cursor:default;"><i class="feather-user"></i>@fullName</span>
+                            </li>
+                            <li class="register-btn">
+                                <form method="post" asp-page="/Logout" style="display:inline;">
+                                    <button type="submit" class="btn reg-btn" style="padding:0;"><i class="feather-lock"></i>Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="register-btn">
+                                <a class="btn log-btn" asp-area="" asp-page="/Login/Index"><i class="feather-lock"></i>Login</a>
+                            </li>
+                            <li class="register-btn">
+                                <a class="btn reg-btn" asp-area="" asp-page="/Register/Index"><i class="feather-user"></i>Sign Up</a>
+                            </li>
+                        }
                     </ul>
                 </nav>
             </div>
