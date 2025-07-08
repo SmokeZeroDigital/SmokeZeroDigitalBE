@@ -4,84 +4,431 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SmokeZeroDigitalProject</title>
+    @RenderSection("Meta", required: false)
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Site CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SmokeZeroDigitalProject.styles.css" asp-append-version="true" />
+    <!-- Toastify CSS -->
     <link rel="stylesheet" href="~/toastify-js/toastify.min.css" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/user-assets/assets/img/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/user-assets/assets/img/apple-touch-icon.png">
+    <!-- Các thư viện UI bổ sung -->
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/feather.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/iconsax.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/slick.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/aos.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/custom.css">
     @RenderSection("Styles", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="main-wrapper home-pg-fourteen">
+        <header class="header header-custom header-fixed header-ten home-care-header">
+            <div class="header-top-wrap">
+                <div class="container">
+                    <div class="header-top-bar">
+                        <ul class="header-contact">
+                            <li><i class="fa-solid fa-envelope"></i><a href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="35515a565640475075504d54584559501b565a58">[email&#160;protected]</a></li>
+                            <li><i class="fa-solid fa-location-dot"></i>231 madison Street, NewYork, USA</li>
+                        </ul>
+                        <ul class="social-icon">
+                            <li>
+                                <select class="select">
+                                    <option>English</option>
+                                    <option>Japanese</option>
+                                </select>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">SmokeZeroDigitalProject</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                <nav class="navbar navbar-expand-lg header-nav">
+                    <div class="navbar-header">
+                        <a id="mobile_btn" href="javascript:void(0);">
+                            <span class="bar-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </a>
+                        <a href="index.html" class="navbar-brand logo">
+                            <img src="~/user-assets/assets/img/logo.svg" class="img-fluid" alt="Logo">
+                        </a>
+                    </div>
+                    <div class="main-menu-wrapper">
+                        <div class="menu-header">
+                            <a href="index.html" class="menu-logo">
+                                <img src="~/user-assets/assets/img/logo.svg" class="img-fluid" alt="Logo">
+                            </a>
+                            <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </div>
+                        <ul class="main-nav">
+                            <li class="has-submenu megamenu active">
+                                <a href="javascript:void(0);">Home</a>
+
+                            </li>
+                            <li class="has-submenu">
+                                <a href="javascript:void(0);">Doctors <i class="fas fa-chevron-down"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
+                                    <li><a href="appointments.html">Appointments</a></li>
+                                    <li><a href="available-timings.html">Available Timing</a></li>
+                                    <li><a href="my-patients.html">Patients List</a></li>
+                                    <li><a href="patient-profile.html">Patients Profile</a></li>
+                                    <li><a href="chat-doctor.html">Chat</a></li>
+                                    <li><a href="invoices.html">Invoices</a></li>
+                                    <li><a href="doctor-profile-settings.html">Profile Settings</a></li>
+                                    <li><a href="reviews.html">Reviews</a></li>
+                                    <li><a href="doctor-register.html">Doctor Register</a></li>
+                                    <li class="has-submenu">
+                                        <a href="doctor-blog.html">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="doctor-blog.html">Blog</a></li>
+                                            <li><a href="blog-details.html">Blog view</a></li>
+                                            <li><a href="doctor-add-blog.html">Add Blog</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="javascript:void(0);">Patients <i class="fas fa-chevron-down"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Doctors</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="map-grid.html">Map Grid</a></li>
+                                            <li><a href="map-list.html">Map List</a></li>
+                                            <li><a href="map-list-availability.html">Map with Availability</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Search Doctor</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="search.html">Search Doctor 1</a></li>
+                                            <li><a href="search-2.html">Search Doctor 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Doctor Profile</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="doctor-profile.html">Doctor Profile 1</a></li>
+                                            <li><a href="doctor-profile-2.html">Doctor Profile 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Booking</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="booking.html">Booking</a></li>
+                                            <li><a href="booking-1.html">Booking 1</a></li>
+                                            <li><a href="booking-2.html">Booking 2</a></li>
+                                            <li><a href="booking-popup.html">Booking Popup</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="booking-success.html">Booking Success</a></li>
+                                    <li><a href="favourites.html">Favourites</a></li>
+                                    <li><a href="chat.html">Chat</a></li>
+                                    <li><a href="profile-settings.html">Profile Settings</a></li>
+                                    <li><a href="change-password.html">Change Password</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="javascript:void(0);">Pharmacy <i class="fas fa-chevron-down"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="pharmacy-index.html">Pharmacy</a></li>
+                                    <li><a href="pharmacy-details.html">Pharmacy Details</a></li>
+                                    <li><a href="pharmacy-search.html">Pharmacy Search</a></li>
+                                    <li><a href="product-all.html">Product</a></li>
+                                    <li><a href="product-description.html">Product Description</a></li>
+                                    <li><a href="cart.html">Cart</a></li>
+                                    <li><a href="product-checkout.html">Product Checkout</a></li>
+                                    <li><a href="payment-success.html">Payment Success</a></li>
+                                    <li><a href="pharmacy-register.html">Pharmacy Register</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="javascript:void(0);">Pages <i class="fas fa-chevron-down"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="contact-us.html">Contact Us</a></li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Other Pages</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="blank-page.html">Starter Page</a></li>
+                                            <li><a href="pricing.html">Pricing Plan</a></li>
+                                            <li><a href="faq.html">FAQ</a></li>
+                                            <li><a href="maintenance.html">Maintenance</a></li>
+                                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                                            <li><a href="terms-condition.html">Terms & Condition</a></li>
+                                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                            <li><a href="components.html">Components</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Authentication</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="login-email.html">Login Email</a></li>
+                                            <li><a href="login-phone.html">Login Phone</a></li>
+                                            <li><a href="doctor-signup.html">Doctor Signup</a></li>
+                                            <li><a href="patient-signup.html">Patient Signup</a></li>
+                                            <li><a href="forgot-password.html">Forgot Password 1</a></li>
+                                            <li><a href="forgot-password2.html">Forgot Password 2</a></li>
+                                            <li><a href="login-email-otp.html">Email OTP</a></li>
+                                            <li><a href="login-phone-otp.html">Phone OTP</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Error Pages</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="error-404.html">404 Error</a></li>
+                                            <li><a href="error-500.html">500 Error</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="hospitals.html">Hospitals</a></li>
+                                    <li><a href="speciality.html">Speciality</a></li>
+                                    <li><a href="clinic.html">Clinic</a></li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Call</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="voice-call.html">Voice Call</a></li>
+                                            <li><a href="video-call.html">Video Call</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu">
+                                        <a href="javascript:void(0);">Invoices</a>
+                                        <ul class="submenu inner-submenu">
+                                            <li><a href="invoices.html">Invoices</a></li>
+                                            <li><a href="invoice-view.html">Invoice View</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#">Blog <i class="fas fa-chevron-down"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="blog-list.html">Blog List</a></li>
+                                    <li><a href="blog-grid.html">Blog Grid</a></li>
+                                    <li><a href="blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#">Admin <i class="fas fa-chevron-down"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="admin/index.html" target="_blank">Admin</a></li>
+                                    <li><a href="pharmacy/index.html" target="_blank">Pharmacy Admin</a></li>
+                                </ul>
+                            </li>
+                            <li class="login-link"><a href="login-email.html">Login / Signup</a></li>
+                        </ul>
+                    </div>
+                    <ul class="nav header-navbar-rht">
+                        <li class="searchbar">
+                            <a href="javascript:void(0);"><i class="feather-search"></i></a>
+                            <div class="togglesearch">
+                                <form action="https://doccure.dreamstechnologies.com/html/template/search-2.html">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </form>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <li class="header-theme me-3">
+                            <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle">
+                                <i class="isax isax-sun-1"></i>
+                            </a>
+                            <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle activate">
+                                <i class="isax isax-moon"></i>
+                            </a>
+                        </li>
+                        <li class="register-btn">
+                            <a href="login-email.html" class="btn log-btn"><i class="feather-lock"></i>Login</a>
+                        </li>
+                        <li class="register-btn">
+                            <a href="signup.html" class="btn reg-btn"><i class="feather-user"></i>Sign Up</a>
                         </li>
                     </ul>
-                    @{
-                        var fullName = Context.Session.GetString("FullName");
-                        var isLoggedIn = !string.IsNullOrEmpty(fullName);
-                    }
-                    <ul class="navbar-nav">
-                        @if (isLoggedIn)
-                        {
-                            <li class="nav-item">
-                                <span class="nav-link text-dark">@fullName</span>
-                            </li>
-                            <li class="nav-item">
-                                <form method="post" asp-page="/Logout" style="display:inline;">
-                                    <button type="submit" class="nav-link btn btn-link text-dark" style="padding:0;">Logout</button>
+                </nav>
+            </div>
+        </header>
+        @RenderBody()
+        <footer class="footer footer-sec-fourteen">
+            <div class="footer-top">
+                <div class="row">
+                    <div class="col-sm-3 col-6 p-0">
+                        <div class="footer-img">
+                            <img src="~/user-assets/assets/img/service/footer-img-01.jpg" class="img-fluid w-100" alt="Img">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6 p-0">
+                        <div class="footer-img">
+                            <img src="~/user-assets/assets/img/service/footer-img-02.jpg" class="img-fluid w-100" alt="Img">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6 p-0">
+                        <div class="footer-img">
+                            <img src="~/user-assets/assets/img/service/footer-img-03.jpg" class="img-fluid w-100" alt="Img">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6 p-0">
+                        <div class="footer-img">
+                            <img src="~/user-assets/assets/img/service/footer-img-04.jpg" class="img-fluid w-100" alt="Img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="footer-mid-content">
+                        <p>Would you like to connect with us</p>
+                        <ul class="social-icons">
+                            <li><a href="javascript:void(0);"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a></li>
+                            <li><a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li><a href="javascript:void(0);"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                            <li><a href="javascript:void(0);"><i class="fa-brands fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-mid-two">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-5 col-md-6 col-sm-12" data-aos="fade-down" data-aos-delay="500">
+                            <div class="footer-logo-col">
+                                <div class="footer-logo">
+                                    <img src="~/user-assets/assets/img/icons/footer-logo-.svg" alt="Img">
+                                </div>
+                                <p>Connect with healthcare professionals, manage appointments & prioritize your well being </p>
+                                <form action="https://doccure.dreamstechnologies.com/html/template/index-13.html">
+                                    <div class="input-block">
+                                        <input type="text" class="form-control" placeholder="Enter Email">
+                                        <button class="btn" type="submit">Subscribe</button>
+                                    </div>
                                 </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/Index">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Register/Index">Register</a>
-                            </li>
-                        }
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-md-3 col-sm-6" data-aos="fade-down" data-aos-delay="600">
+                            <div class="footer-links-middle">
+                                <h4>QUICK LINKS</h4>
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about-us.html">About us</a></li>
+                                    <li><a href="payment.html">Payments</a></li>
+                                    <li><a href="booking.html">Lab Test</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-md-3 col-sm-6" data-aos="fade-down" data-aos-delay="700">
+                            <div class="footer-links-middle">
+                                <h4>SERVICES</h4>
+                                <ul>
+                                    <li><a href="search-2.html">Nurse at Home</a></li>
+                                    <li><a href="search-2.html">Physiotherapy</a></li>
+                                    <li><a href="search-2.html">Medical Equipment</a></li>
+                                    <li><a href="booking.html">Doctor Consultation</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-4 col-sm-6" data-aos="fade-down" data-aos-delay="800">
+                            <div class="footer-links-middle">
+                                <h4>CONSUMER POLICY</h4>
+                                <ul>
+                                    <li><a href="privacy-policy.html">Privacy</a></li>
+                                    <li><a href="terms-condition.html">Terms and Condition</a></li>
+                                    <li><a href="booking.html">Aggrements</a></li>
+                                    <li><a href="map-grid.html">Sitemap</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="footer-bottom">
+                    <div class="copy-right">
+                        <P>Copyright © 2025 Doccure. All rights are reserved.</P>
+                    </div>
+                    <div class="footer-select-drops">
+                        <div class="input-select">
+                            <span class="select-icon"><i class="feather-globe"></i></span>
+                            <select class="select">
+                                <option>India</option>
+                                <option>US</option>
+                            </select>
+                        </div>
+                        <div class="input-select currency-select">
+                            <select class="select">
+                                <option>USD</option>
+                                <option>INR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ul class="payment-method">
+                        <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-01.svg" alt="Img"></a></li>
+                        <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-02.svg" alt="Img"></a></li>
+                        <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-03.svg" alt="Img"></a></li>
+                        <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-04.svg" alt="Img"></a></li>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </footer>
+        <!-- Cursor -->
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
+        <!-- /Cursor -->
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - SmokeZeroDigitalProject - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
-
+    <!-- /Main Wrapper -->
+    <!-- ScrollToTop -->
+    <div class="progress-wrap active-progress">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+                  style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919px, 307.919px; stroke-dashoffset: 228.265px;">
+            </path>
+        </svg>
+    </div>
+    <!-- JS Core -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Toastify JS -->
     <script src="~/toastify-js/toastify.min.js"></script>
+    <!-- Các thư viện bổ sung -->
+    <script src="~/user-assets/assets/js/theme-script.js"></script>
+    <script src="~/user-assets/assets/js/feather.min.js"></script>
+    <script src="~/user-assets/assets/js/moment.min.js"></script>
+    <script src="~/user-assets/assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/user-assets/assets/js/owl.carousel.min.js"></script>
+    <script src="~/user-assets/assets/js/slick.js"></script>
+    <script src="~/user-assets/assets/js/aos.js"></script>
+    <script src="~/user-assets/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="~/user-assets/assets/js/backToTop.js"></script>
+    <script src="~/user-assets/assets/js/script.js"></script>
+    <!-- Email decode, Cloudflare, ... nếu thực sự cần thì giữ lại, nếu không thì bỏ -->
+    <!-- Toastify notification Razor logic giữ nguyên -->
     @await RenderSectionAsync("Scripts", required: false)
-    @await RenderSectionAsync("Scripts", required: false)
-
     @{
+        // Toastify Razor logic giữ nguyên
         var toastMessage = TempData["ToastMessage"]?.ToString();
         var toastType = "";
         var toastText = "";
-
         if (!string.IsNullOrEmpty(toastMessage))
         {
             var parts = toastMessage.Split(new[] { ':' }, 2);
@@ -102,13 +449,11 @@
             var text = "@Html.Raw(System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(toastText))";
             var type = "@toastType";
             var bgColor = "linear-gradient(to right, #00b09b, #96c93d)"; // Mặc định là success
-
             if (type === 'error') {
                 bgColor = "linear-gradient(to right, #ff5f6d, #ffc371)";
             } else if (type === 'warning') {
                 bgColor = "linear-gradient(to right, #ffb75e, #ed8f03)";
             }
-
             Toastify({
                 text: text,
                 duration: 4000,
