@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SmokeZeroDigitalProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/toastify-js/toastify.min.css" />
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <header>
@@ -25,6 +27,32 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                    </ul>
+                    @{
+                        var fullName = Context.Session.GetString("FullName");
+                        var isLoggedIn = !string.IsNullOrEmpty(fullName);
+                    }
+                    <ul class="navbar-nav">
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">@fullName</span>
+                            </li>
+                            <li class="nav-item">
+                                <form method="post" asp-page="/Logout" style="display:inline;">
+                                    <button type="submit" class="nav-link btn btn-link text-dark" style="padding:0;">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/Index">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Register/Index">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -45,7 +73,52 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="~/toastify-js/toastify.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @{
+        var toastMessage = TempData["ToastMessage"]?.ToString();
+        var toastType = "";
+        var toastText = "";
+
+        if (!string.IsNullOrEmpty(toastMessage))
+        {
+            var parts = toastMessage.Split(new[] { ':' }, 2);
+            if (parts.Length == 2)
+            {
+                toastType = parts[0];
+                toastText = parts[1];
+            }
+            else
+            {
+                toastText = toastMessage;
+            }
+        }
+    }
+    @if (!string.IsNullOrEmpty(toastText))
+    {
+        <script>
+            var text = "@Html.Raw(System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(toastText))";
+            var type = "@toastType";
+            var bgColor = "linear-gradient(to right, #00b09b, #96c93d)"; // Mặc định là success
+
+            if (type === 'error') {
+                bgColor = "linear-gradient(to right, #ff5f6d, #ffc371)";
+            } else if (type === 'warning') {
+                bgColor = "linear-gradient(to right, #ffb75e, #ed8f03)";
+            }
+
+            Toastify({
+                text: text,
+                duration: 4000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: bgColor,
+                stopOnFocus: true
+            }).showToast();
+        </script>
+    }
 </body>
 </html>

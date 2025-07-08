@@ -58,3 +58,7 @@ global using SmokeZeroDigitalSolution.Contracts.Feedback;
 global using Microsoft.AspNetCore.Localization;
 global using SmokeZeroDigitalProject.Common.Converter;
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
+
+global using Microsoft.AspNetCore.Mvc.RazorPages;
+
+global using SmokeZeroDigitalProject.Helpers;

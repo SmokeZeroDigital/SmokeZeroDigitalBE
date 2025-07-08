@@ -1,0 +1,47 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Register.IndexModel
+@{
+    ViewData["Title"] = "Register";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/register.css" />
+}
+
+<div class="form-container">
+    <div class="form-title">Register</div>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="RegisterRequest.Email">Email</label>
+            <input asp-for="RegisterRequest.Email" type="email" />
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterRequest.Username">Username</label>
+            <input asp-for="RegisterRequest.Username" type="text" />
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterRequest.FullName">Full Name</label>
+            <input asp-for="RegisterRequest.FullName" type="text" />
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterRequest.DateOfBirth">Date of Birth</label>
+            <input asp-for="RegisterRequest.DateOfBirth" type="date" />
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterRequest.Gender">Gender</label>
+            <select asp-for="RegisterRequest.Gender" class="form-control">
+                <option value="0">Unknown</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterRequest.Password">Password</label>
+            <input asp-for="RegisterRequest.Password" type="password" />
+        </div>
+        <div class="form-group">
+            <label asp-for="RegisterRequest.ConfirmPassword">Confirm Password</label>
+            <input asp-for="RegisterRequest.ConfirmPassword" type="password" />
+        </div>
+        <button type="submit" class="btn-submit">Register</button>
+    </form>
+</div>

@@ -1,4 +1,6 @@
-﻿namespace SmokeZeroDigitalProject.Controllers
+﻿using SmokeZeroDigitalSolution.Domain.Entites;
+
+namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -40,6 +42,37 @@
                     }
                 },
                 nameof(Update),
+                cancellationToken
+            );
+        }
+        [HttpGet("{userId:guid}")]
+        public async Task<IActionResult> GetById(Guid userId, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<GetUserByIdQuery, AppUser>(
+                new GetUserByIdQuery { UserId = userId },
+                _ => new GetUserByIdQuery { UserId = userId },
+                nameof(GetById),
+                cancellationToken
+            );
+        }
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<GetAllUsersQuery, List<AppUser>>(
+                new GetAllUsersQuery(),
+                _ => new GetAllUsersQuery(),
+                nameof(GetAll),
+                cancellationToken
+            );
+        }
+
+        [HttpGet("by-plan/{planId:guid}")]
+        public async Task<IActionResult> GetByPlanId(Guid planId, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<GetUsersByPlanIdQuery, List<AppUser>>(
+                new GetUsersByPlanIdQuery { PlanId = planId },
+                _ => new GetUsersByPlanIdQuery { PlanId = planId },
+                nameof(GetByPlanId),
                 cancellationToken
             );
         }

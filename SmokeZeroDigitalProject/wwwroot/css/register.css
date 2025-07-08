@@ -1,0 +1,109 @@
+﻿/* =================================================================== */
+/* STYLE FOR REGISTER PAGE                         */
+/* =================================================================== */
+
+/* Thiết lập font chữ và màu nền chung cho trang */
+body {
+    background-color: #f0f2f5; /* Màu nền xám nhạt */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font chữ sạch sẽ, hiện đại */
+}
+
+/* Container chính cho form đăng ký */
+.form-container {
+    max-width: 500px; /* Giảm chiều rộng tối đa */
+    margin: 40px auto;
+    padding: 28px 20px 24px 20px; /* Giảm padding */
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    max-height: 960px;
+}
+
+    /* Tiêu đề "Register" */
+    .form-container .form-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Thiết lập chung cho các nhóm input (label + input) */
+    .form-container .form-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        /* Style cho các nhãn (Email, Username, ...) */
+        .form-container .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        /* Style chung cho các ô input, select */
+        .form-container .form-group input,
+        .form-container .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+            /* Hiệu ứng khi focus vào ô input */
+            .form-container .form-group input:focus,
+            .form-container .form-group select:focus {
+                outline: none;
+                border-color: #007bff; /* Đổi màu viền khi được chọn */
+                box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Thêm hiệu ứng phát sáng */
+            }
+
+    /* Style cho nút "Register" */
+    .form-container .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff; /* Màu nền xanh dương */
+        color: #ffffff; /* Chữ màu trắng */
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        margin-top: 10px; /* Tạo khoảng cách với trường input cuối */
+    }
+
+        /* Hiệu ứng khi di chuột qua nút "Register" */
+        .form-container .btn-submit:hover {
+            background-color: #0056b3; /* Đổi màu nền đậm hơn */
+            transform: translateY(-2px); /* Nâng nút lên một chút */
+        }
+
+        .form-container .btn-submit:active {
+            transform: translateY(0);
+        }
+
+
+    /* Style cho thông báo lỗi */
+    .form-container .error-message {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        padding: 10px 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+@media (max-width: 576px) {
+    .form-container {
+        margin: 12px;
+        padding: 16px 8px;
+        max-width: 98vw;
+    }
+}
