@@ -1,6 +1,5 @@
 ﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Common
 {
-   
     public class BaseRepository<T, Tkey> : IBaseRepository<T, Tkey> where T : class
     {
         private ApplicationDbContext _applicationDbContext;

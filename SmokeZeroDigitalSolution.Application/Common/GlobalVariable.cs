@@ -43,3 +43,8 @@ global using SmokeZeroDigitalSolution.Application.Features.FeedbackManager.Queri
 global using SmokeZeroDigitalSolution.Application.Common.Converter;
 
 global using Microsoft.AspNetCore.Identity;
+
+global using SmokeZeroDigitalSolution.Application.Features.CoachManager.DTOs;
+
+
+global using SmokeZeroDigitalSolution.Application.Features.CoachManager.Interfaces;

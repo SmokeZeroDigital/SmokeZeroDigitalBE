@@ -62,3 +62,6 @@ global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Comment;
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Payment;
 global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Google;
+
+global using SmokeZeroDigitalSolution.Application.Features.CoachManager.DTOs;
+global using SmokeZeroDigitalSolution.Application.Features.CoachManager.Interfaces;
