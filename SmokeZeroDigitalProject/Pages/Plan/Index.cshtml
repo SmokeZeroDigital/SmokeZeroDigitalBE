@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
     <meta name="keywords" content="practo clone, doccure, doctor appointment, Practo clone html template, doctor booking template">
     <meta name="author" content="Practo Clone HTML Template - Doctor Booking Template">
@@ -50,10 +50,12 @@
             position: relative;
             min-height: 170px;
         }
-        .plan-service-item.selected, .plan-service-item:hover {
-            border-color: #0de0fe;
-            box-shadow: 0 2px 12px 0 rgba(13,224,254,0.08);
-        }
+
+            .plan-service-item.selected, .plan-service-item:hover {
+                border-color: #0de0fe;
+                box-shadow: 0 2px 12px 0 rgba(13,224,254,0.08);
+            }
+
         .plan-radio {
             position: absolute;
             top: 1.25rem;
@@ -61,31 +63,37 @@
             width: 22px;
             height: 22px;
         }
-        .plan-radio input[type="radio"] {
-            accent-color: #0de0fe;
-            width: 22px;
-            height: 22px;
-        }
+
+            .plan-radio input[type="radio"] {
+                accent-color: #0de0fe;
+                width: 22px;
+                height: 22px;
+            }
+
         .plan-price {
             font-size: 1.5rem;
             font-weight: 700;
             color: #0de0fe;
         }
+
         .plan-title {
             font-size: 1.2rem;
             font-weight: 600;
             color: #222;
         }
+
         .plan-desc {
             color: #888;
             min-height: 40px;
             font-size: 1rem;
         }
+
         .plan-badge {
             font-size: 0.95rem;
             border-radius: 1rem;
             padding: 0.25rem 0.75rem;
         }
+
         .plan-continue-btn {
             background: linear-gradient(90deg, #0de0fe 0%, #3fbbc0 100%);
             color: #fff;
@@ -95,10 +103,11 @@
             box-shadow: 0 2px 8px 0 rgba(13,224,254,0.10);
             transition: background 0.2s;
         }
-        .plan-continue-btn:hover {
-            background: linear-gradient(90deg, #3fbbc0 0%, #0de0fe 100%);
-            color: #fff;
-        }
+
+            .plan-continue-btn:hover {
+                background: linear-gradient(90deg, #3fbbc0 0%, #0de0fe 100%);
+                color: #fff;
+            }
     </style>
 </head>
 <body>
@@ -137,7 +146,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><div class="profile-step"><span class="multi-steps">2</span><div class="step-section"><h6>Thông tin</h6></div></div></li>
+                                <li><div class="profile-step"><span class="multi-steps">2</span><div class="step-section"><h6>Chọn Coach</h6></div></div></li>
                                 <li><div class="profile-step"><span class="multi-steps">3</span><div class="step-section"><h6>Thanh toán</h6></div></div></li>
                                 <li><div class="profile-step"><span class="multi-steps">4</span><div class="step-section"><h6>Xác nhận</h6></div></div></li>
                             </ul>
@@ -181,7 +190,7 @@
                                     </div>
                                     <div class="card-footer bg-white border-0 pt-0">
                                         <div class="d-flex align-items-center flex-wrap rpw-gap-2 justify-content-end">
-                                            <a href="javascript:void(0);" class="plan-continue-btn btn btn-md btn-primary-gradient next_btns inline-flex align-items-center rounded-pill">
+                                            <a href="/Coach" class="plan-continue-btn btn btn-md btn-primary-gradient next_btns inline-flex align-items-center rounded-pill">
                                                 Tiếp tục
                                                 <i class="isax isax-arrow-right-3 ms-1"></i>
                                             </a>
@@ -204,15 +213,5 @@
     <script src="~/user-assets/assets/js/bootstrap.bundle.min.js"></script>
     <script src="~/user-assets/assets/js/feather.min.js"></script>
     <script src="~/user-assets/assets/js/script.js"></script>
-    <script>
-        function selectPlan(el) {
-            document.querySelectorAll('.plan-service-item').forEach(function(item) {
-                item.classList.remove('selected');
-                item.querySelector('input[type=radio]').checked = false;
-            });
-            el.classList.add('selected');
-            el.querySelector('input[type=radio]').checked = true;
-        }
-    </script>
 </body>
 </html>
