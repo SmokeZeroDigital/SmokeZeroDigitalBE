@@ -30,6 +30,17 @@
                 cancellationToken);
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllPlans(CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<object, List<GetPlanResponseDto>>(
+                null,
+                _ => new GetAllPlansQuery(),
+                nameof(GetAllPlans),
+                cancellationToken
+            );
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetPlan([FromQuery] GetPlanRequest request, CancellationToken cancellationToken)
         {

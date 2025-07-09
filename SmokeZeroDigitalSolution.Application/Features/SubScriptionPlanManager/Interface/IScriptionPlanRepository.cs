@@ -4,5 +4,7 @@
     {
         public Task<GetPlanResponseDto> GetPlanByIdAsync(Guid planId);
         public Task<CreatePlanResultDto> CreatePlanAsync(CreatePlanDTO plan);
+
+        public Task<List<GetPlanResponseDto>> GetAllSubscriptionPlans();
     }
 }

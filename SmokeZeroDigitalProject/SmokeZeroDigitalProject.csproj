@@ -28,4 +28,8 @@
     <ProjectReference Include="..\SmokeZeroDigitalSolution.Infrastructure\SmokeZeroDigitalSolution.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Payment\" />
+  </ItemGroup>
+
 </Project>

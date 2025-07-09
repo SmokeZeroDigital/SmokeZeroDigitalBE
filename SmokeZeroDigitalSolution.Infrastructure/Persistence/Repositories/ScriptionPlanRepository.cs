@@ -42,5 +42,20 @@
                 CreatedAt = subscriptionPlan.CreatedAt
             };
         }
+        public async Task<List<GetPlanResponseDto>> GetAllSubscriptionPlans()
+        {
+            return await GetAll()
+                .Select(plan => new GetPlanResponseDto
+                {
+                    Id = plan.Id,
+                    Name = plan.Name,
+                    Description = plan.Description,
+                    Price = plan.Price,
+                    DurationInDays = plan.DurationInDays,
+                    IsActive = plan.IsActive,
+                    CreatedAt = plan.CreatedAt
+                })
+                .ToListAsync();
+        }
     }
 }

@@ -4,6 +4,9 @@
     {
         public const string Login = "/api/Auth/login";
         public const string Register = "/api/Auth/register"; 
+
+        public const string GetAllPlan = "/api/PaymentPlan/all"; 
+        
     }
 
     public class ApiConfig

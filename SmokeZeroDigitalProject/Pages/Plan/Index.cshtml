@@ -1,0 +1,218 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Plan.SubcriptionPlanModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+    <meta name="keywords" content="practo clone, doccure, doctor appointment, Practo clone html template, doctor booking template">
+    <meta name="author" content="Practo Clone HTML Template - Doctor Booking Template">
+    <meta property="og:url" content="https://doccure.dreamstechnologies.com/html/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Doctors Appointment HTML Website Templates | Doccure">
+    <meta property="og:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+    <meta property="og:image" content="~/user-assets/assets/img/preview-banner.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="https://doccure.dreamstechnologies.com/html/">
+    <meta property="twitter:url" content="https://doccure.dreamstechnologies.com/html/">
+    <meta name="twitter:title" content="Doctors Appointment HTML Website Templates | Doccure">
+    <meta name="twitter:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+    <meta name="twitter:image" content="~/user-assets/assets/img/preview-banner.jpg">
+    <title>Chọn gói đăng ký</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/user-assets/assets/img/favicon.png" type="image/x-icon">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/user-assets/assets/img/apple-touch-icon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/bootstrap.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/all.min.css">
+    <!-- Iconsax CSS-->
+    <link rel="stylesheet" href="~/user-assets/assets/css/iconsax.css">
+    <!-- Feathericon CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/feather.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/custom.css">
+    <style>
+        .plan-service-item {
+            border: 2px solid #e3e3e3;
+            border-radius: 1.25rem;
+            background: #fff;
+            padding: 1.5rem 1rem 1rem 1rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+            min-height: 170px;
+        }
+        .plan-service-item.selected, .plan-service-item:hover {
+            border-color: #0de0fe;
+            box-shadow: 0 2px 12px 0 rgba(13,224,254,0.08);
+        }
+        .plan-radio {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 22px;
+            height: 22px;
+        }
+        .plan-radio input[type="radio"] {
+            accent-color: #0de0fe;
+            width: 22px;
+            height: 22px;
+        }
+        .plan-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0de0fe;
+        }
+        .plan-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #222;
+        }
+        .plan-desc {
+            color: #888;
+            min-height: 40px;
+            font-size: 1rem;
+        }
+        .plan-badge {
+            font-size: 0.95rem;
+            border-radius: 1rem;
+            padding: 0.25rem 0.75rem;
+        }
+        .plan-continue-btn {
+            background: linear-gradient(90deg, #0de0fe 0%, #3fbbc0 100%);
+            color: #fff;
+            border-radius: 2rem;
+            font-weight: 600;
+            min-width: 200px;
+            box-shadow: 0 2px 8px 0 rgba(13,224,254,0.10);
+            transition: background 0.2s;
+        }
+        .plan-continue-btn:hover {
+            background: linear-gradient(90deg, #3fbbc0 0%, #0de0fe 100%);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Header -->
+        <header class="header header-custom header-fixed inner-header relative">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg header-nav">
+                    <div class="navbar-header">
+                        <a id="mobile_btn" href="javascript:void(0);">
+                            <span class="bar-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </a>
+                        <a href="/" class="navbar-brand logo">
+                            <img src="~/user-assets/assets/img/logo.svg" class="img-fluid" alt="Logo">
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- /Header -->
+        <div class="doctor-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <div class="booking-wizard">
+                            <ul class="form-wizard-steps d-sm-flex align-items-center justify-content-center" id="progressbar2">
+                                <li class="progress-active">
+                                    <div class="profile-step">
+                                        <span class="multi-steps">1</span>
+                                        <div class="step-section">
+                                            <h6>Chọn gói</h6>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><div class="profile-step"><span class="multi-steps">2</span><div class="step-section"><h6>Thông tin</h6></div></div></li>
+                                <li><div class="profile-step"><span class="multi-steps">3</span><div class="step-section"><h6>Thanh toán</h6></div></div></li>
+                                <li><div class="profile-step"><span class="multi-steps">4</span><div class="step-section"><h6>Xác nhận</h6></div></div></li>
+                            </ul>
+                        </div>
+                        <div class="booking-widget multistep-form mb-5">
+                            <fieldset id="first">
+                                <div class="card booking-card mb-0">
+                                    <div class="card-header bg-white border-0 pb-0">
+                                        <h4 class="mb-0" style="font-weight:700; color:#3fbbc0;">Chọn gói đăng ký phù hợp</h4>
+                                    </div>
+                                    <div class="card-body booking-body">
+                                        <div class="row">
+                                            @if (Model.Plans != null && Model.Plans.Count > 0)
+                                            {
+                                                int idx = 0;
+                                                foreach (var plan in Model.Plans.Take(3))
+                                                {
+                                                    <div class="col-lg-4 col-md-6 mb-4">
+                                                        <div class="plan-service-item text-center @(idx == 0 ? "selected" : "")" onclick="selectPlan(this)">
+                                                            <div class="plan-radio">
+                                                                <input type="radio" name="plan" value="@plan.Id" @(idx == 0 ? "checked" : "") />
+                                                            </div>
+                                                            <div class="plan-title mb-2">@plan.Name</div>
+                                                            <div class="plan-desc mb-2">@plan.Description</div>
+                                                            <div class="plan-price mb-2">@plan.Price.ToString("C0")</div>
+                                                            <span class="plan-badge badge @(plan.IsActive ? "bg-success" : "bg-secondary")">@(plan.IsActive ? "Đang mở" : "Đang tắt")</span>
+                                                            <div class="mt-2 text-muted" style="font-size:0.95rem;">Thời hạn: <b>@plan.DurationInDays ngày</b></div>
+                                                            <div class="text-muted" style="font-size:0.95rem;">Ngày tạo: @plan.CreatedAt?.ToString("dd/MM/yyyy")</div>
+                                                        </div>
+                                                    </div>
+                                                    idx++;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div class="col-12 text-center">
+                                                    <p>Không có gói đăng ký nào khả dụng.</p>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-white border-0 pt-0">
+                                        <div class="d-flex align-items-center flex-wrap rpw-gap-2 justify-content-end">
+                                            <a href="javascript:void(0);" class="plan-continue-btn btn btn-md btn-primary-gradient next_btns inline-flex align-items-center rounded-pill">
+                                                Tiếp tục
+                                                <i class="isax isax-arrow-right-3 ms-1"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="text-center">
+                            <p class="mb-0">Copyright © 2025. All Rights Reserved, Doccure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
+    </div>
+    <script src="~/user-assets/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="~/user-assets/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/user-assets/assets/js/feather.min.js"></script>
+    <script src="~/user-assets/assets/js/script.js"></script>
+    <script>
+        function selectPlan(el) {
+            document.querySelectorAll('.plan-service-item').forEach(function(item) {
+                item.classList.remove('selected');
+                item.querySelector('input[type=radio]').checked = false;
+            });
+            el.classList.add('selected');
+            el.querySelector('input[type=radio]').checked = true;
+        }
+    </script>
+</body>
+</html>
