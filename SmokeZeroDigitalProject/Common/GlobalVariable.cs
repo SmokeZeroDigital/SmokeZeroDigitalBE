@@ -62,3 +62,8 @@ global using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Chat;
 global using Microsoft.AspNetCore.Mvc.RazorPages;
 
 global using SmokeZeroDigitalProject.Helpers;
+
+global using SmokeZeroDigitalSolution.Application.Features.CoachManager.Commands;
+global using SmokeZeroDigitalSolution.Application.Features.CoachManager.DTOs;
+global using SmokeZeroDigitalSolution.Application.Features.CoachManager.Queries;
+global using SmokeZeroDigitalSolution.Contracts.Coach;

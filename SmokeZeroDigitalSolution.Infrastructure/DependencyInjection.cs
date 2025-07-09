@@ -9,6 +9,8 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.RegisterSecurityManager(configuration);
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+            services.AddScoped<ICoachRepository, CoachRepository>();
+            services.AddScoped<ICoachService, CoachService>();
             services.RegisterCommentFeature(configuration);
             services.RegisterPaymentPlan(configuration);
             services.RegisterGooglePlan(configuration);

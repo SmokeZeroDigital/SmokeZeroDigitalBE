@@ -45,7 +45,7 @@ public class AuthService : IAuthService
         };
 
         var result = await _userManager.CreateAsync(user, registerUserDto.Password);
-        await _userManager.AddToRoleAsync(user, "Member");
+        await _userManager.AddToRoleAsync(user, "Coach");
         if (!result.Succeeded)
             throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
 
