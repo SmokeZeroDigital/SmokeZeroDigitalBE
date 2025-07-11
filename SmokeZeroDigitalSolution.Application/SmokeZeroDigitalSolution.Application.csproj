@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\PostManager\Validators\" />
+    <Folder Include="Features\PostManager\Queries\" />
     <Folder Include="Features\SubScriptionPlanManager\Validators\" />
   </ItemGroup>
 
