@@ -1,4 +1,5 @@
 using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Blog;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Notification;
 
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
@@ -14,6 +15,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<ICoachService, CoachService>();
             services.RegisterBlogFeature(configuration);
+            services.RegisterNotiFeature(configuration);
             services.RegisterCommentFeature(configuration);
             services.RegisterPaymentPlan(configuration);
             services.RegisterGooglePlan(configuration);

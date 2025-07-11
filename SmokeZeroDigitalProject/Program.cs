@@ -1,3 +1,7 @@
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.DTOs;
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Interface;
+using SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
+
 namespace SmokeZeroDigitalProject
 {
     public class Program
@@ -26,6 +30,11 @@ namespace SmokeZeroDigitalProject
             //builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("Jwt"));
 
             builder.Services.RegisterChatRealTime(builder.Configuration);
+
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+            builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddHostedService<NotificationBackgroundService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
