@@ -10,5 +10,7 @@
         public DateTime ScheduledTime { get; set; }
         public DateTime? SentTime { get; set; }
         public bool IsRead { get; set; } = false;
+        public int RecurrencePattern { get; set; }
+
     }
 }
