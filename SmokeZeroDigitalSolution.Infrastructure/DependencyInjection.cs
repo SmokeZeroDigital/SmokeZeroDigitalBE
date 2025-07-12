@@ -1,3 +1,6 @@
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Blog;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Notification;
+
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
     public static class DependencyInjection
@@ -11,6 +14,8 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<ICoachService, CoachService>();
+            services.RegisterBlogFeature(configuration);
+            services.RegisterNotiFeature(configuration);
             services.RegisterCommentFeature(configuration);
             services.RegisterPaymentPlan(configuration);
             services.RegisterGooglePlan(configuration);
