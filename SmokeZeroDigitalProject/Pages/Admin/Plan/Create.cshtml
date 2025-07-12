@@ -1,8 +1,8 @@
 ﻿@page
-@model SmokeZeroDigitalProject.Pages.Admin.User.IndexModel
+@model SmokeZeroDigitalProject.Pages.Admin.Plan.CreateModel
 @{
 	Layout = null;
-	ViewData["Title"] = "Danh sách người dùng";
+	ViewData["Title"] = "Danh sách gói phí";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@
 	<meta name="twitter:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
 	<meta name="twitter:image" content="assets/img/preview-banner.html">
 	<title>Doccure - Patient List Page</title>
-	
+
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="~/admin-assets/admin-assets/assets/img/favicon.png">
 
@@ -139,69 +139,45 @@
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">List of Patient</h3>
+							<h3 class="page-title">Tạo Gói Đăng Ký</h3>
 						</div>
 					</div>
 				</div>
-				@if (!string.IsNullOrEmpty(Model.Message))
-				{
-					<div class="alert alert-info">@Model.Message</div>
-				}
-				<!-- /Page Header -->
+
 
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="card">
 							<div class="card-body">
-								<div class="table-responsive">
-									<div class="table-responsive">
-										<table class="datatable table table-hover table-center mb-0">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>Họ tên</th>
-													<th>Ngày sinh</th>
-													<th>Giới tính</th>
-													<th>Ngày đăng ký</th>
-													<th>Ngày cai thuốc</th>
-													<th>Số ngày không hút</th>
-													<th>Số tiền tiết kiệm</th>
-													<th>Trạng thái</th>
-												</tr>
-											</thead>
-											<tbody>
-												@foreach (var user in Model.Users)
-												{
-													<tr>
-														<td>@user.Id</td>
-														<td>@user.FullName</td>
-														<td>@(user.DateOfBirth?.ToString("dd/MM/yyyy") ?? "-")</td>
-														<td>@(user.Gender)</td>
-														<td>@(user.RegistrationDate?.ToString("dd/MM/yyyy") ?? "-")</td>
-														<td>@(user.SubscriptionEndDate?.ToString("dd/MM/yyyy") ?? "-")</td>
-														<td>@(user.DaysSmokingFree ?? 0) ngày</td>
-														<td>@(user.CurrentMoneySaved?.ToString("N0") ?? "0") đ</td>
-														<td>
-															@if (user.IsDeleted == true)
-															{
-																<span class="badge bg-danger">Đã xóa</span>
-															}
-															else
-															{
-																<span class="badge bg-success">Hoạt động</span>
-															}
-														</td>
-														<td>
-															<form method="post" asp-page-handler="Delete" asp-route-id="@user.Id" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng này?');">
-																<button type="submit" class="btn btn-sm btn-danger">Xoá</button>
-															</form>
-														</td>
-													</tr>
-												}
-											</tbody>
-										</table>
+								<form method="post">
+									<div class="mb-3 row">
+										<label class="col-form-label col-md-2">Tên gói</label>
+										<div class="col-md-10">
+											<input asp-for="CreatePlanRequest.Name" class="form-control" required />
+										</div>
 									</div>
-								</div>
+									<div class="mb-3 row">
+										<label class="col-form-label col-md-2">Mô tả</label>
+										<div class="col-md-10">
+											<input asp-for="CreatePlanRequest.Description" class="form-control" />
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-form-label col-md-2">Giá</label>
+										<div class="col-md-10">
+											<input asp-for="CreatePlanRequest.Price" type="number" step="0.01" class="form-control" required />
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-form-label col-md-2">Thời hạn (ngày)</label>
+										<div class="col-md-10">
+											<input asp-for="CreatePlanRequest.DurationInDays" type="number" class="form-control" required />
+										</div>
+									</div>
+									<div class="text-end">
+										<button type="submit" class="btn btn-primary">Lưu gói</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -233,5 +209,17 @@
 	<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94fab1b85b7f9626","version":"2025.6.2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"3ca157e612a14eccbb30cf6db6691c29","b":1}' crossorigin="anonymous"></script>
 </body>
 
+
 <!-- Mirrored from doccure.dreamstechnologies.com/html/template/admin/patient-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jun 2025 15:00:53 GMT -->
 </html>
+@section Scripts {
+	<script>
+		$(function () {
+		@if (TempData["ToastMessage"] is string toast)
+		{
+			var parts = toast.Split(':', 2);
+			<text>toastr['@parts[0]']('@parts[1]');</text>
+		}
+				});
+	</script>
+}
