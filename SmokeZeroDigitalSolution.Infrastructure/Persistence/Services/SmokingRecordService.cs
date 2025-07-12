@@ -3,7 +3,7 @@ using SmokeZeroDigitalSolution.Application.Features.SmokingRecordManager.Interfa
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
-    public class SmokingRecordService(ISmokingRecordRepository repo, UnitOfWork unitOfWork)
+    public class SmokingRecordService(ISmokingRecordRepository repo, IUnitOfWork unitOfWork)
         : ISmokingRecordService
     {
         public async Task<SmokingRecordDto> CreateAsync(CreateSmokingRecordDto dto)

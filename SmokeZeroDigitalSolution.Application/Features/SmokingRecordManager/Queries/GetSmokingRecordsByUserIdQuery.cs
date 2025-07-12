@@ -2,7 +2,7 @@
 
 namespace SmokeZeroDigitalSolution.Application.Features.SmokingRecordManager.Queries
 {
-    public class GetSmokingRecordsByUserIdQuery : IRequest<CommandResult<List<SmokingRecordDto>>>
+    public class GetSmokingRecordsByUserIdQuery : IRequest<QueryResult<List<SmokingRecordDto>>>
     {
         public Guid UserId { get; set; }
     }

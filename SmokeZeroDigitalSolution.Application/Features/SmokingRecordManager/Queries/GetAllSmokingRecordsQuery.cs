@@ -2,6 +2,6 @@
 
 namespace SmokeZeroDigitalSolution.Application.Features.SmokingRecordManager.Queries
 {
-    public class GetAllSmokingRecordsQuery : IRequest<CommandResult<List<SmokingRecordDto>>> { }
+    public class GetAllSmokingRecordsQuery : IRequest<QueryResult<List<SmokingRecordDto>>> { }
 
 }

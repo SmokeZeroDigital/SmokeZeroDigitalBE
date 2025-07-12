@@ -1,4 +1,7 @@
 using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Blog;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.ProgressEntry;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.QuittingPlan;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.SmokingRecord;
 
 namespace SmokeZeroDigitalSolution.Infrastructure
 {
@@ -18,6 +21,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.RegisterPaymentPlan(configuration);
             services.RegisterGooglePlan(configuration);
             services.RegisterChatRealTime();
+            services.RegisterSmokingRecordServices();
+            services.RegisterQuittingPlanServices();
+            services.RegisterProgressEntryServices();
             return services;
         }
     }
