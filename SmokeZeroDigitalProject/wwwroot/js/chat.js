@@ -5,7 +5,6 @@
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
-
     const messageList = document.getElementById("messageList");
     const messageInput = document.getElementById("messageInput");
     const sendForm = document.getElementById("sendMessageForm");
@@ -15,53 +14,36 @@
     });
 
     function appendMessage(message) {
-        const currentUserId = window.chatConfig.senderUserId.toLowerCase();
-        const isMe = message.senderUserId.toLowerCase() === currentUserId;
-
+        const isMe = message.senderUserId.toLowerCase() === config.senderUserId.toLowerCase();
         const alignment = isMe ? "justify-content-end" : "justify-content-start";
         const bubbleClass = isMe ? "bg-primary text-white" : "bg-light border";
         const textAlign = isMe ? "text-end" : "text-start";
 
-        const createdAt = new Date(message.createdAt);
-        const formattedTime = createdAt.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false
-        });
+        const createdAt = new Date(message.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
 
-        const messageHtml = `
-        <div class="mb-2 d-flex ${alignment}">
-            <div class="px-3 py-2 rounded-4 ${bubbleClass} shadow-sm" style="max-width: 75%;">
-                <div class="${textAlign}">${message.content}</div>
-                <small class="text-muted d-block ${textAlign}" style="font-size: 0.75rem;">
-                    ${formattedTime}
-                </small>
+        const html = `
+            <div class="mb-2 d-flex ${alignment}">
+                <div class="px-3 py-2 rounded-4 ${bubbleClass} shadow-sm" style="max-width: 75%;">
+                    <div class="${textAlign}">${message.content}</div>
+                    <small class="text-muted d-block ${textAlign}" style="font-size: 0.75rem;">${createdAt}</small>
+                </div>
             </div>
-        </div>
-    `;
-
-        document.getElementById("messageList").insertAdjacentHTML("beforeend", messageHtml);
-        scrollToBottom();
-    }
-
-    function scrollToBottom() {
-        const messageList = document.getElementById("messageList");
+        `;
+        messageList.insertAdjacentHTML("beforeend", html);
         messageList.scrollTop = messageList.scrollHeight;
     }
-
-
 
     connection.start().then(() => {
         console.log("✅ SignalR connected");
         connection.invoke("JoinConversation", config.conversationId);
-    }).catch(err => console.error("SignalR error:", err));
+    }).catch(console.error);
 
-    sendForm.addEventListener("submit", (e) => {
+    sendForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const content = messageInput.value.trim();
         if (!content) return;
 
-        fetch("/api/Chat/send", {
+        await fetch("/api/Chat/send", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

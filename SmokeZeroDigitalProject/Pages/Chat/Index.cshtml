@@ -2,9 +2,40 @@
 @model SmokeZeroDigitalProject.Pages.Chat.ChatPageModel
 @{
     ViewData["Title"] = "Chat với Chồn VN";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-4 border-end">
+            <h5>Recent Conversations</h5>
+            <ul class="list-group">
+                <li class="list-group-item active">
+                    Coach: Chồn VN
+                </li>
+            </ul>
+        </div>
+
+        <!-- Chat content -->
+        <div class="col-md-8 d-flex flex-column" style="height: 80vh;">
+            <div id="messageList" class="flex-grow-1 overflow-auto border rounded p-3 bg-white mb-2">
+                @foreach (var msg in Model.Messages)
+                {
+                    await Html.RenderPartialAsync("_ChatMessage", msg);
+                }
+            </div>
+
+            <form id="sendMessageForm" class="d-flex gap-2">
+                <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn...">
+                <button class="btn btn-primary" type="submit">Gửi</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
     <script>
         window.chatConfig = {
             conversationId: '@Model.ConversationId',
@@ -12,26 +43,5 @@
             coachId: '@Model.CoachId'
         };
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
     <script src="~/js/chat.js"></script>
 }
-
-<div class="container mt-5">
-    <div class="card shadow" style="height: 600px;">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0 text-center">Chat với Chồn VN</h5>
-        </div>
-        <div class="card-body d-flex flex-column p-0">
-            <div id="messageList" class="flex-grow-1 overflow-auto p-3 bg-light">
-                @foreach (var msg in Model.Messages)
-                {
-                    <partial name="_ChatMessage" model="msg" />
-                }
-            </div>
-            <form id="sendMessageForm" class="d-flex border-top p-2">
-                <input id="messageInput" class="form-control me-2" placeholder="Nhập tin nhắn vao di aloalo" />
-                <button type="submit" class="btn btn-primary">Gửi</button>
-            </form>
-        </div>
-    </div>
-</div>
