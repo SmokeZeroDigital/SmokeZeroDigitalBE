@@ -1,5 +1,6 @@
 ﻿using SmokeZeroDigitalSolution.Application.Features.BlogManager.DTOs;
 using SmokeZeroDigitalSolution.Application.Features.BlogManager.Interfaces;
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Interface;
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
@@ -10,9 +11,14 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
         public async Task<BlogArticle> CreateAsync(CreateBlogDto dto)
         {
             return await _blogRepository.CreateBlogAsync(dto);
-        }
+		}
 
-        public async Task<IQueryable<BlogArticle>> GetAllAsync()
+		public async Task<bool> DeleteBlogAsync(Guid id)
+		{
+			return await _blogRepository.Remove(id);
+		}
+
+		public async Task<IQueryable<BlogArticle>> GetAllAsync()
         {
             return _blogRepository.GetAll().Include(x => x.AuthorUser);
         }

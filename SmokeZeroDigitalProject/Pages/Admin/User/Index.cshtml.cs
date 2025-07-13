@@ -32,19 +32,17 @@ namespace SmokeZeroDigitalProject.Pages.Admin.User
 				Users = apiResult?.Content ?? new List<AppUser>();
 			}
 		}
-		public string? Message { get; set; } 
+		public string? Message { get; set; }
 
 		public async Task<IActionResult> OnPostDeleteAsync(Guid id)
 		{
 			var apiUrl = _apiConfig.GetEndpoint(ApiEndpoints.DeleteUser);
 
-			using var httpClient = new HttpClient();
 			var deletePayload = new DeleteUserRequest { UserId = id };
-
 			var json = JsonSerializer.Serialize(deletePayload);
 			var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-			var response = await httpClient.DeleteAsync(apiUrl); 
+			using var httpClient = new HttpClient();
 
 			var request = new HttpRequestMessage
 			{

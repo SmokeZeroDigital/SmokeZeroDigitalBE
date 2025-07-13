@@ -1,10 +1,13 @@
-﻿namespace SmokeZeroDigitalSolution.Domain.Entites
+﻿using System.Text.Json.Serialization;
+
+namespace SmokeZeroDigitalSolution.Domain.Entites
 {
     public class AppUser : IdentityUser<Guid>
     {
         public string FullName { get; set; } = string.Empty;
         public DateTime? DateOfBirth { get; set; }
-        public GenderType Gender { get; set; } = GenderType.Unknown;
+		[JsonConverter(typeof(JsonStringEnumConverter))]
+		public GenderType Gender { get; set; } = GenderType.Unknown;
         public string? ProfilePictureUrl { get; set; }
         public DateTime? RegistrationDate { get; set; } 
 

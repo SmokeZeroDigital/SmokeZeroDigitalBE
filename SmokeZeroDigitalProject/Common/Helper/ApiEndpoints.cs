@@ -47,7 +47,7 @@
 
 		//Blog
 		public const string GetAllBlogs = "/api/Blog";
-
+        public const string DeleteBlog = "/api/Blog/delete";
 
 		// Chat
 		public const string SendMessage = "/api/Chat/send";
