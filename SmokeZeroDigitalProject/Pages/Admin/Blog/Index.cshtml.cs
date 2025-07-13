@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmokeZeroDigitalSolution.Application.Features.BlogManager.DTOs;
+using System.Text;
 
 namespace SmokeZeroDigitalProject.Pages.Admin.Blog
 {
@@ -30,6 +31,40 @@ namespace SmokeZeroDigitalProject.Pages.Admin.Blog
 				var apiResult = System.Text.Json.JsonSerializer.Deserialize<ApiSuccessResult<List<BlogReponseDto>>>(responseBody, options);
 				Blogs = apiResult?.Content ?? new List<BlogReponseDto>();
 			}
+		}
+		public string? Message { get; set; }
+
+		public async Task<IActionResult> OnPostDeleteAsync(Guid id)
+		{
+			var apiUrl = _apiConfig.GetEndpoint(ApiEndpoints.DeleteBlog);
+
+			using var httpClient = new HttpClient();
+			var deletePayload = new DeleteUserRequest { UserId = id };
+
+			var json = JsonSerializer.Serialize(deletePayload);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+			var response = await httpClient.DeleteAsync(apiUrl);
+
+			var request = new HttpRequestMessage
+			{
+				Method = HttpMethod.Delete,
+				RequestUri = new Uri(apiUrl),
+				Content = content
+			};
+
+			var deleteResponse = await httpClient.SendAsync(request);
+
+			if (deleteResponse.IsSuccessStatusCode)
+			{
+				Message = "Xoá thành công";
+			}
+			else
+			{
+				Message = "Lỗi xoá bài đăng";
+			}
+
+			return RedirectToPage();
 		}
 	}
 }

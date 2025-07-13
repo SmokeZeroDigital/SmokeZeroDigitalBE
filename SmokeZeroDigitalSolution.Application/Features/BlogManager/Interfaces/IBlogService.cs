@@ -10,5 +10,6 @@ namespace SmokeZeroDigitalSolution.Application.Features.BlogManager.Interfaces
         Task<BlogArticle> UpdateAsync(UpdateBlogDto dto);
         Task<IEnumerable<BlogArticle>> GetArticlesByTagAsync(string tag);
         Task<int> IncreaseViewCountAsync(Guid articleId);
-    }
+		Task<bool> DeleteBlogAsync(Guid id);
+	}
 }

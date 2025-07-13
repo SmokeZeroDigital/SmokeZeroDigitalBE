@@ -1,8 +1,8 @@
 ﻿@page
-@model SmokeZeroDigitalProject.Pages.Admin.User.IndexModel
+@model SmokeZeroDigitalProject.Pages.Admin.Coach.IndexModel
 @{
 	Layout = null;
-	ViewData["Title"] = "Danh sách người dùng";
+	ViewData["Title"] = "Danh sách blog";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@
 	<meta name="twitter:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
 	<meta name="twitter:image" content="assets/img/preview-banner.html">
 	<title>Doccure - Patient List Page</title>
-	
+
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="~/admin-assets/admin-assets/assets/img/favicon.png">
 
@@ -114,10 +114,10 @@
 						<li>
 							<a asp-page="/Admin/Dashboard/Index"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 						</li>
-						<li class="active">
+						<li>
 							<a asp-page="/Admin/User/Index"><i class="fe fe-user"></i> <span>User</span></a>
 						</li>
-						<li>
+						<li class="active">
 							<a asp-page="/Admin/Coach/Index"><i class="fe fe-users"></i> <span>Coach</span></a>
 						</li>
 						<li>
@@ -146,11 +146,7 @@
 						</div>
 					</div>
 				</div>
-				@if (!string.IsNullOrEmpty(Model.Message))
-				{
-					<div class="alert alert-info">@Model.Message</div>
-				}
-				<!-- /Page Header -->
+
 
 				<div class="row">
 					<div class="col-sm-12">
@@ -162,44 +158,41 @@
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Họ tên</th>
-													<th>Ngày sinh</th>
-													<th>Giới tính</th>
-													<th>Ngày đăng ký</th>
-													<th>Ngày cai thuốc</th>
-													<th>Số ngày không hút</th>
-													<th>Số tiền tiết kiệm</th>
-													<th>Trạng thái</th>
+													<th>Mã người huấn luyện</th>
+													<th>Họ và tên</th>
+													<th>Tiểu sử</th>
+													<th>Chuyên môn</th>
+													<th>Đánh giá</th>
+													<th>Đang sẵn sàng</th>
+													<th>Hành động</th>
 												</tr>
 											</thead>
 											<tbody>
-												@foreach (var user in Model.Users)
+												@if (Model.Coaches != null && Model.Coaches.Any())
+												{
+													foreach (var coach in Model.Coaches)
+													{
+														<tr>
+															<td>@coach.Id</td>
+															<td>@coach.UserId</td>
+															<td>@coach.FullName</td>
+															<td>@coach.Bio</td>
+															<td>@coach.Specialization</td>
+															<td>@coach.Rating</td>
+															<td>@coach.IsAvailable</td>
+															<td>
+																<form method="post" asp-page-handler="Delete" asp-route-id="@coach.Id"
+																	  onsubmit="return confirm('Bạn có chắc chắn muốn xoá người huấn luyện này?');">
+																	<button type="submit" class="btn btn-sm btn-danger">Xoá</button>
+																</form>
+															</td>
+														</tr>
+													}
+												}
+												else
 												{
 													<tr>
-														<td>@user.Id</td>
-														<td>@user.FullName</td>
-														<td>@(user.DateOfBirth?.ToString("dd/MM/yyyy") ?? "-")</td>
-														<td>@(user.Gender)</td>
-														<td>@(user.RegistrationDate?.ToString("dd/MM/yyyy") ?? "-")</td>
-														<td>@(user.SubscriptionEndDate?.ToString("dd/MM/yyyy") ?? "-")</td>
-														<td>@(user.DaysSmokingFree ?? 0) ngày</td>
-														<td>@(user.CurrentMoneySaved?.ToString("N0") ?? "0") đ</td>
-														<td>
-															@if (user.IsDeleted == true)
-															{
-																<span class="badge bg-danger">Đã xóa</span>
-															}
-															else
-															{
-																<span class="badge bg-success">Hoạt động</span>
-															}
-														</td>
-														<td>
-															<form method="post" asp-page-handler="Delete" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng này?');">
-																<input type="hidden" name="id" value="@user.Id" />
-																<button type="submit" class="btn btn-sm btn-danger">Xoá</button>
-															</form>
-														</td>
+														<td colspan="9">Không tìm thấy dữ liệu huấn luyện viên.</td>
 													</tr>
 												}
 											</tbody>
