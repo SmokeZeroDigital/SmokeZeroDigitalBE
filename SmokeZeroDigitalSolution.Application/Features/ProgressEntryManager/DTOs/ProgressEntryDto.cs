@@ -10,6 +10,7 @@
         public int CravingLevel { get; set; }
         public string? Challenges { get; set; }
         public string? Successes { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 
     public class ProgressEntryDto : CreateProgressEntryDto
