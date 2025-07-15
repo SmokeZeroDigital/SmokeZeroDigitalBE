@@ -46,11 +46,12 @@
         public const string GetReplies = "/api/Comment/replies/{id}";
 
 		//Blog
-		public const string GetAllBlogs = "/api/Blog";
+		    public const string GetAllBlogs = "/api/Blog";
+        public const string GetBlogById = "/api/Blog/by-id/{id}";
         public const string DeleteBlog = "/api/Blog/delete";
 
-		// Chat
-		public const string SendMessage = "/api/Chat/send";
+        // Chat
+        public const string SendMessage = "/api/Chat/send";
         public const string GetMessages = "/api/Chat/messages/{conversationId}";
         public const string GetConversations = "/api/Chat/conversations";
         public const string GetMessageById = "/api/Chat/message/{messageId}";

@@ -74,7 +74,7 @@ namespace SmokeZeroDigitalProject.Controllers
         {
             var request = new GetAllBlogRequest();
 
-            return await _executor.ExecuteQueryAsync<GetAllBlogRequest, IQueryable<BlogArticle>>(
+            return await _executor.ExecuteQueryAsync<GetAllBlogRequest, IQueryable<BlogReponseDto>>(
                 request,
                 req => new AllBlogQuery(),
                 nameof(GetAllBlog),
