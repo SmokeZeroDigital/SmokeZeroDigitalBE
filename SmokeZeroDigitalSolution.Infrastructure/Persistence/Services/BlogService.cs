@@ -1,5 +1,6 @@
 ﻿using SmokeZeroDigitalSolution.Application.Features.BlogManager.DTOs;
 using SmokeZeroDigitalSolution.Application.Features.BlogManager.Interfaces;
+using System.Net.WebSockets;
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
@@ -12,9 +13,20 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
             return await _blogRepository.CreateBlogAsync(dto);
         }
 
-        public async Task<IQueryable<BlogArticle>> GetAllAsync()
+        public async Task<IQueryable<BlogReponseDto>> GetAllAsync()
         {
-            return _blogRepository.GetAll().Include(x => x.AuthorUser);
+            var result = _blogRepository.GetAll().Include(x => x.AuthorUser);
+            return result.Select(article => new BlogReponseDto
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Content = article.Content,
+                AuthorName = article.AuthorUser.UserName,
+                CreatedAt = article.CreatedAt,
+                ViewCount = article.ViewCount,
+                Tags = article.Tags
+            });
+
         }
 
         public async Task<IEnumerable<BlogArticle>> GetArticlesByTagAsync(string tag)
