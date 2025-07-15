@@ -1,6 +1,8 @@
 ﻿using SmokeZeroDigitalSolution.Application.Features.BlogManager.DTOs;
 using SmokeZeroDigitalSolution.Application.Features.BlogManager.Interfaces;
 using System.Net.WebSockets;
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Interface;
+
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
 {
@@ -11,7 +13,13 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
         public async Task<BlogArticle> CreateAsync(CreateBlogDto dto)
         {
             return await _blogRepository.CreateBlogAsync(dto);
-        }
+		}
+
+		public async Task<bool> DeleteBlogAsync(Guid id)
+		{
+			return await _blogRepository.Remove(id);
+		}
+
 
         public async Task<IQueryable<BlogReponseDto>> GetAllAsync()
         {

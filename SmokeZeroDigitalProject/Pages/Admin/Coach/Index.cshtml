@@ -1,5 +1,5 @@
 ﻿@page
-@model SmokeZeroDigitalProject.Pages.Admin.Blog.IndexModel
+@model SmokeZeroDigitalProject.Pages.Admin.Coach.IndexModel
 @{
 	Layout = null;
 	ViewData["Title"] = "Danh sách blog";
@@ -117,7 +117,7 @@
 						<li>
 							<a asp-page="/Admin/User/Index"><i class="fe fe-user"></i> <span>User</span></a>
 						</li>
-						<li>
+						<li class="active">
 							<a asp-page="/Admin/Coach/Index"><i class="fe fe-users"></i> <span>Coach</span></a>
 						</li>
 						<li>
@@ -126,7 +126,7 @@
 						<li>
 							<a asp-page="/Admin/Feedback/Index"><i class="fe fe-message-square"></i> <span>Feedback</span></a>
 						</li>
-						<li class="active">
+						<li>
 							<a asp-page="/Admin/Blog/Index"><i class="fe fe-message-square"></i> <span>Blog</span></a>
 						</li>
 					</ul>
@@ -158,28 +158,31 @@
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Tiêu đề</th>
-													<th>Tác giả</th>
-													<th>Ngày đăng</th>
-													<th>Thẻ</th>
-													<th>Lượt xem</th>
-													<th>Xóa</th>
+													<th>Mã người huấn luyện</th>
+													<th>Họ và tên</th>
+													<th>Tiểu sử</th>
+													<th>Chuyên môn</th>
+													<th>Đánh giá</th>
+													<th>Đang sẵn sàng</th>
+													<th>Hành động</th>
 												</tr>
 											</thead>
 											<tbody>
-												@if (Model.Blogs != null && Model.Blogs.Any())
+												@if (Model.Coaches != null && Model.Coaches.Any())
 												{
-													foreach (var blog in Model.Blogs)
+													foreach (var coach in Model.Coaches)
 													{
 														<tr>
-															<td>@blog.Id</td>
-															<td>@blog.Title</td>
-															<td>@blog.AuthorName</td>
-															<td>@blog.CreatedAt.ToString("yyyy-MM-dd")</td>
-															<td>@string.Join(", ", blog.Tags)</td>
-															<td>@blog.ViewCount</td>
+															<td>@coach.Id</td>
+															<td>@coach.UserId</td>
+															<td>@coach.FullName</td>
+															<td>@coach.Bio</td>
+															<td>@coach.Specialization</td>
+															<td>@coach.Rating</td>
+															<td>@coach.IsAvailable</td>
 															<td>
-																<form method="post" asp-page-handler="Delete" asp-route-id="@blog.Id" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng này?');">
+																<form method="post" asp-page-handler="Delete" asp-route-id="@coach.Id"
+																	  onsubmit="return confirm('Bạn có chắc chắn muốn xoá người huấn luyện này?');">
 																	<button type="submit" class="btn btn-sm btn-danger">Xoá</button>
 																</form>
 															</td>
@@ -189,7 +192,7 @@
 												else
 												{
 													<tr>
-														<td colspan="6">No blog data found.</td>
+														<td colspan="9">Không tìm thấy dữ liệu huấn luyện viên.</td>
 													</tr>
 												}
 											</tbody>

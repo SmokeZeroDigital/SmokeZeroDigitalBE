@@ -114,13 +114,13 @@
 						<li>
 							<a asp-page="/Admin/Dashboard/Index"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 						</li>
-						<li>
+						<li class="active">
 							<a asp-page="/Admin/User/Index"><i class="fe fe-user"></i> <span>User</span></a>
 						</li>
 						<li>
 							<a asp-page="/Admin/Coach/Index"><i class="fe fe-users"></i> <span>Coach</span></a>
 						</li>
-						<li class="active">
+						<li>
 							<a asp-page="/Admin/Plan/Index"><i class="fe fe-credit-card"></i> <span>Plan</span></a>
 						</li>
 						<li>
@@ -195,7 +195,8 @@
 															}
 														</td>
 														<td>
-															<form method="post" asp-page-handler="Delete" asp-route-id="@user.Id" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng này?');">
+															<form method="post" asp-page-handler="Delete" onsubmit="return confirm('Bạn có chắc chắn muốn xoá người dùng này?');">
+																<input type="hidden" name="id" value="@user.Id" />
 																<button type="submit" class="btn btn-sm btn-danger">Xoá</button>
 															</form>
 														</td>
