@@ -160,7 +160,7 @@
                                                                     @foreach (var coach in Model.Coaches.Skip(i).Take(3))
                                                                     {
                                                                         <div class="col-lg-4 col-md-6 mb-4">
-                                                                            <div class="coach-service-item text-center">
+                                                                            <div class="coach-service-item text-center" onclick="selectCoach(this)">
                                                                                 <div class="coach-radio">
                                                                                     <input type="radio" name="coach" value="@coach.Id" />
                                                                                 </div>
@@ -189,11 +189,18 @@
                                         }
                                     </div>
                                     <div class="card-footer bg-white border-0 pt-0">
-                                        <div class="d-flex align-items-center flex-wrap rpw-gap-2 justify-content-end">
-                                            <a href="/Plan" class="coach-continue-btn btn btn-md btn-primary-gradient next_btns inline-flex align-items-center rounded-pill">
-                                                Tiếp tục
-                                                <i class="isax isax-arrow-right-3 ms-1"></i>
+                                        <div class="d-flex align-items-center flex-wrap rpw-gap-2 justify-content-between">
+                                            <a href="/Payment/Plan" class="btn btn-outline-secondary rounded-pill">
+                                                <i class="isax isax-arrow-left-3 me-1"></i>
+                                                Quay lại
                                             </a>
+                                            <form method="post" id="coachForm">
+                                                <input type="hidden" id="selectedCoachId" name="coachId" value="" />
+                                                <button type="submit" class="coach-continue-btn btn btn-md btn-primary-gradient next_btns inline-flex align-items-center rounded-pill">
+                                                    Tiếp tục
+                                                    <i class="isax isax-arrow-right-3 ms-1"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -223,6 +230,35 @@
                 prevEl: ".swiper-button-prev",
             },
             loop: false
+        });
+
+        function selectCoach(element) {
+            // Remove selected class from all coaches
+            document.querySelectorAll('.coach-service-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked coach
+            element.classList.add('selected');
+            
+            // Check the radio button
+            const radio = element.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                // Update hidden input with selected coach ID
+                document.getElementById('selectedCoachId').value = radio.value;
+            }
+        }
+
+        // Add form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('coachForm').addEventListener('submit', function(e) {
+                const selectedCoachId = document.getElementById('selectedCoachId').value;
+                if (!selectedCoachId) {
+                    e.preventDefault();
+                    alert('Vui lòng chọn một huấn luyện viên!');
+                }
+            });
         });
     </script>
 </body>

@@ -190,10 +190,13 @@
                                     </div>
                                     <div class="card-footer bg-white border-0 pt-0">
                                         <div class="d-flex align-items-center flex-wrap rpw-gap-2 justify-content-end">
-                                            <a href="/Coach" class="plan-continue-btn btn btn-md btn-primary-gradient next_btns inline-flex align-items-center rounded-pill">
-                                                Tiếp tục
-                                                <i class="isax isax-arrow-right-3 ms-1"></i>
-                                            </a>
+                                            <form method="post" id="planForm">
+                                                <input type="hidden" id="selectedPlanId" name="planId" value="" />
+                                                <button type="submit" class="plan-continue-btn btn btn-md btn-primary-gradient next_btns inline-flex align-items-center rounded-pill">
+                                                    Tiếp tục
+                                                    <i class="isax isax-arrow-right-3 ms-1"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -213,5 +216,41 @@
     <script src="~/user-assets/assets/js/bootstrap.bundle.min.js"></script>
     <script src="~/user-assets/assets/js/feather.min.js"></script>
     <script src="~/user-assets/assets/js/script.js"></script>
+    <script>
+        function selectPlan(element) {
+            // Remove selected class from all plans
+            document.querySelectorAll('.plan-service-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked plan
+            element.classList.add('selected');
+            
+            // Check the radio button
+            const radio = element.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                // Update hidden input with selected plan ID
+                document.getElementById('selectedPlanId').value = radio.value;
+            }
+        }
+
+        // Initialize form with first plan selected by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstRadio = document.querySelector('input[type="radio"][checked]');
+            if (firstRadio) {
+                document.getElementById('selectedPlanId').value = firstRadio.value;
+            }
+            
+            // Add form validation
+            document.getElementById('planForm').addEventListener('submit', function(e) {
+                const selectedPlanId = document.getElementById('selectedPlanId').value;
+                if (!selectedPlanId) {
+                    e.preventDefault();
+                    alert('Vui lòng chọn một gói đăng ký!');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
