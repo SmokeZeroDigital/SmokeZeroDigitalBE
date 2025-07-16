@@ -133,7 +133,9 @@
                         </li>
                         @{
                             var fullName = Context.Session.GetString("FullName");
+                            var planId = Context.Session.GetString("PlanId");
                             var isLoggedIn = !string.IsNullOrEmpty(fullName);
+                            var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
                         }
                         @if (isLoggedIn)
                         {
@@ -141,9 +143,18 @@
                                 <span class="btn log-btn" style="cursor:default;"><i class="feather-user"></i>@fullName</span>
                             </li>
                             <li class="register-btn">
-                                <a class="btn btn-primary" href="/Plan" title="Upgrade to Premium">
-                                    <i class="feather-credit-card"></i>Upgrade Plan
-                                </a>
+                                @if (hasPlan)
+                                {
+                                    <span class="btn btn-primary" style="cursor:default;" title="Thành viên Pro">
+                                        <i class="feather-crown"></i>Thành viên Pro
+                                    </span>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary" href="/Plan" title="Upgrade to Premium">
+                                        <i class="feather-credit-card"></i>Upgrade Plan
+                                    </a>
+                                }
                             </li>
                             <li class="register-btn">
                                 <form method="post" asp-page="/Logout" style="display:inline;">

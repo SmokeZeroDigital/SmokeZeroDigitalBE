@@ -25,7 +25,6 @@ namespace SmokeZeroDigitalProject.Pages.Login
             }
 
             var loginUrl = _apiConfig.GetEndpoint(ApiEndpoints.Login);
-
             using var httpClient = new HttpClient();
             var response = await httpClient.PostAsJsonAsync(loginUrl, LoginRequest);
 
@@ -40,10 +39,12 @@ namespace SmokeZeroDigitalProject.Pages.Login
 
                 var fullName = apiResult?.Content?.UserName;
                 var userId = apiResult?.Content?.UserId;
+                var planId = apiResult?.Content?.PlanId;
                 if (string.IsNullOrWhiteSpace(fullName))
                     fullName = apiResult?.Content?.UserName ?? apiResult?.Content?.UserName ?? "";
-
+                
                 HttpContext.Session.SetString("FullName", fullName);
+                HttpContext.Session.SetString("PlanId", planId?.ToString() ?? string.Empty);
                 HttpContext.Session.SetString("UserId", userId.ToString() ?? string.Empty);
                 TempData["ToastMessage"] = "success:Đăng nhập thành công!";
                 return RedirectToPage("/Index");

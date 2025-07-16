@@ -139,7 +139,8 @@ public class AuthService : IAuthService
             Email = user.Email,
             Token = accesstoken,
             UserName = user.UserName,
-            RefreshToken = refreshToken
+            RefreshToken = refreshToken,
+            PlanId = user.CurrentSubscriptionPlanId
         };
     }
     public async Task<AuthResponseDto> GoogleLoginAsync(AppUser user, CancellationToken cancellationToken = default)
