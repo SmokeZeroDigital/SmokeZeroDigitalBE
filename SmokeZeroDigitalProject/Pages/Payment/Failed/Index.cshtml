@@ -1,0 +1,30 @@
+@page
+@model SmokeZeroDigitalProject.Pages.Payment.Failed.IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Thanh toán thất bại";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-body p-5">
+                    <div class="mb-4">
+                        <i class="fas fa-times-circle text-danger" style="font-size: 4rem;"></i>
+                    </div>
+                    <h2 class="text-danger mb-3">Thanh toán thất bại!</h2>
+                    <p class="mb-4">Rất tiếc, giao dịch của bạn không thể hoàn thành. Vui lòng thử lại.</p>
+                    @if (!string.IsNullOrEmpty(Model.Amount))
+                    {
+                        <p class="mb-4">Số tiền giao dịch: <strong>@Model.Amount₫</strong></p>
+                    }
+                    <div class="d-grid gap-2">
+                        <a href="/Payment/Checkout" class="btn btn-primary">Thử thanh toán lại</a>
+                        <a href="/" class="btn btn-outline-secondary">Về trang chủ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
