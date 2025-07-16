@@ -39,11 +39,12 @@ namespace SmokeZeroDigitalProject.Pages.Login
                 var apiResult = System.Text.Json.JsonSerializer.Deserialize<ApiSuccessResult<AuthResponseDto>>(responseBodyAsString, options);
 
                 var fullName = apiResult?.Content?.UserName;
+                var userId = apiResult?.Content?.UserId;
                 if (string.IsNullOrWhiteSpace(fullName))
                     fullName = apiResult?.Content?.UserName ?? apiResult?.Content?.UserName ?? "";
 
                 HttpContext.Session.SetString("FullName", fullName);
-
+                HttpContext.Session.SetString("UserId", userId.ToString() ?? string.Empty);
                 TempData["ToastMessage"] = "success:Đăng nhập thành công!";
                 return RedirectToPage("/Index");
             }

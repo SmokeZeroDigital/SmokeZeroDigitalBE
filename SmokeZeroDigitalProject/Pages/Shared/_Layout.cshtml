@@ -27,6 +27,27 @@
     <link rel="stylesheet" href="~/user-assets/assets/css/aos.css">
     <link rel="stylesheet" href="~/user-assets/assets/css/custom.css">
     @RenderSection("Styles", required: false)
+    <style>
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .btn-primary i {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="main-wrapper home-pg-fourteen">
@@ -118,6 +139,11 @@
                         {
                             <li class="register-btn">
                                 <span class="btn log-btn" style="cursor:default;"><i class="feather-user"></i>@fullName</span>
+                            </li>
+                            <li class="register-btn">
+                                <a class="btn btn-primary" href="/Plan" title="Upgrade to Premium">
+                                    <i class="feather-credit-card"></i>Upgrade Plan
+                                </a>
                             </li>
                             <li class="register-btn">
                                 <form method="post" asp-page="/Logout" style="display:inline;">
