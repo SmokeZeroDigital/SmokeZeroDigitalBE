@@ -56,16 +56,11 @@
                 <div class="container">
                     <div class="header-top-bar">
                         <ul class="header-contact">
-                            <li><i class="fa-solid fa-envelope"></i><a href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="35515a565640475075504d54584559501b565a58">[email&#160;protected]</a></li>
-                            <li><i class="fa-solid fa-location-dot"></i>231 madison Street, NewYork, USA</li>
+                            <li><i class="fa-solid fa-envelope"></i><a href="#" class="__cf_email__">hotro@smokezerodigital.vn</a></li>
+                            <li><i class="fa-solid fa-location-dot"></i>FPTU HCMC</li>
                         </ul>
                         <ul class="social-icon">
-                            <li>
-                                <select class="select">
-                                    <option>English</option>
-                                    <option>Japanese</option>
-                                </select>
-                            </li>
+    
                             <li>
                                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
                                 <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -81,9 +76,7 @@
                     <div class="navbar-header">
                         <a id="mobile_btn" href="javascript:void(0);">
                             <span class="bar-icon">
-                                <span></span>
-                                <span></span>
-                                <span></span>
+                                <span></span><span></span><span></span>
                             </span>
                         </a>
                         <a href="/" class="navbar-brand logo">
@@ -95,41 +88,29 @@
                             <a href="/" class="menu-logo">
                                 <img src="~/user-assets/assets/img/logo.svg" class="img-fluid" alt="Logo">
                             </a>
-                            <a id="menu_close" class="menu-close" href="javascript:void(0);">
-                                <i class="fas fa-times"></i>
-                            </a>
+                            <a id="menu_close" class="menu-close" href="javascript:void(0);"><i class="fas fa-times"></i></a>
                         </div>
                         <ul class="main-nav">
-                            <li class="has-submenu megamenu active">
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-page="/Blog/Index">Blog <i class="fas"></i></a>
-                            </li>
-                            <li>
-                                <a asp-area="" asp-page="/AboutUs">About Us <i class="fas"></i></a>
-                            </li>
+                            <li class="has-submenu megamenu active"><a href="/">Trang chủ</a></li>
+                            <li><a asp-area="" asp-page="/Blog/Index">Bài viết</a></li>
+                            <li><a asp-area="" asp-page="/AboutUs">Về chúng tôi</a></li>
                         </ul>
                     </div>
                     <ul class="nav header-navbar-rht">
                         <li class="searchbar">
                             <a href="javascript:void(0);"><i class="feather-search"></i></a>
                             <div class="togglesearch">
-                                <form action="https://doccure.dreamstechnologies.com/html/template/search-2.html">
+                                <form action="#">
                                     <div class="input-group">
-                                        <input type="text" class="form-control">
-                                        <button type="submit" class="btn btn-primary">Search</button>
+                                        <input type="text" class="form-control" placeholder="Tìm kiếm...">
+                                        <button type="submit" class="btn btn-primary">Tìm</button>
                                     </div>
                                 </form>
                             </div>
                         </li>
                         <li class="header-theme me-3">
-                            <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle">
-                                <i class="isax isax-sun-1"></i>
-                            </a>
-                            <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle activate">
-                                <i class="isax isax-moon"></i>
-                            </a>
+                            <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle"><i class="isax isax-sun-1"></i></a>
+                            <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle activate"><i class="isax isax-moon"></i></a>
                         </li>
                         @{
                             var fullName = Context.Session.GetString("FullName");
@@ -145,72 +126,54 @@
                             <li class="register-btn">
                                 @if (hasPlan)
                                 {
-                                    <span class="btn btn-primary" style="cursor:default;" title="Thành viên Pro">
-                                        <i class="feather-crown"></i>Thành viên Pro
-                                    </span>
+                                    <span class="btn btn-primary" style="cursor:default;" title="Thành viên Hỗ trợ đặc biệt"><i class="feather-crown"></i>Thành viên Pro</span>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-primary" href="/Payment/Plan" title="Upgrade to Premium">
-                                        <i class="feather-credit-card"></i>Upgrade Plan
-                                    </a>
+                                    <a class="btn btn-primary" href="/Payment/Plan" title="Nâng cấp để nhận hỗ trợ chuyên sâu"><i class="feather-credit-card"></i>Nâng cấp gói</a>
                                 }
                             </li>
                             <li class="register-btn">
                                 <form method="post" asp-page="/Logout" style="display:inline;">
-                                    <button type="submit" class="btn reg-btn" style="padding:0;"><i class="feather-lock"></i>Logout</button>
+                                    <button type="submit" class="btn reg-btn" style="padding:0;"><i class="feather-lock"></i>Đăng xuất</button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="register-btn">
-                                <a class="btn log-btn" asp-area="" asp-page="/Login/Index"><i class="feather-lock"></i>Login</a>
+                                <a class="btn log-btn" asp-area="" asp-page="/Login/Index"><i class="feather-lock"></i>Đăng nhập</a>
                             </li>
                             <li class="register-btn">
-                                <a class="btn reg-btn" asp-area="" asp-page="/Register/Index"><i class="feather-user"></i>Sign Up</a>
+                                <a class="btn reg-btn" asp-area="" asp-page="/Register/Index"><i class="feather-user"></i>Đăng ký</a>
                             </li>
                         }
                     </ul>
                 </nav>
             </div>
         </header>
+
         @RenderBody()
+
         <footer class="footer footer-sec-fourteen">
             <div class="footer-top">
                 <div class="row">
-                    <div class="col-sm-3 col-6 p-0">
-                        <div class="footer-img">
-                            <img src="~/user-assets/assets/img/service/footer-img-01.jpg" class="img-fluid w-100" alt="Img">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-6 p-0">
-                        <div class="footer-img">
-                            <img src="~/user-assets/assets/img/service/footer-img-02.jpg" class="img-fluid w-100" alt="Img">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-6 p-0">
-                        <div class="footer-img">
-                            <img src="~/user-assets/assets/img/service/footer-img-03.jpg" class="img-fluid w-100" alt="Img">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-6 p-0">
-                        <div class="footer-img">
-                            <img src="~/user-assets/assets/img/service/footer-img-04.jpg" class="img-fluid w-100" alt="Img">
-                        </div>
-                    </div>
+                    <div class="col-sm-3 col-6 p-0"><div class="footer-img"><img src="~/user-assets/assets/img/service/footer-img-01.jpg" class="img-fluid w-100" alt="Img"></div></div>
+                    <div class="col-sm-3 col-6 p-0"><div class="footer-img"><img src="~/user-assets/assets/img/service/footer-img-02.jpg" class="img-fluid w-100" alt="Img"></div></div>
+                    <div class="col-sm-3 col-6 p-0"><div class="footer-img"><img src="~/user-assets/assets/img/service/footer-img-03.jpg" class="img-fluid w-100" alt="Img"></div></div>
+                    <div class="col-sm-3 col-6 p-0"><div class="footer-img"><img src="~/user-assets/assets/img/service/footer-img-04.jpg" class="img-fluid w-100" alt="Img"></div></div>
                 </div>
             </div>
             <div class="footer-middle">
                 <div class="container">
                     <div class="footer-mid-content">
-                        <p>Would you like to connect with us</p>
+                        <p>Bạn muốn kết nối với chúng tôi?</p>
                         <ul class="social-icons">
-                            <li><a href="javascript:void(0);"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a></li>
-                            <li><a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="javascript:void(0);"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                            <li><a href="javascript:void(0);"><i class="fa-brands fa-pinterest"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-pinterest"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -223,45 +186,45 @@
                                 <div class="footer-logo">
                                     <img src="~/user-assets/assets/img/icons/footer-logo-.svg" alt="Img">
                                 </div>
-                                <p>Connect with healthcare professionals, manage appointments & prioritize your well being </p>
-                                <form action="https://doccure.dreamstechnologies.com/html/template/index-13.html">
+                                <p>Kết nối với chuyên gia tư vấn, theo dõi lộ trình cai nghiện & chăm sóc sức khoẻ tinh thần</p>
+                                <form action="#">
                                     <div class="input-block">
-                                        <input type="text" class="form-control" placeholder="Enter Email">
-                                        <button class="btn" type="submit">Subscribe</button>
+                                        <input type="text" class="form-control" placeholder="Nhập email của bạn">
+                                        <button class="btn" type="submit">Đăng ký</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div class="col-xl-2 col-md-3 col-sm-6" data-aos="fade-down" data-aos-delay="600">
                             <div class="footer-links-middle">
-                                <h4>QUICK LINKS</h4>
+                                <h4>LIÊN KẾT NHANH</h4>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="about-us.html">About us</a></li>
-                                    <li><a href="payment.html">Payments</a></li>
-                                    <li><a href="booking.html">Lab Test</a></li>
+                                    <li><a href="/">Trang chủ</a></li>
+                                    <li><a href="/AboutUs">Về chúng tôi</a></li>
+                                    <li><a href="/Payment/Plan">Thanh toán</a></li>
+                                    <li><a href="/Booking">Đặt lịch tư vấn</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-xl-2 col-md-3 col-sm-6" data-aos="fade-down" data-aos-delay="700">
                             <div class="footer-links-middle">
-                                <h4>SERVICES</h4>
+                                <h4>DỊCH VỤ</h4>
                                 <ul>
-                                    <li><a href="search-2.html">Nurse at Home</a></li>
-                                    <li><a href="search-2.html">Physiotherapy</a></li>
-                                    <li><a href="search-2.html">Medical Equipment</a></li>
-                                    <li><a href="booking.html">Doctor Consultation</a></li>
+                                    <li><a href="#">Tư vấn tại nhà</a></li>
+                                    <li><a href="#">Tâm lý trị liệu</a></li>
+                                    <li><a href="#">Hỗ trợ y tế</a></li>
+                                    <li><a href="#">Đánh giá sức khoẻ</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-4 col-sm-6" data-aos="fade-down" data-aos-delay="800">
                             <div class="footer-links-middle">
-                                <h4>CONSUMER POLICY</h4>
+                                <h4>CHÍNH SÁCH</h4>
                                 <ul>
-                                    <li><a href="privacy-policy.html">Privacy</a></li>
-                                    <li><a href="terms-condition.html">Terms and Condition</a></li>
-                                    <li><a href="booking.html">Aggrements</a></li>
-                                    <li><a href="map-grid.html">Sitemap</a></li>
+                                    <li><a href="/Privacy">Chính sách bảo mật</a></li>
+                                    <li><a href="/Terms">Điều khoản sử dụng</a></li>
+                                    <li><a href="/Agreement">Thỏa thuận dịch vụ</a></li>
+                                    <li><a href="/Sitemap">Sơ đồ trang</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -271,22 +234,7 @@
             <div class="container">
                 <div class="footer-bottom">
                     <div class="copy-right">
-                        <P>Copyright © 2025 Doccure. All rights are reserved.</P>
-                    </div>
-                    <div class="footer-select-drops">
-                        <div class="input-select">
-                            <span class="select-icon"><i class="feather-globe"></i></span>
-                            <select class="select">
-                                <option>India</option>
-                                <option>US</option>
-                            </select>
-                        </div>
-                        <div class="input-select currency-select">
-                            <select class="select">
-                                <option>USD</option>
-                                <option>INR</option>
-                            </select>
-                        </div>
+                        <p>Bản quyền © 2025 SmokeZeroDigital. Đã đăng ký mọi quyền.</p>
                     </div>
                     <ul class="payment-method">
                         <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-01.svg" alt="Img"></a></li>
@@ -297,13 +245,11 @@
                 </div>
             </div>
         </footer>
-        <!-- Cursor -->
+
         <div class="mouse-cursor cursor-outer"></div>
         <div class="mouse-cursor cursor-inner"></div>
-        <!-- /Cursor -->
     </div>
-    <!-- /Main Wrapper -->
-    <!-- ScrollToTop -->
+
     <div class="progress-wrap active-progress">
         <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
