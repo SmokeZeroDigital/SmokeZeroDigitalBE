@@ -27,5 +27,14 @@ namespace SmokeZeroDigitalProject.Pages.Plan
                 Plans = apiResult?.Content ?? new List<GetPlanResponseDto>();
             }
         }
+
+        public IActionResult OnPost(Guid planId)
+        {
+            // Lưu planId vào session
+            HttpContext.Session.SetString("SelectedPlanId", planId.ToString());
+
+            // Redirect đến trang chọn coach
+            return RedirectToPage("/Payment/Coach/Index");
+        }
     }
 }

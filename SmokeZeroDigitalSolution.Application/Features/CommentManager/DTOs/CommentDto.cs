@@ -13,7 +13,7 @@
         public string Content { get; set; } = string.Empty;
         public DateTime CommentDate { get; set; }
         public bool IsDeleted { get; set; }
+        public bool HasReplies { get; set; }
 
-        public List<CommentDto> Replies { get; set; } = new();  // Nested replies
     }
 }

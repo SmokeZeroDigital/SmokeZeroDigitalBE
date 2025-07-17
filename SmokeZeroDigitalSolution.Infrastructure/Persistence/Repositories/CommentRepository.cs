@@ -17,6 +17,7 @@
             return await Get(c => c.ArticleId == articleId && !c.IsDeleted && c.ParentCommentId == null)
                         .OrderByDescending(c => c.CommentDate)
                         .Include(c => c.User)
+                        .Include(c => c.Replies)
                         .ToListAsync();
         }
 

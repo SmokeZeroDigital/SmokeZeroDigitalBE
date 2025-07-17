@@ -48,7 +48,7 @@
                 CommentDate = c.CommentDate,
                 ParentCommentId = c.ParentCommentId,
                 IsDeleted = c.IsDeleted,
-                Replies = c.Replies.Select(MapToDto).ToList()
+                HasReplies = c.Replies.Any()
             };
         }
     }
