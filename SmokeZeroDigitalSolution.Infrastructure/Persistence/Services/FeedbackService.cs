@@ -26,8 +26,8 @@
             return new FeedbackResponseDto
             {
                 Id = feedback.Id,
-                UserId = feedback.UserId,
-                CoachId = feedback.CoachId,
+                UserName = feedback.User.FullName,
+                CoachName = feedback.Coach.User.FullName,
                 Content = feedback.Content,
                 Rating = feedback.Rating,
                 FeedbackDate = feedback.FeedbackDate

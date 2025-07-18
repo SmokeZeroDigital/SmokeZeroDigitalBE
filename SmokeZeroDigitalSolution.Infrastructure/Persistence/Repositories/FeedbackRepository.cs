@@ -25,8 +25,8 @@
                 return new FeedbackResponseDto
                 {
                     Id = feedback.Id,
-                    UserId = feedback.UserId,
-                    CoachId = feedback.CoachId,
+                    UserName = feedback.User.FullName,
+                    CoachName = feedback.Coach.User.FullName,
                     Content = feedback.Content,
                     Rating = feedback.Rating,
                     FeedbackDate = feedback.FeedbackDate
@@ -45,7 +45,11 @@
         public async Task<IEnumerable<Feedback>> GetByCoachIdAsync(Guid coachId)
         {
             var query = Get(f => f.CoachId == coachId && !f.IsDeleted);
-            return await query.ToListAsync();
+            return await query
+                .Include(f => f.Coach)
+                 .ThenInclude(c => c.User)
+                .Include(f => f.User)
+                .ToListAsync();
         }
     }
 }
