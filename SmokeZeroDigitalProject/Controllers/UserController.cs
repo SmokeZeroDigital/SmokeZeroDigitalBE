@@ -1,4 +1,6 @@
-﻿using SmokeZeroDigitalSolution.Domain.Entites;
+﻿using SmokeZeroDigitalSolution.Application.Features.Chat.Queries;
+using SmokeZeroDigitalSolution.Contracts.Conversation;
+using SmokeZeroDigitalSolution.Domain.Entites;
 
 namespace SmokeZeroDigitalProject.Controllers
 {
@@ -75,6 +77,20 @@ namespace SmokeZeroDigitalProject.Controllers
                 nameof(GetByPlanId),
                 cancellationToken
             );
+        }
+
+        [HttpGet("list-coaches")]
+        public async Task<IActionResult> GetCoachByUser([FromBody] GetListCoachesOrUser request, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<GetListCoachesOrUser, List<UserInfoDto>>(
+                request,
+                req => new GetCoachByUserIdQuery
+                {
+                    UserId = req.Id
+                },
+
+                nameof(GetCoachByUser),
+                cancellationToken);
         }
     }
 }

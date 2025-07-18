@@ -70,6 +70,16 @@ namespace SmokeZeroDigitalProject.Controllers
                 nameof(DeleteNoti),
                 cancellationToken);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllNoti(CancellationToken cancellationToken)
+        {
+            var request = new GetAllNotiRequest();
+            return await _executor.ExecuteQueryAsync<GetAllNotiRequest, IQueryable<Notification>>(
+                request,
+                req => new GetAllNoti(),
+                nameof(GetAllNoti),
+                cancellationToken);
+        }
 
         [HttpGet("by-id")]
         public async Task<IActionResult> GetById([FromBody] NotiRequestById request, CancellationToken cancellationToken)

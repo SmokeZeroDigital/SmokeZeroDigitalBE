@@ -1,4 +1,7 @@
-﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
+﻿using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
+using SmokeZeroDigitalSolution.Domain.Entites;
+
+namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
 {
     public class ConversationRepository : IConversationRepository
     {
@@ -46,11 +49,40 @@
                .FirstOrDefaultAsync(c => c.UserId == userId && c.CoachId == coachId && c.IsActive, cancellationToken);
         }
 
+
         public async Task UpdateAsync(Conversation conversation, CancellationToken cancellationToken = default)
         {
             _context.Conversations.Update(conversation);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
 
+
+        public async Task<List<UserInfoDto>> GetUsersByCoachIdAsync(Guid coachId)
+        {
+            var users = await _context.Conversations
+            .Where(c => c.CoachId == coachId)
+            .Select(c => c.User)
+            .Distinct()
+            .ToListAsync();
+            return users.Select(u => new UserInfoDto
+            {
+                Id = u.Id,
+                FullName = u.FullName
+            }).ToList();
+        }
+
+        public async Task<List<UserInfoDto>> GetCoachsByUserIdAsync(Guid userId)
+        {
+            var coaches = await _context.Conversations
+            .Where(c => c.UserId == userId)
+            .Select(c => c.Coach)
+            .Distinct()
+            .ToListAsync();
+            return coaches.Select(u => new UserInfoDto
+            {
+                Id = u.Id,
+                FullName = u.User.FullName
+            }).ToList();
+        }
     }
 }

@@ -8,9 +8,9 @@ namespace SmokeZeroDigitalSolution.Application.Features.BlogManager.Commands
 		private readonly IBlogService _blogService;
 		private readonly IUnitOfWork _unitOfWork;
 
-		public DeleteBlogCommandHandler(IBlogService _blogService, IUnitOfWork unitOfWork)
+		public DeleteBlogCommandHandler(IBlogService blogService, IUnitOfWork unitOfWork)
 		{
-			_blogService = _blogService;
+			_blogService = blogService;
 			_unitOfWork = unitOfWork;
 		}
 		public async Task<CommandResult<bool>> Handle(DeleteBlogCommand request, CancellationToken cancellationToken)
