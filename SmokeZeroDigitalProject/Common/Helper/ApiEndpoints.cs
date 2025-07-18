@@ -34,6 +34,7 @@
         public const string CreateFeedback = "/api/Feedback";
         public const string GetFeedbackById = "/api/Feedback/{id}";
         public const string GetAllFeedback = "/api/Feedback";
+        public const string GetFeedbackByCoachId = "/api/Feedback/by-coach/{coachId}";
 
         // Comment
         public const string CreateComment = "/api/Comment";
