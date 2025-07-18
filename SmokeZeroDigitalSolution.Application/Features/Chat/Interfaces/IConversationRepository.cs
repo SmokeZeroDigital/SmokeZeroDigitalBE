@@ -8,6 +8,8 @@
 
         Task AddAsync(Conversation conversation, CancellationToken cancellationToken = default);
         Task UpdateAsync(Conversation conversation, CancellationToken cancellationToken = default);
+        Task<List<UserInfoDto>> GetUsersByCoachIdAsync(Guid coachId);
+        Task<List<UserInfoDto>> GetCoachsByUserIdAsync(Guid userId);
 
     }
 }

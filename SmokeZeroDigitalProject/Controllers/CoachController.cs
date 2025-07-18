@@ -1,3 +1,9 @@
+using SmokeZeroDigitalSolution.Application.Features.Chat.Queries;
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Queries;
+using SmokeZeroDigitalSolution.Contracts.Conversation;
+using SmokeZeroDigitalSolution.Contracts.Noti;
+using SmokeZeroDigitalSolution.Domain.Entites;
+
 namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
@@ -66,6 +72,19 @@ namespace SmokeZeroDigitalProject.Controllers
                 null,
                 _ => new GetAllCoachesQuery(),
                 nameof(GetAll),
+                cancellationToken);
+        }
+        [HttpGet("list-user")]
+        public async Task<IActionResult> GetUserByCoach([FromBody] GetListCoachesOrUser request, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<GetListCoachesOrUser, List<UserInfoDto>>(
+                request,
+                req => new GetUsersByCoachIdQuery
+                {
+                    CoachId = req.Id
+                },
+
+                nameof(GetUserByCoach),
                 cancellationToken);
         }
     }

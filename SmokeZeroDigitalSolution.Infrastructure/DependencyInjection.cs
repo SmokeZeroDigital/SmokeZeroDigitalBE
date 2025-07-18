@@ -14,6 +14,7 @@ namespace SmokeZeroDigitalSolution.Infrastructure
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<ICoachService, CoachService>();
+            services.AddScoped<IConversationService, ConversationService>();
             services.RegisterBlogFeature(configuration);
             services.RegisterNotiFeature(configuration);
             services.RegisterCommentFeature(configuration);

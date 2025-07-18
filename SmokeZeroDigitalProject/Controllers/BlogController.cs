@@ -113,11 +113,13 @@ namespace SmokeZeroDigitalProject.Controllers
 		[HttpDelete]
 		public async Task<IActionResult> DeleteBlog([FromBody] DeleteBlogRequest request, CancellationToken cancellationToken)
 		{
-			return await _executor.ExecuteAsync<DeleteBlogRequest, bool>(
+            Console.WriteLine($"DeleteBlogRequest: {request.Id}");
+            return await _executor.ExecuteAsync<DeleteBlogRequest, bool>(
 				request,
 				req => new DeleteBlogCommand
 				{
 					Id = req.Id,
+                    
 				},
 				nameof(DeleteBlog),
 				cancellationToken);
