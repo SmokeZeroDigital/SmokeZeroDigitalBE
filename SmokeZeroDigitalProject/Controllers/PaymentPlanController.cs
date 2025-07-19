@@ -30,6 +30,37 @@
                 cancellationToken);
         }
 
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdatePlan(Guid id, [FromBody] CreatePlanRequest request, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteAsync<CreatePlanRequest, GetPlanResponseDto>(
+                request,
+                req => new UpdatePlanCommand
+                {
+                    Plan = new UpdatePlanDto
+                    {
+                        Id = id,
+                        Name = req.Name,
+                        Description = req.Description,
+                        Price = req.Price,
+                        DurationInDays = req.DurationInDays,
+                    }
+                },
+                nameof(UpdatePlan),
+                cancellationToken);
+        }
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeletePlan(Guid id, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteAsync<Guid, bool>(id,
+                planId => new DeletePlanCommand
+                {
+                    PlanId = planId
+                },
+                nameof(DeletePlan),
+                cancellationToken);
+        }
+
         [HttpGet("all")]
         public async Task<IActionResult> GetAllPlans(CancellationToken cancellationToken)
         {
