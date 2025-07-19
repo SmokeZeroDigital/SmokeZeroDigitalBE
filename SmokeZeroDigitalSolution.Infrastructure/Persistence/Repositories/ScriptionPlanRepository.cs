@@ -57,5 +57,43 @@
                 })
                 .ToListAsync();
         }
+
+        public Task<GetPlanResponseDto> updatePlanDto(Guid planId, UpdatePlanDto updatePlanDto)
+        {
+           updatePlanDto.Id = planId;
+            var plan = Get(x => x.Id == planId).FirstOrDefault();
+            if (plan == null)
+            {
+                throw new KeyNotFoundException("Subscription plan not found.");
+            }
+            plan.Name = updatePlanDto.Name;
+            plan.Price = updatePlanDto.Price;
+            plan.DurationInDays = updatePlanDto.DurationInDays;
+            plan.Description = updatePlanDto.Description;
+            plan.IsActive = updatePlanDto.IsActive;
+            Update(plan);
+            return Task.FromResult(new GetPlanResponseDto
+            {
+                Id = plan.Id,
+                Name = plan.Name,
+                Description = plan.Description,
+                Price = plan.Price,
+                DurationInDays = plan.DurationInDays,
+                IsActive = plan.IsActive,
+                CreatedAt = plan.CreatedAt
+            });
+        }
+
+        public Task<bool> DeletePlanAsync(Guid planId)
+        {
+            var plan = Get(x => x.Id == planId).FirstOrDefault();
+            if (plan == null)
+            {
+                throw new KeyNotFoundException("Subscription plan not found.");
+            }
+            plan.IsActive = false;
+            Update(plan);
+            return Task.FromResult(true);
+        }
     }
 }

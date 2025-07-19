@@ -6,5 +6,8 @@
         public Task<CreatePlanResultDto> CreatePlanAsync(CreatePlanDTO plan);
 
         public Task<List<GetPlanResponseDto>> GetAllSubscriptionPlans();
+
+        public Task<GetPlanResponseDto> updatePlanDto(Guid planId, UpdatePlanDto updatePlanDto);
+        public Task<bool> DeletePlanAsync(Guid planId);
     }
 }
