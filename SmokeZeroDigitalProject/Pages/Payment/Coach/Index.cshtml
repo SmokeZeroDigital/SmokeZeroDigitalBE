@@ -1,0 +1,265 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Coach.IndexModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chọn Huấn luyện viên</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="~/user-assets/assets/img/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/user-assets/assets/img/apple-touch-icon.png">
+    <link rel="stylesheet" href="~/user-assets/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/custom.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/iconsax.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/feather.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .coach-service-item {
+            border: 2px solid #e3e3e3;
+            border-radius: 1.25rem;
+            background: #fff;
+            padding: 1.5rem 1rem 1rem 1rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+            min-height: 170px;
+        }
+
+            .coach-service-item.selected, .coach-service-item:hover {
+                border-color: #0de0fe;
+                box-shadow: 0 2px 12px 0 rgba(13,224,254,0.08);
+            }
+
+        .coach-radio {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 22px;
+            height: 22px;
+        }
+
+            .coach-radio input[type="radio"] {
+                accent-color: #0de0fe;
+                width: 22px;
+                height: 22px;
+            }
+
+        .coach-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .coach-desc {
+            color: #888;
+            min-height: 40px;
+            font-size: 1rem;
+        }
+
+        .coach-badge {
+            font-size: 0.95rem;
+            border-radius: 1rem;
+            padding: 0.25rem 0.75rem;
+        }
+
+        .coach-continue-btn {
+            background: linear-gradient(90deg, #0de0fe 0%, #3fbbc0 100%);
+            color: #fff;
+            border-radius: 2rem;
+            font-weight: 600;
+            min-width: 200px;
+            box-shadow: 0 2px 8px 0 rgba(13,224,254,0.10);
+            transition: background 0.2s;
+        }
+
+            .coach-continue-btn:hover {
+                background: linear-gradient(90deg, #3fbbc0 0%, #0de0fe 100%);
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Header -->
+        <header class="header header-custom header-fixed inner-header relative">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg header-nav">
+                    <div class="navbar-header">
+                        <a id="mobile_btn" href="javascript:void(0);">
+                            <span class="bar-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </a>
+                        <a href="/" class="navbar-brand logo">
+                            <img src="~/user-assets/assets/img/logo.svg" class="img-fluid" alt="Logo">
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- /Header -->
+        <div class="doctor-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <div class="booking-wizard">
+                            <ul class="form-wizard-steps d-sm-flex align-items-center justify-content-center" id="progressbar2">
+                                <li>
+                                    <div class="profile-step">
+                                        <span class="multi-steps">1</span>
+                                        <div class="step-section"><h6>Chọn gói</h6></div>
+                                    </div>
+                                </li>
+                                <li class="progress-active">
+                                    <div class="profile-step">
+                                        <span class="multi-steps">2</span>
+                                        <div class="step-section">
+                                            <h6>Chọn Coach</h6>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="profile-step">
+                                        <span class="multi-steps">3</span>
+                                        <div class="step-section"><h6>Thanh toán</h6></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="profile-step">
+                                        <span class="multi-steps">4</span>
+                                        <div class="step-section"><h6>Xác nhận</h6></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="booking-widget multistep-form mb-5">
+                            <fieldset id="first">
+                                <div class="card booking-card mb-0">
+                                    <div class="card-header bg-white border-0 pb-0">
+                                        <h4 class="mb-0" style="font-weight:700; color:#3fbbc0;">Chọn huấn luyện viên phù hợp</h4>
+                                        <div class="text-muted mt-1">Tổng số: <b>@Model.Total</b></div>
+                                    </div>
+                                    <div class="card-body booking-body">
+                                        @if (Model.Coaches != null && Model.Coaches.Count > 0)
+                                        {
+                                            <div class="swiper mySwiper">
+                                                <div class="swiper-wrapper">
+                                                    @{
+                                                        for (int i = 0; i < Model.Coaches.Count; i += 3)
+                                                        {
+                                                            <div class="swiper-slide">
+                                                                <div class="row">
+                                                                    @foreach (var coach in Model.Coaches.Skip(i).Take(3))
+                                                                    {
+                                                                        <div class="col-lg-4 col-md-6 mb-4">
+                                                                            <div class="coach-service-item text-center" onclick="selectCoach(this)">
+                                                                                <div class="coach-radio">
+                                                                                    <input type="radio" name="coach" value="@coach.Id" />
+                                                                                </div>
+                                                                                <div class="coach-title mb-2">@coach.FullName</div>
+                                                                                <div class="coach-desc mb-2">@coach.Bio</div>
+                                                                                <div class="mb-2 text-muted">@coach.Specialization</div>
+                                                                                <span class="coach-badge badge @(coach.IsActive ? "bg-success" : "bg-secondary")">@(coach.IsActive ? "Đang hoạt động" : "Tạm nghỉ")</span>
+                                                                                <div class="mt-2 text-muted" style="font-size:0.95rem;">Đánh giá: <b>@coach.Rating.ToString("0.0")</b></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                </div>
+                                                <div class="swiper-button-next"></div>
+                                                <div class="swiper-button-prev"></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-12 text-center">
+                                                <p>Không có huấn luyện viên nào khả dụng.</p>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="card-footer bg-white border-0 pt-0">
+                                        <div class="d-flex align-items-center flex-wrap rpw-gap-2 justify-content-between">
+                                            <a href="/Payment/Plan" class="btn btn-outline-secondary rounded-pill">
+                                                <i class="isax isax-arrow-left-3 me-1"></i>
+                                                Quay lại
+                                            </a>
+                                            <form method="post" id="coachForm">
+                                                <input type="hidden" id="selectedCoachId" name="coachId" value="" />
+                                                <button type="submit" class="coach-continue-btn btn btn-md btn-primary-gradient next_btns inline-flex align-items-center rounded-pill">
+                                                    Tiếp tục
+                                                    <i class="isax isax-arrow-right-3 ms-1"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="text-center">
+                            <p class="mb-0">Copyright © 2025. All Rights Reserved, Doccure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
+    </div>
+    <script src="~/user-assets/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="~/user-assets/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/user-assets/assets/js/feather.min.js"></script>
+    <script src="~/user-assets/assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            loop: false
+        });
+
+        function selectCoach(element) {
+            // Remove selected class from all coaches
+            document.querySelectorAll('.coach-service-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked coach
+            element.classList.add('selected');
+            
+            // Check the radio button
+            const radio = element.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                // Update hidden input with selected coach ID
+                document.getElementById('selectedCoachId').value = radio.value;
+            }
+        }
+
+        // Add form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('coachForm').addEventListener('submit', function(e) {
+                const selectedCoachId = document.getElementById('selectedCoachId').value;
+                if (!selectedCoachId) {
+                    e.preventDefault();
+                    alert('Vui lòng chọn một huấn luyện viên!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

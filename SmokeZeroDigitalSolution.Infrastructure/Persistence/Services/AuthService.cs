@@ -45,7 +45,7 @@ public class AuthService : IAuthService
         };
 
         var result = await _userManager.CreateAsync(user, registerUserDto.Password);
-        await _userManager.AddToRoleAsync(user, "Coach");
+        await _userManager.AddToRoleAsync(user, "Member");
         if (!result.Succeeded)
             throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
 
@@ -139,7 +139,8 @@ public class AuthService : IAuthService
             Email = user.Email,
             Token = accesstoken,
             UserName = user.UserName,
-            RefreshToken = refreshToken
+            RefreshToken = refreshToken,
+            PlanId = user.CurrentSubscriptionPlanId
         };
     }
     public async Task<AuthResponseDto> GoogleLoginAsync(AppUser user, CancellationToken cancellationToken = default)

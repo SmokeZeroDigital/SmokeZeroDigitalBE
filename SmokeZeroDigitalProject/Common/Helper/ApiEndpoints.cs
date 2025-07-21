@@ -34,6 +34,7 @@
         public const string CreateFeedback = "/api/Feedback";
         public const string GetFeedbackById = "/api/Feedback/{id}";
         public const string GetAllFeedback = "/api/Feedback";
+        public const string GetFeedbackByCoachId = "/api/Feedback/by-coach/{coachId}";
 
         // Comment
         public const string CreateComment = "/api/Comment";
@@ -45,6 +46,10 @@
         public const string GetCommentByArticleId = "/api/Comment/by-article/{id}";
         public const string GetReplies = "/api/Comment/replies/{id}";
 
+		//Blog
+		    public const string GetAllBlogs = "/api/Blog";
+        public const string GetBlogById = "/api/Blog/by-id/{id}";
+        public const string DeleteBlog = "/api/Blog/delete";
 
         // Chat
         public const string SendMessage = "/api/Chat/send";

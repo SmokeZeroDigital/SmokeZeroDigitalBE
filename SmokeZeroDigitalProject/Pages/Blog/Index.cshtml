@@ -1,0 +1,99 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Blog.IndexModel
+@{
+	ViewData["Title"] = "Danh sách Blog";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="bg-white p-4 rounded shadow-sm border">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0">Danh sách Blog</h2>
+            <form method="get" class="d-flex" style="max-width: 300px;">
+                <input type="text" name="SearchKeyword" class="form-control form-control-sm me-2"
+                       placeholder="Tìm kiếm..." value="@Model.SearchKeyword" />
+                <button type="submit" class="btn btn-sm btn-primary">Tìm</button>
+            </form>
+            <form method="get" class="d-flex">
+                <select name="SortBy" class="form-select form-select-sm me-2">
+                    <option value="date" selected="@("date" == Model.SortBy)">Ngày đăng gần nhất</option>
+                    <option value="views" selected="@("views" == Model.SortBy)">Lượt xem giảm dần</option>
+                    <option value="title" selected="@("title" == Model.SortBy)">Tiêu đề A - Z</option>
+                </select>
+                <button type="submit" class="btn btn-sm btn-primary">Sắp xếp</button>
+
+            </form>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.SelectedTag))
+        {
+            <div class="alert alert-info mb-3">
+                Đang hiển thị các blog với thẻ: <strong>@Model.SelectedTag</strong>
+                <a asp-page="/Blog/Index" class="btn btn-sm btn-outline-secondary ms-3">Xóa lọc</a>
+            </div>
+        }
+
+        <table class="table table-bordered table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Tiêu đề</th>
+                    <th>Tác giả</th>
+                    <th>Ngày đăng</th>
+                    <th>Thẻ</th>
+                    <th>Lượt xem</th>
+                    <th>Xem chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Blogs != null && Model.Blogs.Any())
+                {
+                    int index = 1;
+                    foreach (var blog in Model.Blogs)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>@blog.Title</td>
+                            <td>@blog.AuthorName</td>
+                            <td>@blog.CreatedAt.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(blog.Tags))
+                                {
+                                    foreach (var tag in blog.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                    {
+                                        <a asp-page="/Blog/Index"
+                                           asp-route-selectedTag="@tag.Trim()"
+                                           class="badge bg-secondary me-1 text-decoration-none text-white">
+                                            @tag.Trim()
+                                        </a>
+                                    }
+                                }
+                            </td>
+
+                            <td>@blog.ViewCount</td>
+                            <td>
+                                <a asp-page="/Blog/Detail" asp-route-id="@blog.Id" class="btn btn-sm btn-info text-white">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center text-danger">
+                            @if (!string.IsNullOrWhiteSpace(Model.SearchKeyword))
+                            {
+                                <span>Không tìm thấy kết quả cho từ khóa "<strong>@Model.SearchKeyword</strong>".</span>
+                            }
+                            else
+                            {
+                                <span>Không có bài blog nào.</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

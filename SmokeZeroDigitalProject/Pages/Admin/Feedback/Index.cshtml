@@ -1,0 +1,208 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Admin.Feedback.IndexModel
+@{
+	Layout = null;
+	ViewData["Title"] = "Danh sách đánh giá";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Doccure - Patient List Page</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="~/admin-assets/admin-assets/assets/img/favicon.png">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/css/feathericon.min.css">
+
+	<!-- Datatables CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/plugins/datatables/datatables.min.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/css/custom.css">
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		<div class="header">
+
+			<!-- Logo -->
+			<div class="header-left">
+				<a href="index.html" class="logo">
+					<img src="~/admin-assets/admin-assets/assets/img/logo.png" alt="Logo">
+				</a>
+				<a href="index.html" class="logo logo-small">
+					<img src="~/admin-assets/admin-assets/assets/img/logo-small.png" alt="Logo" width="30" height="30">
+				</a>
+			</div>
+			<!-- /Logo -->
+
+			<a href="javascript:void(0);" id="toggle_btn">
+				<i class="fe fe-text-align-left"></i>
+			</a>
+			<!-- Mobile Menu Toggle -->
+			<a class="mobile_btn" id="mobile_btn">
+				<i class="fa fa-bars"></i>
+			</a>
+			<!-- /Mobile Menu Toggle -->
+			<!-- Header Right Menu -->
+			<ul class="nav user-menu">
+				<!-- User Menu -->
+				<li class="nav-item dropdown has-arrow">
+					<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+						<span class="user-img"><img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor"></span>
+					</a>
+					<div class="dropdown-menu">
+						<div class="user-header">
+							<div class="avatar avatar-sm">
+								<img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+							</div>
+							<div class="user-text">
+								<h6>Ryan Taylor</h6>
+								<p class="text-muted mb-0">Administrator</p>
+							</div>
+						</div>
+						<a class="dropdown-item" href="profile.html">My Profile</a>
+						<a class="dropdown-item" href="settings.html">Settings</a>
+						<a class="dropdown-item" href="login.html">Logout</a>
+					</div>
+				</li>
+				<!-- /User Menu -->
+
+			</ul>
+			<!-- /Header Right Menu -->
+
+		</div>
+		<!-- /Header -->
+		<!-- Sidebar -->
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-inner slimscroll">
+				<div id="sidebar-menu" class="sidebar-menu">
+					<ul>
+						<li class="menu-title">
+							<span>Main</span>
+						</li>
+						<li>
+							<a asp-page="/Admin/Dashboard/Index"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/User/Index"><i class="fe fe-user"></i> <span>Người dùng</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/Coach/Index"><i class="fe fe-users"></i> <span>Huấn luyện viên</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/Plan/Index"><i class="fe fe-credit-card"></i> <span>Danh sách gói</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/Feedback/Index"><i class="fe fe-activity"></i> <span>Feedback</span></a>
+						</li>
+						<li class="active">
+							<a asp-page="/Admin/Blog/Index"><i class="fe fe-user-plus"></i> <span>Blog</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /Sidebar -->
+		<!-- Page Wrapper -->
+		<div class="page-wrapper">
+			<div class="content container-fluid">
+
+				<!-- Page Header -->
+				<div class="page-header">
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 class="page-title">Danh sách đánh giá</h3>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="table-responsive">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Người dùng</th>
+													<th>HLV </th>
+													<th>Nội dung</th>
+													<th>Đánh giá</th>
+													<th>Ngày phản hồi</th>
+												</tr>
+											</thead>
+											<tbody>
+												@if (Model.Feedbacks != null && Model.Feedbacks.Any())
+												{
+													foreach (var feedback in Model.Feedbacks)
+													{
+														<tr>
+															<td>@feedback.Id</td>
+															<td>@feedback.UserName</td>
+															<td>@feedback.CoachName</td>
+															<td>@feedback.Content</td>
+															<td>@feedback.Rating</td>
+															<td>@feedback.FeedbackDate.ToString("dd/MM/yyyy")</td>
+														</tr>
+													}
+												}
+												else
+												{
+													<tr>
+														<td colspan="6">Không có phản hồi nào.</td>
+													</tr>
+												}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- /Page Wrapper -->
+
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- jQuery -->
+	<script src="~/admin-assets/admin-assets/assets/js/jquery-3.7.1.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/admin-assets/admin-assets/assets/js/bootstrap.bundle.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<!-- Slimscroll JS -->
+	<script src="~/admin-assets/admin-assets/assets/plugins/slimscroll/jquery.slimscroll.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<!-- Datatables JS -->
+	<script src="~/admin-assets/admin-assets/assets/plugins/datatables/jquery.dataTables.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+	<script src="~/admin-assets/admin-assets/assets/plugins/datatables/datatables.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<!-- Custom JS -->
+	<script src="~/admin-assets/admin-assets/assets/js/script.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<script src="../../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="f6af414c859b09da0cd1b694-|49" defer></script>
+	<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94fab1b85b7f9626","version":"2025.6.2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"3ca157e612a14eccbb30cf6db6691c29","b":1}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from doccure.dreamstechnologies.com/html/template/admin/patient-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jun 2025 15:00:53 GMT -->
+</html>

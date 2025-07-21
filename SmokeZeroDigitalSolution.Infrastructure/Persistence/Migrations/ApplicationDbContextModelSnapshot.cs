@@ -51,19 +51,19 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e8393a8d-2ef9-4a47-9d95-4fa0f6d15cd9"),
+                            Id = new Guid("d0ca4d8c-c467-4b6c-b214-d967b38df37b"),
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = new Guid("f465f4d6-aaa6-4bb3-a33a-7d33c0089af4"),
+                            Id = new Guid("b61509b2-27c9-47e0-a51f-c57191866a65"),
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
-                            Id = new Guid("2e93902f-3896-4a36-becd-636df1da85e7"),
+                            Id = new Guid("757d566a-00cb-4275-ae51-2be2db699728"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -613,6 +613,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
+
+                    b.Property<int>("RecurrencePattern")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("ScheduledTime")
                         .HasColumnType("timestamp with time zone");

@@ -1,7 +1,9 @@
 ﻿using SmokeZeroDigitalSolution.Application.Features.BlogManager.Commands;
 using SmokeZeroDigitalSolution.Application.Features.BlogManager.DTOs;
 using SmokeZeroDigitalSolution.Application.Features.BlogManager.Queries;
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Commands;
 using SmokeZeroDigitalSolution.Contracts.Blog;
+using SmokeZeroDigitalSolution.Contracts.Noti;
 using SmokeZeroDigitalSolution.Domain.Entites;
 
 namespace SmokeZeroDigitalProject.Controllers
@@ -72,7 +74,7 @@ namespace SmokeZeroDigitalProject.Controllers
         {
             var request = new GetAllBlogRequest();
 
-            return await _executor.ExecuteQueryAsync<GetAllBlogRequest, IQueryable<BlogArticle>>(
+            return await _executor.ExecuteQueryAsync<GetAllBlogRequest, IQueryable<BlogReponseDto>>(
                 request,
                 req => new AllBlogQuery(),
                 nameof(GetAllBlog),
@@ -108,6 +110,20 @@ namespace SmokeZeroDigitalProject.Controllers
                 nameof(CreateBlog),
                 cancellationToken);
         }
+		[HttpDelete]
+		public async Task<IActionResult> DeleteBlog([FromBody] DeleteBlogRequest request, CancellationToken cancellationToken)
+		{
+            Console.WriteLine($"DeleteBlogRequest: {request.Id}");
+            return await _executor.ExecuteAsync<DeleteBlogRequest, bool>(
+				request,
+				req => new DeleteBlogCommand
+				{
+					Id = req.Id,
+                    
+				},
+				nameof(DeleteBlog),
+				cancellationToken);
+		}
 
-    }
+	}
 }

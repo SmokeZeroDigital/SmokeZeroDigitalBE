@@ -1,3 +1,7 @@
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.DTOs;
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Interface;
+using SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
+
 namespace SmokeZeroDigitalProject
 {
     public class Program
@@ -22,10 +26,21 @@ namespace SmokeZeroDigitalProject
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddExceptionHandler<CustomExceptionHandler>();
             builder.Services.AddScoped<IRequestExecutor, RequestExecutor>();
-            builder.Services.AddSession();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout 30 phút
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = SameSiteMode.Lax; // Cho phép cross-site request từ VNPay
+            });
             //builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("Jwt"));
 
             builder.Services.RegisterChatRealTime(builder.Configuration);
+
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+            builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddHostedService<NotificationBackgroundService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
