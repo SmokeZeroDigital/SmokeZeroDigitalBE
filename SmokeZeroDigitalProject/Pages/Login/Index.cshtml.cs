@@ -25,9 +25,10 @@ namespace SmokeZeroDigitalProject.Pages.Login
             }
 
             var loginUrl = _apiConfig.GetEndpoint(ApiEndpoints.Login);
+            Console.WriteLine("➡️ Login URL = " + loginUrl);
+
             using var httpClient = new HttpClient();
             var response = await httpClient.PostAsJsonAsync(loginUrl, LoginRequest);
-
             if (response.IsSuccessStatusCode)
             {
                 var responseBodyAsString = await response.Content.ReadAsStringAsync();
@@ -42,7 +43,7 @@ namespace SmokeZeroDigitalProject.Pages.Login
                 var planId = apiResult?.Content?.PlanId;
                 if (string.IsNullOrWhiteSpace(fullName))
                     fullName = apiResult?.Content?.UserName ?? apiResult?.Content?.UserName ?? "";
-                
+
                 HttpContext.Session.SetString("FullName", fullName);
                 HttpContext.Session.SetString("PlanId", planId?.ToString() ?? string.Empty);
                 HttpContext.Session.SetString("UserId", userId.ToString() ?? string.Empty);

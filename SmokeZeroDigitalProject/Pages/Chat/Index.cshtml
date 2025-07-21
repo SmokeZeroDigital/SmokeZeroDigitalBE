@@ -1,38 +1,58 @@
 ﻿@page
 @model SmokeZeroDigitalProject.Pages.Chat.ChatPageModel
 @{
-    ViewData["Title"] = "Chat với Chồn VN";
+    ViewData["Title"] = "Chat";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-4 border-end">
-            <h5>Recent Conversations</h5>
-            <ul class="list-group">
-                <li class="list-group-item active">
-                    Coach: Chồn VN
-                </li>
-            </ul>
-        </div>
-
-        <!-- Chat content -->
-        <div class="col-md-8 d-flex flex-column" style="height: 80vh;">
-            <div id="messageList" class="flex-grow-1 overflow-auto border rounded p-3 bg-white mb-2">
-                @foreach (var msg in Model.Messages)
-                {
-                    await Html.RenderPartialAsync("_ChatMessage", msg);
-                }
+@if (!Model.CanChat)
+{
+    <div class="alert alert-warning mt-4">Bạn cần có gói đăng ký (subscription) để sử dụng tính năng chat.</div>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4 border-end">
+                <h5>Recent Conversations</h5>
+                <ul class="list-group">
+                    @if (Model.Role == "COACH")
+                    {
+                        @foreach (var conv in Model.UserConversations)
+                        {
+                            <li class="list-group-item @(conv.Id == Model.ConversationId ? "active" : "")">
+                                <a href="/Chat?conversationId=@conv.Id">@conv.UserName</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        @foreach (var conv in Model.UserConversations)
+                        {
+                            <li class="list-group-item @(conv.Id == Model.ConversationId ? "active" : "")">
+                                <a href="/Chat?conversationId=@conv.Id">@conv.CoachName</a>
+                            </li>
+                        }
+                    }
+                </ul>
             </div>
 
-            <form id="sendMessageForm" class="d-flex gap-2">
-                <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn...">
-                <button class="btn btn-primary" type="submit">Gửi</button>
-            </form>
+            <div class="col-md-8 d-flex flex-column" style="height: 80vh;">
+                <div id="messageList" class="flex-grow-1 overflow-auto border rounded p-3 bg-white mb-2">
+                    @foreach (var msg in Model.Messages)
+                    {
+                        await Html.RenderPartialAsync("_ChatMessage", msg);
+                    }
+                </div>
+
+                <form id="sendMessageForm" class="d-flex gap-2">
+                    <input type="text" id="messageInput" class="form-control" placeholder="Nhập tin nhắn...">
+                    <button class="btn btn-primary" type="submit">Gửi</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+}
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
@@ -40,7 +60,6 @@
         window.chatConfig = {
             conversationId: '@Model.ConversationId',
             senderUserId: '@Model.CurrentUserId',
-            coachId: '@Model.CoachId'
         };
     </script>
     <script src="~/js/chat.js"></script>
