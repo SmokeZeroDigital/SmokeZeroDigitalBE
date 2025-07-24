@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using SmokeZeroDigitalSolution.Application.Features.NotificationManager.DTOs;
 using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Interface;
 using SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
@@ -12,6 +14,29 @@ namespace SmokeZeroDigitalProject
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            })
+            .AddCookie()
+             .AddGoogle(options =>
+             {
+                 options.ClientId = builder.Configuration["Google:ClientId"];
+                 options.ClientSecret = builder.Configuration["Google:ClientSecret"];
+                 options.AccessType = "offline";
+                 options.Scope.Add("profile");
+                 options.Scope.Add("email");
+                 options.SaveTokens = true;
+                 options.CallbackPath = "/signin-google";
+                 options.Events.OnCreatingTicket = context =>
+                 {
+                     // Optional: Log để debug
+                     Console.WriteLine($"Google auth callback received");
+                     return Task.CompletedTask;
+                 };
+             });
+
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
@@ -31,7 +56,8 @@ namespace SmokeZeroDigitalProject
                 options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout 30 phút
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
-                options.Cookie.SameSite = SameSiteMode.Lax; // Cho phép cross-site request từ VNPay
+                options.Cookie.SameSite = SameSiteMode.None; // Cho phép cross-site request từ VNPay
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
             //builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("Jwt"));
 
@@ -40,6 +66,15 @@ namespace SmokeZeroDigitalProject
             builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddHostedService<NotificationBackgroundService>();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
             var app = builder.Build();
 
@@ -59,7 +94,7 @@ namespace SmokeZeroDigitalProject
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors("AllowAll");
             app.UseMiddleware<GlobalApiExceptionHandlerMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
