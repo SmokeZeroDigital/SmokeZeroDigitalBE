@@ -58,9 +58,10 @@ namespace SmokeZeroDigitalProject.Controllers
                 cancellationToken);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteNoti([FromBody] DeleteNotiRequest request, CancellationToken cancellationToken)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteNoti([FromRoute] Guid id, CancellationToken cancellationToken)
         {
+            var request = new DeleteNotiRequest { Id = id };
             return await _executor.ExecuteAsync<DeleteNotiRequest, bool>(
                 request,
                 req => new DeleteNotiCommand
