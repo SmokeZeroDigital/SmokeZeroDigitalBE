@@ -1,0 +1,55 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Notification.CreateModel
+@{
+}
+<h2 class="text-center mb-4">Tạo Thông Báo</h2>
+
+<div class="mx-auto" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group mb-3">
+                    <label asp-for="Noti.UserId" class="form-label">Học Viên</label>
+                    <select asp-for="Noti.UserId" class="form-select" asp-items="Model.UserSelectList">
+                        <option value="">-- Chọn học viên --</option>
+                    </select>
+                    <span asp-validation-for="Noti.UserId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Noti.Type" class="form-label">Loại thông báo</label>
+                    <textarea asp-for="Noti.Type" class="form-control" rows="1"></textarea>
+                    <span asp-validation-for="Noti.Type" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Noti.Title" class="form-label">Tiêu đề</label>
+                    <textarea asp-for="Noti.Title" class="form-control" rows="1"></textarea>
+                    <span asp-validation-for="Noti.Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Noti.Message" class="form-label">Lời nhắn</label>
+                    <textarea asp-for="Noti.Message" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Noti.Message" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Noti.ScheduledTime" class="form-label">Thời gian gửi</label>
+                    <input asp-for="Noti.ScheduledTime" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="Noti.ScheduledTime" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Noti.RecurrencePattern" class="form-label">Chu kỳ lặp (ngày)</label>
+                    <input asp-for="Noti.RecurrencePattern" class="form-control" type="number" min="0" />
+                    <span asp-validation-for="Noti.RecurrencePattern" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Tạo thông báo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
