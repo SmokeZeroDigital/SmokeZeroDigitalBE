@@ -1,10 +1,10 @@
 ﻿@model SmokeZeroDigitalSolution.Application.Features.Chat.DTOs.ChatMessageDto
 
 @{
-    var isMe = Model.SenderUserId.ToString() == "00000000-0000-0000-0000-000000000004";
-    var alignment = isMe ? "justify-content-end" : "justify-content-start";
-    var bubbleClass = isMe ? "bg-primary text-white" : "bg-light border";
-    var textAlign = isMe ? "text-end" : "text-start";
+    var isCoach = Model.CoachId != null && Model.CoachId != Guid.Empty;
+    var alignment = isCoach ? "justify-content-start" : "justify-content-end";
+    var bubbleClass = isCoach ? "bg-light border" : "bg-primary text-white";
+    var textAlign = isCoach ? "text-start" : "text-end";
 }
 
 <div class="mb-2 d-flex @alignment">

@@ -1,5 +1,4 @@
 ﻿using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
-using SmokeZeroDigitalSolution.Domain.Entites;
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
 {
@@ -84,5 +83,36 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
                 FullName = u.User.FullName
             }).ToList();
         }
+
+
+        public async Task<List<Conversation>> GetConversationByUserId(Guid appUserId, CancellationToken cancellationToken)
+        {
+            var user = await _context.Users
+                .Include(u => u.Coach)
+                .FirstOrDefaultAsync(u => u.Id == appUserId, cancellationToken);
+
+            if (user == null)
+                return new();
+
+            var query = _context.Conversations
+                .Include(c => c.User)
+                .Include(c => c.Coach)
+                    .ThenInclude(coach => coach.User)
+                .Include(c => c.ChatMessages)
+                .Where(c => c.IsActive);
+
+            if (user.Coach != null)
+            {
+                query = query.Where(c => c.CoachId == user.Coach.Id);
+            }
+            else
+            {
+                query = query.Where(c => c.UserId == appUserId);
+            }
+
+            return await query.ToListAsync(cancellationToken);
+        }
+
+
     }
 }
