@@ -40,6 +40,7 @@ namespace SmokeZeroDigitalProject
             builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddHostedService<NotificationBackgroundService>();
+            builder.Services.AddSingleton<ApiConfig>();
 
             var app = builder.Build();
 

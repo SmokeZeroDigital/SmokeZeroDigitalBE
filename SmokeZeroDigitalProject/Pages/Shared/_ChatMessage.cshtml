@@ -1,17 +1,20 @@
 ﻿@model SmokeZeroDigitalSolution.Application.Features.Chat.DTOs.ChatMessageDto
-
 @{
-    var isMe = Model.SenderUserId.ToString() == "00000000-0000-0000-0000-000000000004";
+    var currentUserId = (Guid)ViewData["CurrentUserId"];
+    var isMe = Model.SenderUserId == currentUserId;
+
     var alignment = isMe ? "justify-content-end" : "justify-content-start";
-    var bubbleClass = isMe ? "bg-primary text-white" : "bg-light border";
+    var bubbleClass = isMe ? "text-white" : "bg-light border";
     var textAlign = isMe ? "text-end" : "text-start";
+    var backgroundStyle = isMe ? "background-color: #79b8f3;" : "";
 }
 
 <div class="mb-2 d-flex @alignment">
-    <div class="px-3 py-2 rounded-4 @bubbleClass shadow-sm" style="max-width: 75%;">
+    <div class="px-3 py-2 rounded-4 @bubbleClass shadow-sm" style="max-width: 75%; @backgroundStyle">
         <div class="@textAlign">@Model.Content</div>
         <small class="text-muted d-block @textAlign" style="font-size: 0.75rem;">
             @Model.CreatedAt.ToLocalTime().ToString("HH:mm")
         </small>
     </div>
 </div>
+

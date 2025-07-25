@@ -1,4 +1,6 @@
-﻿namespace SmokeZeroDigitalProject.Controllers
+﻿using SmokeZeroDigitalSolution.Application.Features.Chat.Queries.GetConversationByUserIdQuery;
+
+namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -60,7 +62,15 @@
                 nameof(GetMessages),
                 cancellationToken);
         }
-
+        [HttpGet("conversationByUserId/{userId:guid}")]
+        public async Task<IActionResult> GetConversationByUserId([FromRoute] Guid userId, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteQueryAsync<Guid, List<ConversationDto>>(
+                userId,
+                req => new GetConversationByUserIdQuery { AppUserId = userId },
+                nameof(GetOrCreateConversation),
+                cancellationToken);
+        }
 
     }
 }

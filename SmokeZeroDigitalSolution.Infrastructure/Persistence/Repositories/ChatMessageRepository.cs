@@ -24,8 +24,11 @@ public class ChatMessageRepository : IChatMessageRepository
     public async Task<IEnumerable<ChatMessage>> GetByConversationAsync(Guid conversationId, CancellationToken cancellationToken = default)
     {
         return await _context.ChatMessages
+            .Include(m => m.User)
+            .Include(m => m.Coach).ThenInclude(c => c.User)
             .Where(m => m.ConversationId == conversationId)
             .OrderBy(m => m.Timestamp)
             .ToListAsync(cancellationToken);
     }
+
 }

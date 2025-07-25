@@ -1,80 +1,74 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using SmokeZeroDigitalSolution.Application.Features.Chat.DTOs;
+﻿using SmokeZeroDigitalSolution.Domain.Entites;
 
 namespace SmokeZeroDigitalProject.Pages.Chat;
 
 public class ChatPageModel : PageModel
 {
     private readonly HttpClient _http;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public ChatPageModel(IHttpClientFactory httpClientFactory)
+    public ChatPageModel(IHttpClientFactory httpClientFactory, IHttpContextAccessor contextAccessor)
     {
         _http = httpClientFactory.CreateClient("ChatClient");
+        _contextAccessor = contextAccessor;
     }
 
     public List<ChatMessageDto> Messages { get; set; } = new();
     public Guid ConversationId { get; set; }
-    public Guid CurrentUserId => Guid.Parse("00000000-0000-0000-0000-000000000004");
-    public Guid CoachId => Guid.Parse("10000000-0000-0000-0000-000000000001");
+    public Guid CurrentUserId => Guid.Parse(HttpContext.Session.GetString("UserId") ?? Guid.Empty.ToString());
+    public string Role => HttpContext.Session.GetString("UserRole") ?? string.Empty;
+    public List<ConversationDto> UserConversations { get; set; } = new();
+    public bool CanChat { get; set; }
+    public bool IsCoach { get; set; } = true;
 
-    public async Task OnGetAsync()
+
+
+    public async Task OnGetAsync(Guid? conversationId = null)
     {
-        try
+        if (!IsCoach)
         {
-            //Console.WriteLine("======= DEBUG START =======");
-            //Console.WriteLine($"BaseAddress: {_http.BaseAddress}");
-
-            var payload = new
+            var userResponse = await _http.GetAsync($"/api/User/{CurrentUserId}");
+            if (userResponse.IsSuccessStatusCode)
             {
-                AppUserId = CurrentUserId,
-                CoachId = CoachId
-            };
-
-            //Console.WriteLine($"Calling POST /api/Chat/conversation with payload: {System.Text.Json.JsonSerializer.Serialize(payload)}");
-
-            var response = await _http.PostAsJsonAsync("/api/Chat/conversation", payload);
-            //Console.WriteLine($"Conversation response status: {response.StatusCode}");
-
-            if (!response.IsSuccessStatusCode)
+                var userResult = await userResponse.Content.ReadFromJsonAsync<ApiSuccessResult<AppUser>>();
+                CanChat = userResult?.Content?.CurrentSubscriptionPlanId != null;
+            }
+            else
             {
-                var error = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Error content: " + error);
+                CanChat = false;
                 return;
             }
 
-            var apiResponse = await response.Content.ReadFromJsonAsync<ApiSuccessResult<ConversationDto>>();
-            if (apiResponse?.Content == null || apiResponse.Content.Id == Guid.Empty)
-            {
-                Console.WriteLine("? Conversation deserialize failed or ID is Guid.Empty");
-                return;
-            }
-
-            ConversationId = apiResponse.Content.Id;
-            //Console.WriteLine("✅ Conversation ID: " + ConversationId);
-
-            var msgUrl = $"/api/Chat/messages/{ConversationId}";
-            //Console.WriteLine("Calling GET " + msgUrl);
-
-            var msgResponse = await _http.GetAsync(msgUrl);
-            if (!msgResponse.IsSuccessStatusCode)
-            {
-                var error = await msgResponse.Content.ReadAsStringAsync();
-                Console.WriteLine("? Error khi lấy messages: " + error);
-                return;
-            }
-
-            var msgApi = await msgResponse.Content.ReadFromJsonAsync<ApiSuccessResult<List<ChatMessageDto>>>();
-            Messages = msgApi?.Content ?? new();
-            //Console.WriteLine($"✅ Message count: {Messages.Count}");
-            //Console.WriteLine("======= DEBUG END =======");
+            if (!CanChat) return;
         }
-        catch (Exception ex)
+
+        var convResponse = await _http.GetAsync($"/api/Chat/conversationByUserId/{CurrentUserId}");
+        Console.WriteLine(convResponse);
+        if (convResponse.IsSuccessStatusCode)
         {
-            Console.WriteLine("🔥 Exception occurred:");
-            Console.WriteLine(ex.ToString());
-            throw;
+            var convResult = await convResponse.Content.ReadFromJsonAsync<ApiSuccessResult<List<ConversationDto>>>();
+            UserConversations = convResult?.Content ?? new();
+        }
+
+        if (conversationId.HasValue)
+        {
+            ConversationId = conversationId.Value;
+            await LoadMessages(ConversationId);
+        }
+        else if (UserConversations.Any())
+        {
+            ConversationId = UserConversations.First().Id;
+            await LoadMessages(ConversationId);
         }
     }
 
-
+    private async Task LoadMessages(Guid conversationId)
+    {
+        var msgResponse = await _http.GetAsync($"/api/Chat/messages/{conversationId}");
+        if (msgResponse.IsSuccessStatusCode)
+        {
+            var msgResult = await msgResponse.Content.ReadFromJsonAsync<ApiSuccessResult<List<ChatMessageDto>>>();
+            Messages = msgResult?.Content ?? new();
+        }
+    }
 }
