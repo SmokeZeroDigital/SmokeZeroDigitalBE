@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Chat";
     Layout = "~/Pages/Shared/_Layout.cshtml";
+    ViewData["CurrentUserId"] = Model.CurrentUserId; // 👈 Truyền vào để partial view dùng
 }
 
 @if (!Model.IsCoach && !Model.CanChat)
@@ -16,29 +17,15 @@ else
             <div class="col-md-4 border-end">
                 <h5>Recent Conversations</h5>
                 <ul class="list-group">
-                    @if (Model.IsCoach)
+                    @foreach (var conv in Model.UserConversations)
                     {
-                        @foreach (var conv in Model.UserConversations)
-                        {
-                            <li class="list-group-item @(conv.Id == Model.ConversationId ? "active" : "")">
-                                <a class="text-decoration-none d-block" href="/Chat?conversationId=@conv.Id">
-                                    <strong>@conv.UserName</strong><br />
-                                    <small class="text-muted">@conv.LastMessage</small>
-                                </a>
-                            </li>
-                        }
-                    }
-                    else
-                    {
-                        @foreach (var conv in Model.UserConversations)
-                        {
-                            <li class="list-group-item @(conv.Id == Model.ConversationId ? "active" : "")">
-                                <a class="text-decoration-none d-block" href="/Chat?conversationId=@conv.Id">
-                                    <strong>@conv.CoachName</strong><br />
-                                    <small class="text-muted">@conv.LastMessage</small>
-                                </a>
-                            </li>
-                        }
+                        var displayName = Model.IsCoach ? conv.UserName : conv.CoachName;
+                        <li class="list-group-item @(conv.Id == Model.ConversationId ? "active" : "")">
+                            <a class="text-decoration-none d-block" href="/Chat?conversationId=@conv.Id">
+                                <strong>@displayName</strong><br />
+                                <small class="text-muted">@conv.LastMessage</small>
+                            </a>
+                        </li>
                     }
                 </ul>
             </div>
