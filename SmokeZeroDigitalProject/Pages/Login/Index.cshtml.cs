@@ -41,12 +41,15 @@ namespace SmokeZeroDigitalProject.Pages.Login
                 var fullName = apiResult?.Content?.UserName;
                 var userId = apiResult?.Content?.UserId;
                 var planId = apiResult?.Content?.PlanId;
+                var token = apiResult?.Content?.Token;
+
                 if (string.IsNullOrWhiteSpace(fullName))
                     fullName = apiResult?.Content?.UserName ?? apiResult?.Content?.UserName ?? "";
 
                 HttpContext.Session.SetString("FullName", fullName);
                 HttpContext.Session.SetString("PlanId", planId?.ToString() ?? string.Empty);
                 HttpContext.Session.SetString("UserId", userId.ToString() ?? string.Empty);
+                HttpContext.Session.SetString("Token", token ?? string.Empty);
                 TempData["ToastMessage"] = "success:Đăng nhập thành công!";
                 return RedirectToPage("/Index");
             }

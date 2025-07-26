@@ -1,4 +1,5 @@
-﻿using SmokeZeroDigitalSolution.Domain.Entites;
+﻿using SmokeZeroDigitalProject.Common.Helper;
+using SmokeZeroDigitalSolution.Domain.Entites;
 
 namespace SmokeZeroDigitalProject.Pages.Chat;
 
@@ -15,16 +16,38 @@ public class ChatPageModel : PageModel
 
     public List<ChatMessageDto> Messages { get; set; } = new();
     public Guid ConversationId { get; set; }
-    public Guid CurrentUserId => Guid.Parse(HttpContext.Session.GetString("UserId") ?? Guid.Empty.ToString());
-    public string Role => HttpContext.Session.GetString("UserRole") ?? string.Empty;
+    public Guid CurrentUserId { get; set; } = Guid.Empty;
+    public string Role { get; set; } = string.Empty;
     public List<ConversationDto> UserConversations { get; set; } = new();
     public bool CanChat { get; set; }
-    public bool IsCoach { get; set; } = true;
+    public bool IsCoach { get; set; } = false;
 
 
 
-    public async Task OnGetAsync(Guid? conversationId = null)
+    public async Task<IActionResult> OnGetAsync(Guid? conversationId = null)
     {
+        var token = HttpContext.Session.GetString("Token");
+        if (string.IsNullOrEmpty(token))
+        {
+            TempData["ToastMessage"] = "error:Bạn chưa đăng nhập.";
+            return RedirectToPage("/Login");
+        }
+
+
+        var userIdStr = JwtTokenHelper.GetClaim(token, "UserId");
+
+        Role = JwtTokenHelper.GetClaim(token, "role") ?? string.Empty;
+
+        IsCoach = Role == "Coach";
+
+        if (!Guid.TryParse(userIdStr, out Guid parsedUserId))
+        {
+            TempData["ToastMessage"] = "error:Token không hợp lệ.";
+            return Redirect("/login");
+        }
+
+        CurrentUserId = parsedUserId;
+
         if (!IsCoach)
         {
             var userResponse = await _http.GetAsync($"/api/User/{CurrentUserId}");
@@ -36,14 +59,13 @@ public class ChatPageModel : PageModel
             else
             {
                 CanChat = false;
-                return;
+                return Page();
             }
 
-            if (!CanChat) return;
+            if (!CanChat) return Page();
         }
 
         var convResponse = await _http.GetAsync($"/api/Chat/conversationByUserId/{CurrentUserId}");
-        Console.WriteLine(convResponse);
         if (convResponse.IsSuccessStatusCode)
         {
             var convResult = await convResponse.Content.ReadFromJsonAsync<ApiSuccessResult<List<ConversationDto>>>();
@@ -60,7 +82,10 @@ public class ChatPageModel : PageModel
             ConversationId = UserConversations.First().Id;
             await LoadMessages(ConversationId);
         }
+
+        return Page();
     }
+
 
     private async Task LoadMessages(Guid conversationId)
     {
