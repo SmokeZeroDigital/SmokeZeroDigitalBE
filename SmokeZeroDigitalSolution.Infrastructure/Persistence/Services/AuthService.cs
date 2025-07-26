@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Interface;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.Exceptions;
 
 namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
 
@@ -81,7 +82,15 @@ public class AuthService : IAuthService
             throw new Exception("Invalid credentials.");
 
         if (!user.EmailConfirmed)
-            throw new Exception("Email not confirmed. Please confirm your email before logging in.");
+        {
+            // Generate a new OTP and send it to the user
+            await ResendConfirmationTokenAsync(user);
+            throw new UnconfirmedEmailException("Email not confirmed. A new confirmation code has been sent to your email.")
+            {
+                UserId = user.Id,
+                Email = user.Email
+            };
+        }
 
         var result = await _signInManager.PasswordSignInAsync(user, password, true, false);
         if (!result.Succeeded) throw new Exception("Invalid login attempt.");
@@ -460,5 +469,15 @@ public class AuthService : IAuthService
     {
         var random = new Random();
         return random.Next(100000, 999999).ToString();
+    }
+
+    public async Task ResendConfirmationTokenAsync(AppUser user)
+    {
+        // Generate a new 6-digit numeric email confirmation token
+        var numericToken = await GenerateEmailConfirmationTokenAsync(user);
+
+        // Save the token in the database with an expiration time
+        var tokenExpiry = DateTime.UtcNow.AddMinutes(15); // Token valid for 15 minutes
+        await SaveTokenAsync(user.Id, numericToken, tokenExpiry);
     }
 }

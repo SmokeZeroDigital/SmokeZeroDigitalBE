@@ -1,3 +1,5 @@
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.Exceptions;
+
 namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries
 {
     public class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, QueryResult<AuthResponseDto>>
@@ -15,6 +17,11 @@ namespace SmokeZeroDigitalSolution.Application.Features.UsersManager.Queries
             {
                 var result = await _identityService.LoginAsync(request.User.Username, request.User.Password, cancellationToken);
                 return QueryResult<AuthResponseDto>.Success(result);
+            }
+            catch (UnconfirmedEmailException ex)
+            {
+                // Return a specific error message with additional data for unconfirmed email
+                return QueryResult<AuthResponseDto>.Failure($"EMAIL_NOT_CONFIRMED:{ex.UserId}:{ex.Email}:{ex.Message}");
             }
             catch (Exception ex)
             {
