@@ -6,6 +6,8 @@
         public const string Login = "/api/Auth/login";
         public const string Register = "/api/Auth/register";
         public const string GoogleLogin = "/api/Auth/google-login";
+        public const string ConfirmEmail = "/api/Auth/confirm-email";
+        public const string ConfirmEmailByEmail = "/api/Auth/confirm-email-by-email";
 
 
         // Plan

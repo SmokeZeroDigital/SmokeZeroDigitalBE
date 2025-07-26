@@ -14,5 +14,7 @@
         );
         Task<AuthResponseDto> GoogleLoginAsync(AppUser user, CancellationToken cancellationToken = default);
         Task<bool> DeleteAsync(Guid userId, CancellationToken cancellationToken = default);
+        Task<ConfirmEmailResultDto> ConfirmEmailWithTokenAsync(Guid userId, string token);
+        Task<ConfirmEmailResultDto> ConfirmEmailAsync(string email, string code);
     }
 } 

@@ -1,4 +1,9 @@
-﻿
+﻿using SmokeZeroDigitalSolution.Application.Features.UsersManager.Commands;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.Interfaces;
+using SmokeZeroDigitalSolution.Contracts.Auth;
+
 namespace SmokeZeroDigitalProject.Controllers
 {
     [Route("api/[controller]")]
@@ -65,6 +70,50 @@ namespace SmokeZeroDigitalProject.Controllers
                 },
                 nameof(GoogleLogin),
                 cancellationToken);
+        }
+
+        [HttpPost("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailRequest request, CancellationToken cancellationToken)
+        {
+            return await _executor.ExecuteAsync<ConfirmEmailRequest, ConfirmEmailResultDto>(
+                request,
+                req => new ConfirmEmailCommand
+                {
+                    ConfirmEmailDto = new ConfirmEmailDto
+                    {
+                        UserId = req.UserId,
+                        Token = req.Token
+                    }
+                },
+                nameof(ConfirmEmail),
+                cancellationToken);
+        }
+
+        [HttpPost("confirm-email-by-email")]
+        public async Task<IActionResult> ConfirmEmailByEmail([FromBody] ConfirmEmailByEmailRequest request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var authService = HttpContext.RequestServices.GetRequiredService<IAuthService>();
+                var result = await authService.ConfirmEmailAsync(request.Email, request.Token);
+                
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ConfirmEmailResultDto 
+                { 
+                    Success = false, 
+                    Message = ex.Message 
+                });
+            }
         }
     }
 }
