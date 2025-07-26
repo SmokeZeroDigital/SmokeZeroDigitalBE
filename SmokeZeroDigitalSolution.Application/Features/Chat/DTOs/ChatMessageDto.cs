@@ -12,5 +12,9 @@
         public DateTime Timestamp { get; set; }
         public bool IsRead { get; set; } = false;
         public DateTime CreatedAt { get; set; }
+
+        public AppUserShortDto? User { get; set; }
+        public CoachShortDto? Coach { get; set; }
+
     }
 }

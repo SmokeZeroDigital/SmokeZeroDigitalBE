@@ -19,9 +19,29 @@
             var result = messages.Select(m => new ChatMessageDto
             {
                 Id = m.Id,
+                ConversationId = m.ConversationId,
                 SenderUserId = m.SenderUserId,
+                CoachId = m.CoachId,
                 Content = m.Content,
-                CreatedAt = m.CreatedAt
+                MessageType = m.MessageType,
+                Timestamp = m.Timestamp,
+                IsRead = m.IsRead,
+                CreatedAt = m.Timestamp,
+
+                User = m.User != null ? new AppUserShortDto
+                {
+                    Id = m.User.Id,
+                    FullName = m.User.FullName,
+                    ProfilePictureUrl = m.User.ProfilePictureUrl
+                } : null,
+
+                Coach = m.Coach != null ? new CoachShortDto
+                {
+                    Id = m.Coach.Id,
+                    FullName = $"{m.Coach.User.FullName}",
+                    ProfilePictureUrl = m.Coach.User.ProfilePictureUrl
+                } : null
+
             }).ToList();
 
             return QueryResult<List<ChatMessageDto>>.Success(result);

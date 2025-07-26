@@ -75,6 +75,7 @@ namespace SmokeZeroDigitalProject
                           .AllowAnyMethod();
                 });
             });
+            builder.Services.AddSingleton<ApiConfig>();
 
             var app = builder.Build();
 

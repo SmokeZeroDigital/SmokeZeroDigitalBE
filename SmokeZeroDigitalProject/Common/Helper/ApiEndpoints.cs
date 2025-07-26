@@ -60,6 +60,9 @@
         public const string GetMessageById = "/api/Chat/message/{messageId}";
         public const string GetOrCreateConversation = "/api/Chat/conversation";
 
+        // Notification
+        public const string GetAllNotis = "/api/Noti";
+        public const string CreateNoti = "/api/Noti";
 
     }
 
