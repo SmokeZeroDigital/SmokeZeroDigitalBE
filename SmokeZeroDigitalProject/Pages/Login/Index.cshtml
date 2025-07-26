@@ -87,22 +87,29 @@
                                     <div class="mb-3">
                                         <button class="btn btn-primary-gradient w-100" type="submit">Sign in</button>
                                     </div>
-                                    <div class="login-or">
-                                        <span class="or-line"></span>
-                                        <span class="span-or">or</span>
-                                    </div>
+                                </form>
+                                <div class="login-or">
+                                    <span class="or-line"></span>
+                                    <span class="span-or">or</span>
+                                </div>
+
+                                <form asp-page-handler="GoogleLogin" method="post">
                                     <div class="social-login-btn">
-                                        <a href="javascript:void(0);" class="btn w-100">
+                                        <button type="submit" class="btn w-100">
                                             <img src="~/user-assets/assets/img/icons/google-icon.svg" alt="google-icon">Sign in With Google
-                                        </a>
-                                        <a href="javascript:void(0);" class="btn w-100">
-                                            <img src="~/user-assets/assets/img/icons/facebook-icon.svg" alt="fb-icon">Sign in With Facebook
-                                        </a>
-                                    </div>
-                                    <div class="account-signup">
-                                        <p>Don't have an account ? <a asp-page="/Register/Index">Sign up</a></p>
+                                        </button>
                                     </div>
                                 </form>
+
+                                <div class="social-login-btn">
+                                    <a href="javascript:void(0);" class="btn w-100">
+                                        <img src="~/user-assets/assets/img/icons/facebook-icon.svg" alt="fb-icon">Sign in With Facebook
+                                    </a>
+                                </div>
+
+                                <div class="account-signup">
+                                    <p>Don't have an account ? <a asp-page="/Register/Index">Sign up</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
