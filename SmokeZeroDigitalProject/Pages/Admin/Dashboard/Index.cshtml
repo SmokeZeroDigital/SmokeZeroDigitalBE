@@ -1,13 +1,15 @@
 ﻿@page
-@model SmokeZeroDigitalProject.Pages.Admin.Plan.IndexModel
+@model SmokeZeroDigitalProject.Pages.Admin.Dashboard.IndexModel
 @{
 	Layout = null;
-	ViewData["Title"] = "Danh sách gói phí";
+	ViewData["Title"] = "Dashboard";
+	var chartLabels = string.Join(",", Model.MonthlyRevenues.Select(m => $"'{m.Month}'"));
+	var chartData = string.Join(",", Model.MonthlyRevenues.Select(m => m.Revenue));
 }
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from doccure.dreamstechnologies.com/html/template/admin/patient-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jun 2025 15:00:52 GMT -->
+<!-- Mirrored from doccure.dreamstechnologies.com/html/template/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jun 2025 14:59:48 GMT -->
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +27,7 @@
 	<meta name="twitter:title" content="Doctors Appointment HTML Website Templates | Doccure">
 	<meta name="twitter:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
 	<meta name="twitter:image" content="assets/img/preview-banner.html">
-	<title>Doccure - Patient List Page</title>
+	<title>Doccure - Dashboard</title>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="~/admin-assets/admin-assets/assets/img/favicon.png">
@@ -87,7 +89,7 @@
 						<li class="menu-title">
 							<span>Main</span>
 						</li>
-						<li>
+						<li class="active">
 							<a asp-page="/Admin/Dashboard/Index"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 						</li>
 						<li>
@@ -96,7 +98,7 @@
 						<li>
 							<a asp-page="/Admin/Coach/Index"><i class="fe fe-users"></i> <span>Huấn luyện viên</span></a>
 						</li>
-						<li class="active">
+						<li>
 							<a asp-page="/Admin/Plan/Index"><i class="fe fe-credit-card"></i> <span>Danh sách gói</span></a>
 						</li>
 						<li>
@@ -108,78 +110,163 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-		<!-- /Sidebar -->
+		</div>		<!-- /Sidebar -->
 		<!-- Page Wrapper -->
 		<div class="page-wrapper">
+
 			<div class="content container-fluid">
 
 				<!-- Page Header -->
 				<div class="page-header">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-title">Danh sách các gói Vip</h3>
+							<h3 class="page-title">Welcome Admin!</h3>
 						</div>
 					</div>
 				</div>
-
-				<td>
-					<a asp-page="/Admin/Plan/Create" class="btn btn-sm btn-primary">Thêm gói mới</a>
-				</td>
-				
+				<!-- /Page Header -->
 
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-xl-3 col-sm-6 col-12">
 						<div class="card">
 							<div class="card-body">
-								<div class="table-responsive">
-									<div class="table-responsive">
-										<table class="datatable table table-hover table-center mb-0">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>Tên gói</th>
-													<th>Mô tả</th>
-													<th>Giá tiền</th>
-													<th>Thời hạn</th>
-													<th>Chỉnh sửa</th>
-													<th>Xóa</th>
-												</tr>
-											</thead>
-											<tbody>
-												@foreach (var plan in Model.Plans)
-												{
-													<tr>
-														<td>@plan.Id</td>
-														<td>@plan.Name</td>
-														<td>@plan.Description</td>
-														<td>@plan.Price</td>
-														<td>@plan.DurationInDays</td>
-														<td>
-															<a asp-page="/Admin/Plan/Update" asp-route-id="@plan.Id" class="btn btn-sm btn-success">Chỉnh sửa</a>
-														</td>
-														<td>
-															<form method="post" asp-page-handler="Delete" asp-route-id="@plan.Id" onsubmit="return confirm('Bạn có chắc chắn muốn xoá gói này?');">
-																<button type="submit" class="btn btn-sm btn-danger">Xoá</button>
-															</form>
-														</td>
-													</tr>
-												}
-											</tbody>
-										</table>
+								<div class="dash-widget-header">
+									<span class="dash-widget-icon text-primary border-primary">
+										<i class="fe fe-users"></i>
+									</span>
+									<div class="dash-count">
+										<p class="card-text display-4">123</p>
+									</div>
+								</div>
+								<div class="dash-widget-info">
+									<h6 class="text-muted">Người dùng</h6>
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-primary w-50"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6 col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="dash-widget-header">
+									<span class="dash-widget-icon text-primary border-primary">
+										<i class="fe fe-users"></i>
+									</span>
+									<div class="dash-count">
+										<p class="card-text display-4">123</p>
+									</div>
+								</div>
+								<div class="dash-widget-info">
+									<h6 class="text-muted">Huấn luyện viên</h6>
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-primary w-50"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6 col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="dash-widget-header">
+									<span class="dash-widget-icon text-success">
+										<i class="fe fe-credit-card">123</i>
+									</span>
+									<div class="dash-count">
+										<p class="card-text display-4"></p>
+									</div>
+								</div>
+								<div class="dash-widget-info">
+
+									<h6 class="text-muted">Số lượng gói đã mua</h6>
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-success w-50"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6 col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="dash-widget-header">
+									<span class="dash-widget-icon text-danger border-danger">
+										<i class="fe fe-money"></i>
+									</span>
+									<div class="dash-count">
+										<p class="card-text display-4">123</p>
+									</div>
+								</div>
+								<div class="dash-widget-info">
+
+									<h6 class="text-muted">Tổng doanh thu</h6>
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-danger w-50"></div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					 @* <div class="card card-chart">
+					 	<div class="card-header">
+					 		<h4 class="card-title">Revenue</h4>
+					 	</div>
+					 	<div class="card-body">
+					 		<div id="morrisArea"></div>
+					 	</div>
+					 </div> *@
+					<h2>Doanh thu theo tháng (Giá bán Plan)</h2>
 
+					<canvas id="revenueChart" width="800" height="400"></canvas>
+
+				</div>
 			</div>
 		</div>
 		<!-- /Page Wrapper -->
 
 	</div>
 	<!-- /Main Wrapper -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		const ctx = document.getElementById('revenueChart').getContext('2d');
+		const revenueChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: [@Html.Raw(chartLabels)],
+				datasets: [{
+					label: 'Doanh thu (VND)',
+					data: [@Html.Raw(chartData)],
+					fill: true,
+					borderColor: 'rgb(75, 192, 192)',
+					backgroundColor: 'rgba(75, 192, 192, 0.2)',
+					tension: 0.3
+				}]
+			},
+			options: {
+				responsive: true,
+				scales: {
+					y: {
+						beginAtZero: true,
+						ticks: {
+							callback: value => value.toLocaleString('vi-VN') + ' ₫'
+						}
+					}
+				},
+				plugins: {
+					legend: { position: 'top' },
+					tooltip: {
+						callbacks: {
+							label: context => context.parsed.y.toLocaleString('vi-VN') + ' ₫'
+						}
+					}
+				}
+			}
+		});
+	</script>
 	<!-- jQuery -->
 	<script src="~/admin-assets/admin-assets/assets/js/jquery-3.7.1.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
 
