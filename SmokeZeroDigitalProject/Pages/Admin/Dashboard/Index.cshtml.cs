@@ -18,18 +18,18 @@ namespace SmokeZeroDigitalProject.Pages.Admin.Dashboard
 		{
 			MonthlyRevenues = new List<MonthlySales>
 		{
-			new() { Month = "Jan", Revenue = 1200 },
-			new() { Month = "Feb", Revenue = 1500 },
-			new() { Month = "Mar", Revenue = 1800 },
-			new() { Month = "Apr", Revenue = 2200 },
-			new() { Month = "May", Revenue = 2000 },
-			new() { Month = "Jun", Revenue = 2500 },
-			new() { Month = "Jul", Revenue = 2400 },
-			new() { Month = "Aug", Revenue = 2300 },
-			new() { Month = "Sep", Revenue = 2100 },
-			new() { Month = "Oct", Revenue = 2600 },
-			new() { Month = "Nov", Revenue = 3000 },
-			new() { Month = "Dec", Revenue = 3500 }
+			new() { Month = "Jan", Revenue = 1200000 },
+			new() { Month = "Feb", Revenue = 1500000 },
+			new() { Month = "Mar", Revenue = 1800000 },
+			new() { Month = "Apr", Revenue = 2200000 },
+			new() { Month = "May", Revenue = 2000000 },
+			new() { Month = "Jun", Revenue = 2500000 },
+			new() { Month = "Jul", Revenue = 2400000 },
+			new() { Month = "Aug", Revenue = 2300000 },
+			new() { Month = "Sep", Revenue = 2100000 },
+			new() { Month = "Oct", Revenue = 2600000 },
+			new() { Month = "Nov", Revenue = 3000000 },
+			new() { Month = "Dec", Revenue = 3500000 }
 		};
 		}
 	}
