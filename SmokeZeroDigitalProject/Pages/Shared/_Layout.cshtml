@@ -37,16 +37,16 @@
             transition: all 0.3s ease;
             text-decoration: none;
         }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-            color: white;
-        }
-        
-        .btn-primary i {
-            margin-right: 5px;
-        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+                color: white;
+            }
+
+            .btn-primary i {
+                margin-right: 5px;
+            }
     </style>
 </head>
 <body>
@@ -60,7 +60,7 @@
                             <li><i class="fa-solid fa-location-dot"></i>FPTU HCMC</li>
                         </ul>
                         <ul class="social-icon">
-    
+
                             <li>
                                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
                                 <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -83,6 +83,12 @@
                             <img src="~/user-assets/assets/img/logoszd.svg" class="img-fluid" alt="Logo">
                         </a>
                     </div>
+                    @{
+                        var fullName = Context.Session.GetString("FullName");
+                        var planId = Context.Session.GetString("PlanId");
+                        var isLoggedIn = !string.IsNullOrEmpty(fullName);
+                        var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
+                    }
                     <div class="main-menu-wrapper">
                         <div class="menu-header">
                             <a href="/" class="menu-logo">
@@ -94,6 +100,12 @@
                             <li class="has-submenu megamenu active"><a href="/">Trang chủ</a></li>
                             <li><a asp-area="" asp-page="/Blog/Index">Bài viết</a></li>
                             <li><a asp-area="" asp-page="/AboutUs">Về chúng tôi</a></li>
+                            @if (isLoggedIn)
+                            {
+                                <li><a asp-area="" asp-page="/Feedback/Create">Feedback</a></li>
+                                <li><a asp-area="" asp-page="/Achievements/Index">Thành Tựu</a></li>
+                            }
+
                         </ul>
                     </div>
                     <ul class="nav header-navbar-rht">
@@ -112,12 +124,7 @@
                             <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle"><i class="isax isax-sun-1"></i></a>
                             <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle activate"><i class="isax isax-moon"></i></a>
                         </li>
-                        @{
-                            var fullName = Context.Session.GetString("FullName");
-                            var planId = Context.Session.GetString("PlanId");
-                            var isLoggedIn = !string.IsNullOrEmpty(fullName);
-                            var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
-                        }
+
                         @if (isLoggedIn)
                         {
                             <li class="register-btn">
@@ -155,93 +162,73 @@
 
         @RenderBody()
 
-        <footer class="footer footer-sec-fourteen">
-@*              <div class="footer-top">
-                 <div class="row">
-                     <div class="col-sm-3 col-6 p-0"><div class="footer-img"><img src="~/user-assets/assets/img/service/footer-img-01.jpg" class="img-fluid w-100" alt="Img"></div></div>
-                     <div class="col-sm-3 col-6 p-0"><div class="footer-img"><img src="~/user-assets/assets/img/service/footer-img-02.jpg" class="img-fluid w-100" alt="Img"></div></div>
-                     <div class="col-sm-3 col-6 p-0"><div class="footer-img"><img src="~/user-assets/assets/img/service/footer-img-03.jpg" class="img-fluid w-100" alt="Img"></div></div>
-                     <div class="col-sm-3 col-6 p-0"><div class="footer-img"><img src="~/user-assets/assets/img/service/footer-img-04.jpg" class="img-fluid w-100" alt="Img"></div></div>
-                 </div>
-             </div> *@
-            <div class="footer-middle">
-                <div class="container">
-                    <div class="footer-mid-content">
-                        <p>Bạn muốn kết nối với chúng tôi?</p>
-                        <ul class="social-icons">
-                            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                            <li><a href="#"><i class="fa-brands fa-pinterest"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-mid-two">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-5 col-md-6 col-sm-12" data-aos="fade-down" data-aos-delay="500">
-                            <div class="footer-logo-col">
-                                <div class="footer-logo">
-                                    <img src="~/user-assets/assets/img/icons/footer-logo-.svg" alt="Img">
-                                </div>
-                                <p>Kết nối với chuyên gia tư vấn, theo dõi lộ trình cai nghiện & chăm sóc sức khoẻ tinh thần</p>
-                                <form action="#">
-                                    <div class="input-block">
-                                        <input type="text" class="form-control" placeholder="Nhập email của bạn">
-                                        <button class="btn" type="submit">Đăng ký</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-md-3 col-sm-6" data-aos="fade-down" data-aos-delay="600">
-                            <div class="footer-links-middle">
-                                <h4>LIÊN KẾT NHANH</h4>
-                                <ul>
-                                    <li><a href="/">Trang chủ</a></li>
-                                    <li><a href="/AboutUs">Về chúng tôi</a></li>
-                                    <li><a href="/Payment/Plan">Thanh toán</a></li>
-                                    <li><a href="/Booking">Đặt lịch tư vấn</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-md-3 col-sm-6" data-aos="fade-down" data-aos-delay="700">
-                            <div class="footer-links-middle">
-                                <h4>DỊCH VỤ</h4>
-                                <ul>
-                                    <li><a href="#">Tư vấn tại nhà</a></li>
-                                    <li><a href="#">Tâm lý trị liệu</a></li>
-                                    <li><a href="#">Hỗ trợ y tế</a></li>
-                                    <li><a href="#">Đánh giá sức khoẻ</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-4 col-sm-6" data-aos="fade-down" data-aos-delay="800">
-                            <div class="footer-links-middle">
-                                <h4>CHÍNH SÁCH</h4>
-                                <ul>
-                                    <li><a href="#">Chính sách bảo mật</a></li>
-                                    <li><a href="#">Điều khoản sử dụng</a></li>
-                                    <li><a href="#">Thỏa thuận dịch vụ</a></li>
-                                    <li><a href="#">Sơ đồ trang</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <footer class="footer-simple">
             <div class="container">
-                <div class="footer-bottom">
-                    <div class="copy-right">
-                        <p>Bản quyền © 2025 SmokeZeroDigital. Đã đăng ký mọi quyền.</p>
+                <div class="footer-content">
+                    <div class="row">
+                        <!-- Logo và mô tả -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="footer-brand">
+                                <img src="~/user-assets/assets/img/logoszd.svg" alt="SmokeZero Digital" class="footer-logo">
+                                <p class="footer-description">
+                                    Đồng hành cùng bạn trên hành trình cai nghiện thuốc lá, 
+                                    hướng tới cuộc sống khỏe mạnh và tích cực.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Liên kết nhanh -->
+                        <div class="col-lg-2 col-md-3 col-6 mb-4">
+                            <h5 class="footer-title">Liên kết</h5>
+                            <ul class="footer-links">
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/AboutUs">Về chúng tôi</a></li>
+                                <li><a href="/Blog/Index">Bài viết</a></li>
+                                <li><a href="/Payment/Plan">Gói dịch vụ</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Dịch vụ -->
+                        <div class="col-lg-2 col-md-3 col-6 mb-4">
+                            <h5 class="footer-title">Dịch vụ</h5>
+                            <ul class="footer-links">
+                                <li><a href="#">Tư vấn online</a></li>
+                                <li><a href="#">Theo dõi tiến độ</a></li>
+                                <li><a href="#">Hỗ trợ 24/7</a></li>
+                                <li><a href="#">Cộng đồng</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Liên hệ -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <h5 class="footer-title">Liên hệ</h5>
+                            <div class="footer-contact">
+                                <p><i class="fa-solid fa-envelope"></i> hotro@smokezerodigital.vn</p>
+                                <p><i class="fa-solid fa-location-dot"></i> FPTU HCMC</p>
+                                <div class="footer-social">
+                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <ul class="payment-method">
-                        <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-01.svg" alt="Img"></a></li>
-                        <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-02.svg" alt="Img"></a></li>
-                        <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-03.svg" alt="Img"></a></li>
-                        <li><a href="#"><img src="~/user-assets/assets/img/icons/footer-card-icon-04.svg" alt="Img"></a></li>
-                    </ul>
+                </div>
+
+                <!-- Copyright -->
+                <div class="footer-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <p class="copyright-text">© 2025 SmokeZero Digital. All rights reserved.</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <div class="footer-policies">
+                                <a href="#">Chính sách bảo mật</a>
+                                <a href="#">Điều khoản</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>

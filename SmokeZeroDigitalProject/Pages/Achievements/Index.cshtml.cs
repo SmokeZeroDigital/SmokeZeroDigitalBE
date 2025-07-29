@@ -7,9 +7,8 @@ namespace SmokeZeroDigitalProject.Pages.Achievements
     {
         public List<UserAchievement> UserAchievements { get; set; } = new();
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            // Hardcoded data
             UserAchievements = new List<UserAchievement>
         {
             new UserAchievement
@@ -17,8 +16,8 @@ namespace SmokeZeroDigitalProject.Pages.Achievements
                 AchievedDate = DateTime.Today.AddDays(-7),
                 Achievement = new Achievement
                 {
-                    Title = "1 Tu?n KhÙng H˙t Thu?c",
-                    Description = "B?n ?„ khÙng h˙t thu?c trong 7 ng‡y liÍn ti?p!",
+                    Title = "1 Tu·∫ßn Kh√¥ng H√∫t Thu·ªëc",
+                    Description = "B·∫°n ƒë√£ kh√¥ng h√∫t thu·ªëc trong 7 ng√†y li√™n ti·∫øp! Ch√∫c m·ª´ng nha^^",
                     IconUrl = "https://cdn-icons-png.flaticon.com/512/190/190411.png",
                     BadgeColor = "#28a745"
                 }
@@ -28,8 +27,8 @@ namespace SmokeZeroDigitalProject.Pages.Achievements
                 AchievedDate = DateTime.Today.AddDays(-30),
                 Achievement = new Achievement
                 {
-                    Title = "1 Th·ng T? Do",
-                    Description = "B?n ?„ kiÍn trÏ ???c 1 th·ng khÙng h˙t thu?c!",
+                    Title = "1 Th√°ng T·ª± Do",
+                    Description = "B·∫°n ƒê√£ Ki√™n Tr√¨ 1 th√°ng kh√¥ng h√∫t thu·ªëc!",
                     IconUrl = "https://cdn-icons-png.flaticon.com/512/1035/1035688.png",
                     BadgeColor = "#17a2b8"
                 }
@@ -39,13 +38,14 @@ namespace SmokeZeroDigitalProject.Pages.Achievements
                 AchievedDate = DateTime.Today.AddDays(-1),
                 Achievement = new Achievement
                 {
-                    Title = "Ng‡y KhÙng KhÛi",
-                    Description = "ThÍm m?t ng‡y s?ch s?, b?n ?ang l‡m r?t t?t!",
+                    Title = "Ng√†y Kh√¥ng Kh√≥i",
+                    Description = "Th√™m 1 ng√†y b·ªè thu·ªëc, th·∫≠t yomost!",
                     IconUrl = "https://cdn-icons-png.flaticon.com/512/190/190411.png",
                     BadgeColor = "#ffc107"
                 }
             }
         };
+            return Page();
         }
 
         public class UserAchievement

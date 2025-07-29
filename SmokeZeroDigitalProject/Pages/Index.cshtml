@@ -2,6 +2,10 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+	var fullName = HttpContext.Session.GetString("FullName");
+	var planId = HttpContext.Session.GetString("PlanId");
+	var isLoggedIn = !string.IsNullOrEmpty(fullName);
+	var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
 }
 @section Meta {
     <meta name="description" content="The responsive professional Doccure cardiology care template features are the best for scheduling  appointments with  top cardiologists, clinics, and hospitals via voice, video call & chat.">
@@ -242,7 +246,10 @@
 							</ul>
 						</div>
 						<div class="plane-btn">
-							 <li><a  class="btn btn-primary w-100" href="/Payment/Plan">Chọn gói này</a></li>
+							<li>
+								<a class="btn btn-primary w-100" href="javascript:void(0);" onclick="handlePlanClick()">Chọn gói này</a>
+							</li>
+
 						</div>
 					</div>
 				</div>
@@ -267,7 +274,10 @@
 							</ul>
 						</div>
 						<div class="plane-btn">
-							 <li><a  class="btn btn-primary w-100" href="/Payment/Plan">Chọn gói này</a></li>
+							<li>
+								<a class="btn btn-primary w-100" href="javascript:void(0);" onclick="handlePlanClick()">Chọn gói này</a>
+							</li>
+
 						</div>
 					</div>
 				</div>
@@ -292,7 +302,10 @@
 							</ul>
 						</div>
 						<div class="plane-btn">
-							 <li><a  class="btn btn-primary w-100" href="/Payment/Plan">Chọn gói này</a></li>
+							<li>
+								<a class="btn btn-primary w-100" href="javascript:void(0);" onclick="handlePlanClick()">Chọn gói này</a>
+							</li>
+
 						</div>
 					</div>
 				</div>
@@ -419,3 +432,27 @@
 <div class="messenger-icon">
 	<a href="/chat"><i class="fab fa-facebook-messenger"></i></a>
 </div>
+<script>
+	function handlePlanClick() {
+		var isLoggedIn = @((isLoggedIn).ToString().ToLower());
+		var hasPlan = @((hasPlan).ToString().ToLower());
+
+		if (!isLoggedIn) {
+			window.location.href = "/Login/Index";
+			return;
+		}
+		if (!hasPlan) {
+			window.location.href = "/Payment/Plan";
+			return;
+		}
+		Toastify({
+			text: "Bạn đã có gói thành viên rồi!",
+			duration: 4000,
+			close: true,
+			gravity: "top",
+			position: "right",
+			backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+			stopOnFocus: true
+		}).showToast();
+	}
+</script>
