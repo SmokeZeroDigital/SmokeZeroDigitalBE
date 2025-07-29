@@ -31,9 +31,4 @@
     <ProjectReference Include="..\SmokeZeroDigitalSolution.Infrastructure\SmokeZeroDigitalSolution.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\ProgressEntry\" />
-    <Folder Include="Pages\SmokingRecord\" />
-  </ItemGroup>
-
 </Project>
