@@ -19,9 +19,15 @@ namespace SmokeZeroDigitalProject.Pages.QuittingPlan
         public void OnGet()
         {
             if (PlanDto.StartDate == DateTime.MinValue)
-                PlanDto.StartDate = DateTime.Now;
+                PlanDto.StartDate = DateTime.Today;
+
             if (PlanDto.ExpectedEndDate == DateTime.MinValue)
-                PlanDto.ExpectedEndDate = DateTime.Now.AddDays(30);
+                PlanDto.ExpectedEndDate = DateTime.Today.AddDays(30);
+
+            if (PlanDto.ExpectedEndDate < DateTime.Today)
+            {
+                ViewData["Warning"] = "⚠️ Ngày kết thúc đã qua. Đây sẽ là kế hoạch quá khứ.";
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -35,25 +41,25 @@ namespace SmokeZeroDigitalProject.Pages.QuittingPlan
             }
             else
             {
-                ModelState.AddModelError("", "Không tìm thấy UserId trong phiên làm việc. Vui lòng đăng nhập lại.");
+                ModelState.AddModelError("", "Không tìm thấy UserId trong session. Vui lòng đăng nhập lại.");
                 return Page();
             }
 
-            if (PlanDto.StartDate == DateTime.MinValue)
-                PlanDto.StartDate = DateTime.Now;
-            if (PlanDto.ExpectedEndDate == DateTime.MinValue)
-                PlanDto.ExpectedEndDate = DateTime.Now.AddDays(30);
+            if (PlanDto.ExpectedEndDate < DateTime.Today)
+            {
+                ViewData["Warning"] = "Bạn đang tạo kế hoạch có ngày kết thúc trong quá khứ.";
+            }
 
             var response = await http.PostAsJsonAsync(
                 _apiConfig.GetEndpoint(ApiEndpoints.CreateQuittingPlan), PlanDto);
 
             if (response.IsSuccessStatusCode)
             {
-                TempData["Success"] = "Created quitting plan successfully.";
+                TempData["Success"] = "Tạo kế hoạch cai thuốc thành công.";
                 return RedirectToPage("/QuittingPlan/Index", new { userId = PlanDto.UserId });
             }
 
-            ModelState.AddModelError(string.Empty, "Failed to create plan.");
+            ModelState.AddModelError(string.Empty, "Tạo kế hoạch thất bại. Vui lòng thử lại.");
             return Page();
         }
     }

@@ -10,6 +10,14 @@
             <div class="card-header">
                 <h4 class="card-title text-primary-gradient">Create Quitting Plan</h4>
             </div>
+
+            @if (ViewData["Warning"] != null)
+            {
+                <div class="alert alert-warning mt-3">
+                    @ViewData["Warning"]
+                </div>
+            }
+
             <div class="card-body">
                 <form method="post">
                     <input type="hidden" asp-for="PlanDto.UserId" />
@@ -20,11 +28,11 @@
                     </div>
                     <div class="mb-3">
                         <label asp-for="PlanDto.StartDate" class="form-label">Start Date</label>
-                        <input asp-for="PlanDto.StartDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        <input asp-for="PlanDto.StartDate" type="date" class="form-control" />
                     </div>
                     <div class="mb-3">
                         <label asp-for="PlanDto.ExpectedEndDate" class="form-label">Target Quit Date</label>
-                        <input asp-for="PlanDto.ExpectedEndDate" type="date" class="form-control" value="@DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")" />
+                        <input asp-for="PlanDto.ExpectedEndDate" type="date" class="form-control" />
                     </div>
                     <div class="mb-3">
                         <label asp-for="PlanDto.InitialCigarettesPerDay" class="form-label">Cigarettes per Day</label>
