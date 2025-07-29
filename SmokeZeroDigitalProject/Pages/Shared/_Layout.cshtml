@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using SmokeZeroDigitalProject.Common.Helper
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -46,6 +47,109 @@
         
         .btn-primary i {
             margin-right: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+                color: white;
+            }
+
+            .btn-primary i {
+                margin-right: 5px;
+            }
+
+        /* Fix dropdown cho header */
+        .header-navbar-rht .dropdown {
+            position: relative;
+        }
+
+        .header-navbar-rht .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            min-width: 200px;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 0.375rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,.175);
+            margin-top: 0.125rem;
+        }
+
+            .header-navbar-rht .dropdown-menu.show {
+                display: block;
+            }
+
+        .header-navbar-rht .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 1rem;
+            clear: both;
+            font-weight: 400;
+            color: #212529;
+            text-align: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+        }
+
+            .header-navbar-rht .dropdown-item:hover {
+                background-color: #f8f9fa;
+                color: #1e2125;
+            }
+
+        /* Alternative: Submenu style nếu dùng has-submenu */
+        .header-navbar-rht .has-submenu {
+            position: relative;
+        }
+
+            .header-navbar-rht .has-submenu .submenu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: #fff;
+                min-width: 200px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                border-radius: 4px;
+                display: none;
+                z-index: 1000;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .header-navbar-rht .has-submenu:hover .submenu {
+                display: block;
+            }
+
+        .header-navbar-rht .submenu li a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-navbar-rht .submenu li:last-child a {
+            border-bottom: none;
+        }
+
+        .header-navbar-rht .submenu li a:hover {
+            background-color: #f8f9fa;
+            color: #007bff;
         }
     </style>
 </head>
@@ -115,37 +219,83 @@
                         @{
                             var fullName = Context.Session.GetString("FullName");
                             var planId = Context.Session.GetString("PlanId");
+                            var token = Context.Session.GetString("Token");
+
                             var isLoggedIn = !string.IsNullOrEmpty(fullName);
                             var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
+
+                            string role = string.Empty;
+                            if (!string.IsNullOrEmpty(token))
+                            {
+                                role = JwtTokenHelper.GetClaim(token, "role") ?? "";
+
+                            }
+
+                            bool isMember = role == "Member";
+
                         }
                         @if (isLoggedIn)
                         {
                             <li class="register-btn">
                                 <span class="btn log-btn" style="cursor:default;"><i class="feather-user"></i>@fullName</span>
                             </li>
+
                             <li class="register-btn">
                                 @if (hasPlan)
                                 {
-                                    <span class="btn btn-primary" style="cursor:default;" title="Thành viên Hỗ trợ đặc biệt"><i class="feather-crown"></i>Thành viên Pro</span>
+                                    <span class="btn btn-primary" style="cursor:default;" title="Thành viên Hỗ trợ đặc biệt">
+                                        <i class="feather-crown"></i> Thành viên Pro
+                                    </span>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-primary" href="/Payment/Plan" title="Nâng cấp để nhận hỗ trợ chuyên sâu"><i class="feather-credit-card"></i>Nâng cấp gói</a>
+                                    <a class="btn btn-primary" href="/Payment/Plan" title="Nâng cấp để nhận hỗ trợ chuyên sâu">
+                                        <i class="feather-credit-card"></i> Nâng cấp gói
+                                    </a>
                                 }
                             </li>
+
+
+                            @if (isMember)
+                            {
+                                <li class="has-submenu">
+                                    <a href="#">Hỗ trợ cai thuốc <i class="fas fa-chevron-down ms-1"></i></a>
+                                    <ul class="submenu">
+                                        <li class="submenu-header"><span>Tạo mới</span></li>
+                                        <li><a href="/QuittingPlan/Create"><i class="fas fa-plus-circle me-2"></i>Tạo kế hoạch cai thuốc</a></li>
+                                        <li><a href="/ProgressEntry/Create"><i class="fas fa-plus-circle me-2"></i>Tạo tiến trình</a></li>
+                                        <li><a href="/SmokingRecord/Create"><i class="fas fa-plus-circle me-2"></i>Tạo bản ghi hút thuốc</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li class="submenu-header"><span>Quản lý</span></li>
+                                        <li><a href="/QuittingPlan/@(Context.Session.GetString("UserId"))"><i class="fas fa-list me-2"></i>Kế hoạch của tôi</a></li>
+                                        <li><a href="/ProgressEntry?userId=@(Context.Session.GetString("UserId"))"><i class="fas fa-chart-line me-2"></i>Tiến trình của tôi</a></li>
+                                        <li><a href="/SmokingRecord?userId=@(Context.Session.GetString("UserId"))"><i class="fas fa-history me-2"></i>Lịch sử hút thuốc</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+
                             <li class="register-btn">
                                 <form method="post" asp-page="/Logout" style="display:inline;">
-                                    <button type="submit" class="btn reg-btn" style="padding:0;"><i class="feather-lock"></i>Đăng xuất</button>
+                                    <button type="submit" class="btn reg-btn" style="padding:0;">
+                                        <i class="feather-lock"></i> Đăng xuất
+                                    </button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="register-btn">
-                                <a class="btn log-btn" asp-area="" asp-page="/Login/Index"><i class="feather-lock"></i>Đăng nhập</a>
+                                <a class="btn log-btn" asp-area="" asp-page="/Login/Index">
+                                    <i class="feather-lock"></i> Đăng nhập
+                                </a>
                             </li>
                             <li class="register-btn">
-                                <a class="btn reg-btn" asp-area="" asp-page="/Register/Index"><i class="feather-user"></i>Đăng ký</a>
+                                <a class="btn reg-btn" asp-area="" asp-page="/Register/Index">
+                                    <i class="feather-user"></i> Đăng ký
+                                </a>
                             </li>
                         }
                     </ul>
@@ -316,6 +466,40 @@
                 backgroundColor: bgColor,
                 stopOnFocus: true
             }).showToast();
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Fix Bootstrap dropdown
+                const dropdownElements = document.querySelectorAll('.dropdown-toggle');
+
+                dropdownElements.forEach(function (element) {
+                    element.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Đóng tất cả dropdown khác
+                        document.querySelectorAll('.dropdown-menu').forEach(function (menu) {
+                            menu.classList.remove('show');
+                        });
+
+                        // Toggle dropdown hiện tại
+                        const dropdownMenu = this.nextElementSibling;
+                        if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                            dropdownMenu.classList.toggle('show');
+                        }
+                    });
+                });
+
+                // Đóng dropdown khi click outside
+                document.addEventListener('click', function (e) {
+                    if (!e.target.closest('.dropdown')) {
+                        document.querySelectorAll('.dropdown-menu').forEach(function (menu) {
+                            menu.classList.remove('show');
+                        });
+                    }
+                });
+
+                // Debug: kiểm tra dropdown có tồn tại không
+                console.log('Dropdown elements found:', dropdownElements.length);
         </script>
     }
 </body>
