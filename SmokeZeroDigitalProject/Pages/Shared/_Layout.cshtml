@@ -197,7 +197,24 @@
                             <img src="~/user-assets/assets/img/logoszd.svg" class="img-fluid" alt="Logo">
                         </a>
                     </div>
-              
+                    @{
+                        var fullName = Context.Session.GetString("FullName");
+                        var planId = Context.Session.GetString("PlanId");
+                        var token = Context.Session.GetString("Token");
+
+                        var isLoggedIn = !string.IsNullOrEmpty(fullName);
+                        var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
+
+                        string role = string.Empty;
+                        if (!string.IsNullOrEmpty(token))
+                        {
+                            role = JwtTokenHelper.GetClaim(token, "role") ?? "";
+
+                        }
+
+                        bool isMember = role == "Member";
+
+                    }
                     <div class="main-menu-wrapper">
                         <div class="menu-header">
                             <a href="/" class="menu-logo">
@@ -217,6 +234,7 @@
 
                         </ul>
                     </div>
+
                     <ul class="nav header-navbar-rht">
                         <li class="searchbar">
                             <a href="javascript:void(0);"><i class="feather-search"></i></a>
@@ -234,24 +252,7 @@
                             <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle activate"><i class="isax isax-moon"></i></a>
                         </li>
 
-                        @{
-                            var fullName = Context.Session.GetString("FullName");
-                            var planId = Context.Session.GetString("PlanId");
-                            var token = Context.Session.GetString("Token");
-
-                            var isLoggedIn = !string.IsNullOrEmpty(fullName);
-                            var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
-
-                            string role = string.Empty;
-                            if (!string.IsNullOrEmpty(token))
-                            {
-                                role = JwtTokenHelper.GetClaim(token, "role") ?? "";
-
-                            }
-
-                            bool isMember = role == "Member";
-
-                        }
+                        
                         @if (isLoggedIn)
                         {
                             <li class="register-btn">
