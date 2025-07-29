@@ -38,7 +38,9 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
                     HealthStatusNotes = x.HealthStatusNotes,
                     CravingLevel = x.CravingLevel,
                     Challenges = x.Challenges,
-                    Successes = x.Successes
+                    Successes = x.Successes,
+                    CreatedAt = x.CreatedAt
+
                 })
                 .ToListAsync();
             return entries;

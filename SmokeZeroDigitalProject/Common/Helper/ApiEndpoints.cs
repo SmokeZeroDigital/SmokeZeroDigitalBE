@@ -49,8 +49,8 @@
         public const string GetCommentByArticleId = "/api/Comment/by-article/{id}";
         public const string GetReplies = "/api/Comment/replies/{id}";
 
-		//Blog
-		    public const string GetAllBlogs = "/api/Blog";
+        //Blog
+        public const string GetAllBlogs = "/api/Blog";
         public const string GetBlogById = "/api/Blog/by-id/{id}";
         public const string DeleteBlog = "/api/Blog/delete";
 
@@ -65,6 +65,21 @@
         public const string GetAllNotis = "/api/Noti";
         public const string CreateNoti = "/api/Noti";
 
+
+        // 🟢 Quitting Plan (Lập kế hoạch cai thuốc)
+        public const string CreateQuittingPlan = "/api/QuittingPlan/create";
+        public const string GetAllQuittingPlan = "/api/QuittingPlan/all";
+        public const string GetQuittingPlanByUser = "/api/QuittingPlan/by-user/{userId}";
+
+        // 🟠 Smoking Record (Ghi nhận trạng thái hút thuốc)
+        public const string CreateSmokingRecord = "/api/SmokingRecord/create";
+        public const string GetAllSmokingRecords = "/api/SmokingRecord/all";
+        public const string GetSmokingRecordsByUser = "/api/SmokingRecord/by-user/{userId}";
+
+        // 🔵 Progress Entry (Xem tiến trình)
+        public const string CreateProgressEntry = "/api/ProgressEntry/create";
+        public const string GetAllProgressEntries = "/api/ProgressEntry/all";
+        public const string GetProgressEntriesByUser = "/api/ProgressEntry/by-user/{userId}";
     }
 
     public class ApiConfig

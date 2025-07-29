@@ -1,0 +1,51 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.ProgressEntry.IndexModel
+@{
+    ViewData["Title"] = "Progress Entries";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="container">
+        <div class="card p-4 mt-4">
+            <div class="card-header">
+                <h4 class="card-title text-primary-gradient">Progress Entries</h4>
+            </div>
+            <div class="card-body">
+                @if (Model.ProgressEntries?.Any() ?? false)
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Entry Date</th>
+                                <th>Cigarettes Smoked</th>
+                                <th>Money Saved (VND)</th>
+                                <th>Craving Level</th>
+                                <th>Health Notes</th>
+                                <th>Challenges</th>
+                                <th>Successes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var entry in Model.ProgressEntries)
+                            {
+                                <tr>
+                                    <td>@entry.EntryDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@entry.CigarettesSmokedToday</td>
+                                    <td>@entry.MoneySavedToday.ToString("N0")</td>
+                                    <td>@entry.CravingLevel</td>
+                                    <td>@entry.HealthStatusNotes</td>
+                                    <td>@entry.Challenges</td>
+                                    <td>@entry.Successes</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-warning text-center p-3">No progress entries found.</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.SmokingRecord.IndexModel
+@{
+    ViewData["Title"] = "Smoking Records";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="container">
+        <div class="card shadow-sm rounded mt-4">
+            <div class="card-header bg-white border-bottom">
+                <h4 class="card-title text-primary-gradient mb-0">Smoking Records</h4>
+            </div>
+            <div class="card-body">
+                @if (Model.SmokingRecords?.Any() ?? false)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>📅 Record Date</th>
+                                    <th>🚬 Cigarettes Smoked</th>
+                                    <th>💰 Cost (VND)</th>
+                                    <th>:( Note</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var record in Model.SmokingRecords)
+                                {
+                                    <tr>
+                                        <td>@record.RecordDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@record.CigarettesSmoked</td>
+                                        <td>@record.CostIncurred.ToString("N0")</td>
+                                        <td>@record.Notes</td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info text-center p-4">
+                        <strong>No smoking records found.</strong><br />
+                        Start recording to track your progress!
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.SmokingRecord.CreateModel
+@{
+    ViewData["Title"] = "Create Smoking Record";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="container">
+        <div class="card p-4 mt-4">
+            <div class="card-header">
+                <h4 class="card-title text-primary-gradient">Create Smoking Record</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" asp-for="RecordDto.UserId" />
+
+                    <div class="mb-3">
+                        <label asp-for="RecordDto.RecordDate" class="form-label">Record Date</label>
+                        <input asp-for="RecordDto.RecordDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="RecordDto.CigarettesSmoked" class="form-label">Cigarettes Smoked</label>
+                        <input asp-for="RecordDto.CigarettesSmoked" type="number" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="RecordDto.CostIncurred" class="form-label">Cost Incurred (VND)</label>
+                        <input asp-for="RecordDto.CostIncurred" type="number" step="0.01" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="RecordDto.Notes" class="form-label">Notes</label>
+                        <textarea asp-for="RecordDto.Notes" class="form-control" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary-gradient rounded-pill">Create Record</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,7 +32,10 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services
                 StartDate = entity.StartDate,
                 ExpectedEndDate = entity.ExpectedEndDate,
                 CreatedAt = entity.CreatedAt,
-                IsActive = entity.IsActive
+                IsActive = entity.IsActive,
+                InitialCigarettesPerDay = dto.InitialCigarettesPerDay,
+                InitialCostPerCigarette = dto.InitialCostPerCigarette,
+
             };
         }
 

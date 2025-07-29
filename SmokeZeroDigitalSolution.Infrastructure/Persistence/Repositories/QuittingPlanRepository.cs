@@ -28,10 +28,18 @@ namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Repositories
                 Id = plan.Id,
                 UserId = plan.UserId,
                 ReasonToQuit = plan.ReasonToQuit,
+                StartDate = plan.StartDate,
+                ExpectedEndDate = plan.ExpectedEndDate,
+                InitialCigarettesPerDay = plan.InitialCigarettesPerDay,
+                InitialCostPerCigarette = plan.InitialCostPerCigarette,
                 CreatedAt = plan.CreatedAt,
-                IsActive = plan.IsActive
+                IsActive = plan.IsActive,
+                Stages = plan.Stages,
+                CustomNotes = plan.CustomNotes
             }).FirstOrDefaultAsync();
+
             return plan ?? throw new KeyNotFoundException("Quitting plan not found for the specified user.");
         }
+
     }
 }
