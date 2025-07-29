@@ -1,0 +1,81 @@
+﻿@page "{userId:guid}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Your Quitting Plan";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="content py-5">
+    <div class="container">
+        <div class="card shadow-sm p-4">
+            <div class="card-header mb-4 border-bottom">
+                <h2 class="card-title text-primary text-center fw-bold">Your Quitting Plan</h2>
+            </div>
+            <div class="card-body">
+                @if (Model.Plan == null)
+                {
+                    <div class="alert alert-warning text-center p-3">You haven't created a quitting plan yet.</div>
+                }
+                else
+                {
+                    <dl class="row row-cols-2 g-4 mb-0">
+                        <div class="col">
+                            <dt class="col fw-bold text-muted">Reason to Quit</dt>
+                            <dd class="col">@Model.Plan.ReasonToQuit</dd>
+                        </div>
+                        <div class="col">
+                            <dt class="col fw-bold text-muted">Start Date</dt>
+                            <dd class="col">@Model.Plan.StartDate.ToString("dd/MM/yyyy")</dd>
+                        </div>
+
+                        <div class="col">
+                            <dt class="col fw-bold text-muted">Expected End Date</dt>
+                            <dd class="col">@Model.Plan.ExpectedEndDate.ToString("dd/MM/yyyy")</dd>
+                        </div>
+                        <div class="col">
+                            <dt class="col fw-bold text-muted">Created At</dt>
+                            <dd class="col">@Model.Plan.CreatedAt.ToString("dd/MM/yyyy")</dd>
+                        </div>
+
+                        <div class="col">
+                            <dt class="col fw-bold text-muted">Cigarettes/Day</dt>
+                            <dd class="col">@Model.Plan.InitialCigarettesPerDay</dd>
+                        </div>
+                        <div class="col">
+                            <dt class="col fw-bold text-muted">Cost/Cigarette</dt>
+                            <dd class="col">@Model.Plan.InitialCostPerCigarette.ToString("N0") VND</dd>
+                        </div>
+
+                        <div class="col">
+                            <dt class="col fw-bold text-muted">Plan Status</dt>
+                            <dd class="col">
+                                @if (Model.Plan.IsActive)
+                                {
+                                    <span class="badge bg-success rounded-pill">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary rounded-pill">Inactive</span>
+                                }
+                            </dd>
+                        </div>
+                        
+                        <div class="col"></div>
+                    </dl>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card-body dl.row > div {
+        display: flex;
+        flex-direction: column;
+    }
+    .card-body dl.row > div dt {
+        margin-bottom: 0.25rem;
+    }
+    .card-body dl.row > div dd {
+        margin-bottom: 1rem;
+    }
+</style>

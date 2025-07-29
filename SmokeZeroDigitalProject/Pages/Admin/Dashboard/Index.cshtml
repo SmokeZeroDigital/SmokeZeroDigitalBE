@@ -1,0 +1,291 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Admin.Dashboard.IndexModel
+@{
+	Layout = null;
+	ViewData["Title"] = "Dashboard";
+	var chartLabels = string.Join(",", Model.MonthlyRevenues.Select(m => $"'{m.Month}'"));
+	var chartData = string.Join(",", Model.MonthlyRevenues.Select(m => m.Revenue));
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from doccure.dreamstechnologies.com/html/template/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jun 2025 14:59:48 GMT -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+	<meta name="keywords" content="practo clone, doccure, doctor appointment, Practo clone html template, doctor booking template">
+	<meta name="author" content="Practo Clone HTML Template - Doctor Booking Template">
+	<meta property="og:url" content="https://doccure.dreamstechnologies.com/html/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Doctors Appointment HTML Website Templates | Doccure">
+	<meta property="og:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+	<meta property="og:image" content="assets/img/preview-banner.html">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="https://doccure.dreamstechnologies.com/html/">
+	<meta property="twitter:url" content="https://doccure.dreamstechnologies.com/html/">
+	<meta name="twitter:title" content="Doctors Appointment HTML Website Templates | Doccure">
+	<meta name="twitter:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+	<meta name="twitter:image" content="assets/img/preview-banner.html">
+	<title>Doccure - Dashboard</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="~/admin-assets/admin-assets/assets/img/favicon.png">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/css/feathericon.min.css">
+
+	<!-- Datatables CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/plugins/datatables/datatables.min.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/admin-assets/admin-assets/assets/css/custom.css">
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		<div class="header">
+
+			<!-- Logo -->
+			<div class="header-left">
+				<a href="/" class="logo">
+					<img src="~/user-assets/assets/img/logoszd.svg" class="img-fluid" alt="Logo">
+				</a>
+				<a href="/" class="logo logo-small">
+					<img src="~/user-assets/assets/img/logoszd.svg" class="img-fluid" alt="Logo">
+				</a>
+			</div>
+			<!-- /Logo -->
+
+			<a href="javascript:void(0);" id="toggle_btn">
+				<i class="fe fe-text-align-left"></i>
+			</a>
+			<!-- Mobile Menu Toggle -->
+			<a class="mobile_btn" id="mobile_btn">
+				<i class="fa fa-bars"></i>
+			</a>
+			<!-- /Mobile Menu Toggle -->
+			<!-- Header Right Menu -->
+			<!-- /Header Right Menu -->
+
+		</div>
+		<!-- /Header -->
+		<!-- Sidebar -->
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-inner slimscroll">
+				<div id="sidebar-menu" class="sidebar-menu">
+					<ul>
+						<li class="menu-title">
+							<span>Main</span>
+						</li>
+						<li class="active">
+							<a asp-page="/Admin/Dashboard/Index"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/User/Index"><i class="fe fe-user"></i> <span>Người dùng</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/Coach/Index"><i class="fe fe-users"></i> <span>Huấn luyện viên</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/Plan/Index"><i class="fe fe-credit-card"></i> <span>Danh sách gói</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/Feedback/Index"><i class="fe fe-activity"></i> <span>Feedback</span></a>
+						</li>
+						<li>
+							<a asp-page="/Admin/Blog/Index"><i class="fe fe-user-plus"></i> <span>Blog</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>		<!-- /Sidebar -->
+		<!-- Page Wrapper -->
+		<div class="page-wrapper">
+
+			<div class="content container-fluid">
+
+				<!-- Page Header -->
+				<div class="page-header">
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 class="page-title">Welcome Admin!</h3>
+						</div>
+					</div>
+				</div>
+				<!-- /Page Header -->
+
+				<div class="row">
+					<div class="col-xl-3 col-sm-6 col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="dash-widget-header">
+									<span class="dash-widget-icon text-primary border-primary">
+										<i class="fe fe-users"></i>
+									</span>
+									<div class="dash-count">
+										<p class="card-text display-4">42</p>
+									</div>
+								</div>
+								<div class="dash-widget-info">
+									<h6 class="text-muted">Người dùng</h6>
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-primary w-50"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6 col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="dash-widget-header">
+									<span class="dash-widget-icon text-primary border-primary">
+										<i class="fe fe-users"></i>
+									</span>
+									<div class="dash-count">
+										<p class="card-text display-4">12</p>
+									</div>
+								</div>
+								<div class="dash-widget-info">
+									<h6 class="text-muted">Huấn luyện viên</h6>
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-primary w-50"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6 col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="dash-widget-header">
+									<span class="dash-widget-icon text-success">
+										<i class="fe fe-credit-card"></i>
+									</span>
+									<div class="dash-count">
+										<p class="card-text display-4">48</p>
+									</div>
+								</div>
+								<div class="dash-widget-info">
+
+									<h6 class="text-muted">Số lượng gói đã mua</h6>
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-success w-50"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-sm-6 col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="dash-widget-header">
+									<span class="dash-widget-icon text-danger border-danger">
+										<i class="fe fe-money"></i>
+									</span>
+									<div class="dash-count">
+										<p class="card-text display-4">8000000</p>
+									</div>
+								</div>
+								<div class="dash-widget-info">
+
+									<h6 class="text-muted">Tổng doanh thu</h6>
+									<div class="progress progress-sm">
+										<div class="progress-bar bg-danger w-50"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					 @* <div class="card card-chart">
+					 	<div class="card-header">
+					 		<h4 class="card-title">Revenue</h4>
+					 	</div>
+					 	<div class="card-body">
+					 		<div id="morrisArea"></div>
+					 	</div>
+					 </div> *@
+					<h2>Doanh thu theo tháng (Giá bán Plan)</h2>
+
+					<canvas id="revenueChart" width="800" height="400"></canvas>
+
+				</div>
+			</div>
+		</div>
+		<!-- /Page Wrapper -->
+
+	</div>
+	<!-- /Main Wrapper -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		const ctx = document.getElementById('revenueChart').getContext('2d');
+		const revenueChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: [@Html.Raw(chartLabels)],
+				datasets: [{
+					label: 'Doanh thu (VND)',
+					data: [@Html.Raw(chartData)],
+					fill: true,
+					borderColor: 'rgb(75, 192, 192)',
+					backgroundColor: 'rgba(75, 192, 192, 0.2)',
+					tension: 0.3
+				}]
+			},
+			options: {
+				responsive: true,
+				scales: {
+					y: {
+						beginAtZero: true,
+						ticks: {
+							callback: value => value.toLocaleString('vi-VN') + ' ₫'
+						}
+					}
+				},
+				plugins: {
+					legend: { position: 'top' },
+					tooltip: {
+						callbacks: {
+							label: context => context.parsed.y.toLocaleString('vi-VN') + ' ₫'
+						}
+					}
+				}
+			}
+		});
+	</script>
+	<!-- jQuery -->
+	<script src="~/admin-assets/admin-assets/assets/js/jquery-3.7.1.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/admin-assets/admin-assets/assets/js/bootstrap.bundle.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<!-- Slimscroll JS -->
+	<script src="~/admin-assets/admin-assets/assets/plugins/slimscroll/jquery.slimscroll.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<!-- Datatables JS -->
+	<script src="~/admin-assets/admin-assets/assets/plugins/datatables/jquery.dataTables.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+	<script src="~/admin-assets/admin-assets/assets/plugins/datatables/datatables.min.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<!-- Custom JS -->
+	<script src="~/admin-assets/admin-assets/assets/js/script.js" type="f6af414c859b09da0cd1b694-text/javascript"></script>
+
+	<script src="../../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="f6af414c859b09da0cd1b694-|49" defer></script>
+	<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94fab1b85b7f9626","version":"2025.6.2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"3ca157e612a14eccbb30cf6db6691c29","b":1}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from doccure.dreamstechnologies.com/html/template/admin/patient-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jun 2025 15:00:53 GMT -->
+</html>

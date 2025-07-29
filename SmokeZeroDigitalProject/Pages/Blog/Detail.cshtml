@@ -1,0 +1,202 @@
+﻿@page "{id:guid}"  
+@model DetailModel
+@{
+    ViewData["Title"] = "Chi tiết Blog";
+    var userId = Model.CurrentUserId ?? "";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="bg-white p-4 rounded shadow-sm border">
+        <h2 class="mb-3">@Model.Blog.Title</h2>
+        <p class="text-muted">Tác giả: <strong>@Model.Blog.AuthorUser.FullName</strong> | Ngày đăng: @Model.Blog.CreatedAt.ToString("dd/MM/yyyy")</p>
+
+        @foreach (var tag in Model.Blog.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+        {
+            <a asp-page="/Blog/Index"
+               asp-route-selectedTag="@tag.Trim()"
+               class="badge bg-secondary me-1 text-decoration-none text-white">
+                @tag.Trim()
+            </a>
+        }
+
+
+        <div>
+            <p>@Model.Blog.Content</p>
+        </div>
+
+        <a asp-page="/Blog/Index" class="btn btn-secondary mt-4"><i class="fa fa-arrow-left"></i> Quay lại</a>
+        <hr />
+        <h4>Bình luận</h4>
+        @if (!string.IsNullOrEmpty(userId))
+        {
+            <div class="mb-4">
+                <textarea id="newCommentContent" class="form-control mb-2" placeholder="Viết bình luận của bạn..." rows="3"></textarea>
+                <button class="btn btn-primary" onclick="submitComment()">Gửi bình luận</button>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Bạn cần đăng nhập để viết bình luận.</p>
+        }
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="border-bottom mb-3 pb-2" id="comment-@comment.Id">
+                <p class="mb-1">
+                    <strong>@comment.UserName</strong> -
+                    <span class="text-muted">@comment.CommentDate.ToString("dd/MM/yyyy HH:mm")</span>
+                </p>
+                <p>@comment.Content</p>
+
+                @if (!string.IsNullOrEmpty(userId))
+                {
+                    <button class="btn btn-link p-0 text-primary" onclick="showReplyBox('@comment.Id')">Trả lời</button>
+                }
+
+                @if (comment.HasReplies)
+                {
+                    <button class="btn btn-link p-0" onclick="loadReplies('@comment.Id')">Xem phản hồi</button>
+                }
+
+                <div id="replies-@comment.Id" class="mt-2 ps-4 border-start"></div>
+
+                @if (!string.IsNullOrEmpty(userId))
+                {
+                    <div id="replyBox-@comment.Id" class="mt-2" style="display:none;">
+                        <textarea id="replyContent-@comment.Id" class="form-control mb-2" rows="2" placeholder="Phản hồi..."></textarea>
+                        <button class="btn btn-sm btn-success" onclick="submitReply('@comment.Id')">Gửi phản hồi</button>
+                    </div>
+                }
+            </div>
+        }
+
+
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const userId = "@userId";
+        const blogId = "@Model.Blog.Id";
+                document.addEventListener("DOMContentLoaded", function () {
+            const viewedKey = "viewed_blog_" + blogId;
+
+            // Gửi view count nếu chưa gửi
+            if (!sessionStorage.getItem(viewedKey)) {
+                fetch(`/api/blog/${blogId}`, {
+                    method: 'POST'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("View counted.");
+                        sessionStorage.setItem(viewedKey, "true");
+                    } else {
+                        console.warn("Failed to count view.");
+                    }
+                })
+                .catch(err => console.error("Error:", err));
+            }
+            Object.keys(sessionStorage).forEach(function (key) {
+                if (key.startsWith("replies_loaded_")) {
+                    sessionStorage.removeItem(key);
+                }
+            });
+        });
+
+
+        function showReplyBox(commentId) {
+            document.getElementById(`replyBox-${commentId}`).style.display = 'block';
+        }
+
+        function submitComment() {
+            if (!userId) {
+                alert("Bạn cần đăng nhập để bình luận.");
+                return;
+            }
+
+            const content = document.getElementById("newCommentContent").value;
+            if (!content.trim()) return alert("Bình luận không được để trống.");
+
+            fetch("/api/Comment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: userId,
+                    articleId: blogId,
+                    content: content
+                })
+            })
+            .then(res => {
+                if (res.ok) location.reload();
+                else throw new Error("Gửi bình luận thất bại");
+            })
+            .catch(err => alert(err.message));
+        }
+
+        function submitReply(parentId) {
+            if (!userId) {
+                alert("Bạn cần đăng nhập để phản hồi.");
+                return;
+            }
+
+            const contentEl = document.getElementById(`replyContent-${parentId}`);
+            const content = contentEl.value;
+            if (!content.trim()) return alert("Phản hồi không được để trống.");
+
+            fetch("/api/Comment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: userId,
+                    articleId: blogId,
+                    content: content,
+                    parentCommentId: parentId
+                })
+            })
+            .then(res => {
+                if (res.ok) {
+                    contentEl.value = "";
+                    sessionStorage.removeItem("replies_loaded_" + parentId);
+                    loadReplies(parentId);
+                } else {
+                    throw new Error("Gửi phản hồi thất bại");
+                }
+            })
+            .catch(err => alert(err.message));
+        }
+
+        function loadReplies(commentId) {
+            const container = document.getElementById("replies-" + commentId);
+            const loadedKey = "replies_loaded_" + commentId;
+            if (sessionStorage.getItem(loadedKey)) return;
+
+            fetch(`/api/Comment/replies/${commentId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to load replies");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.content && Array.isArray(data.content)) {
+                        const repliesHtml = data.content.map(reply => {
+                            const date = new Date(reply.commentDate).toLocaleString('vi-VN');
+                            return `
+                                <div class="mb-2">
+                                    <p class="mb-1"><strong>${reply.userName}</strong> - <span class="text-muted">${date}</span></p>
+                                    <p>${reply.content}</p>
+                                </div>`;
+                        }).join('');
+                        container.innerHTML = repliesHtml;
+                        sessionStorage.setItem(loadedKey, "true");
+                    } else {
+                        container.innerHTML = `<p class="text-muted">Không có phản hồi.</p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi khi tải phản hồi:", error);
+                    container.innerHTML = `<p class="text-danger">Không thể tải phản hồi.</p>`;
+                });
+        }
+    </script>
+}

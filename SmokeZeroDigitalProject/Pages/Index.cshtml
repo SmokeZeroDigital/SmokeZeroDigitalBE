@@ -2,9 +2,457 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+	var fullName = HttpContext.Session.GetString("FullName");
+	var planId = HttpContext.Session.GetString("PlanId");
+	var isLoggedIn = !string.IsNullOrEmpty(fullName);
+	var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
 }
+@section Meta {
+    <meta name="description" content="The responsive professional Doccure cardiology care template features are the best for scheduling  appointments with  top cardiologists, clinics, and hospitals via voice, video call & chat.">
+    <meta name="keywords" content="practo clone, doccure, doctor appointment, Practo clone html template, doctor booking template">
+    <meta name="author" content="Practo Clone HTML Template - Doctor Booking Template">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Doctors Appointment HTML Website Templates | Doccure">
+    <meta property="og:description" content="The responsive professional Doccure cardiology care template features are the best for scheduling  appointments with  top cardiologists, clinics, and hospitals via voice, video call & chat.">
+    <meta property="og:image" content="~/user-assets/assets/img/preview-banner.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Doctors Appointment HTML Website Templates | Doccure">
+    <meta name="twitter:description" content="The responsive professional Doccure cardiology care template features are the best for scheduling  appointments with  top cardiologists, clinics, and hospitals via voice, video call & chat.">
+    <meta name="twitter:image" content="~/user-assets/assets/img/preview-banner.jpg">
+    <title>@ViewData["Title"] - SmokeZeroDigitalProject</title>
+}
+<!-- Home Banner -->
+<section class="banner-section banner-sec-fourteen">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6">
+				<div class="banner-content aos" data-aos="fade-up">
+					<div class="banner-head">
+						<h6>Chúng tôi luôn đồng hành</h6>
+						<h1>Dịch Vụ Hỗ Trợ Cai Nghiện Thuốc Lá</h1>
+						<p>Đặt lịch hẹn với chuyên gia hỗ trợ – nhanh chóng và dễ dàng</p>
+					</div>
+					<div class="banner-form-field">
+						<form action="#">
+							<div class="input-box">
+								<div class="input-block">
+									<div class="icon-badge">
+										<span><i class="feather-map-pin"></i></span>
+									</div>
+									<div class="banner-input-box">
+										<label class="form-label">Khu vực</label>
+										<input type="text" class="form-control" placeholder="Hồ Chí Minh, Việt Nam">
+									</div>
+								</div>
+								<div class="input-block">
+									<div class="icon-badge">
+										<span><i class="fa-solid fa-users-gear"></i></span>
+									</div>
+									<div class="banner-input-box">
+										<label class="form-label">Dịch vụ</label>
+										<input type="text" class="form-control" placeholder="Nhập dịch vụ hỗ trợ">
+									</div>
+								</div>
+								<div class="input-btn">
+									<button type="submit" class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="watch-video">
+						<a href="#">
+							<span><i class="fa-solid fa-circle-play"></i></span>
+							Xem video giới thiệu
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="banner-sec-img">
+					<span><img width="650" src="~/user-assets/assets/img/banner1.png" class="img-fluid" alt="Img"></span>
+					<!-- Các ảnh nền & trang trí -->
+					<span class="chat-call-btn"><a href="/">Trò chuyện ngay</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- /Home Banner -->
+<!-- How it Work -->
+<div class="how-it-work-fourteen">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-xl-5 col-lg-4">
+				<div class="section-work-head" data-aos="fade-up" data-aos-delay="400">
+					<span>Đặt lịch dễ dàng</span>
+					<h2>Quy trình <span>Hỗ trợ & Tư vấn</span></h2>
+				</div>
+			</div>
+			<div class="col-xl-7 col-lg-8">
+				<ul class="work-flow-chart">
+					<li data-aos="fade-up" data-aos-delay="500">
+						<img src="~/user-assets/assets/img/bg/chart-arrow-3.png" alt="Img">
+						<div class="flow-chart-list">
+							<span class="chart-icon"><img src="~/user-assets/assets/img/icons/flow-chart-icon-01.svg" alt="Img"></span>
+							<h6>Chọn khu vực</h6>
+							<span class="chart-count">01</span>
+						</div>
+					</li>
+					<li data-aos="fade-up" data-aos-delay="600">
+						<img src="~/user-assets/assets/img/bg/chart-arrow-01.png" alt="Img">
+						<div class="flow-chart-list bg-yelllow">
+							<span class="chart-icon"><img src="~/user-assets/assets/img/icons/flow-chart-icon-02.svg" alt="Img"></span>
+							<h6>Đặt lịch hẹn</h6>
+							<span class="chart-count">02</span>
+						</div>
+					</li>
+					<li data-aos="fade-up" data-aos-delay="700">
+						<img src="~/user-assets/assets/img/bg/chart-arrow-3.png" alt="Img">
+						<div class="flow-chart-list">
+							<span class="chart-icon"><img src="~/user-assets/assets/img/icons/flow-chart-icon-03.svg" alt="Img"></span>
+							<h6>Kết nối chuyên gia</h6>
+							<span class="chart-count">03</span>
+						</div>
+					</li>
+					<li data-aos="fade-up" data-aos-delay="800">
+						<img src="~/user-assets/assets/img/bg/chart-arrow-02.png" alt="Img">
+						<div class="flow-chart-list bg-yelllow">
+							<span class="chart-icon"><img src="~/user-assets/assets/img/icons/flow-chart-icon-04.svg" alt="Img"></span>
+							<h6>Bắt đầu hành trình cai thuốc</h6>
+							<span class="chart-count">04</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
+
+<!-- /How it Work -->
+<!-- Service Section -->
+<section class="service-sec-fourteen">
+	<div class="container">
+		<div class="section-head-fourteen">
+			<h2>Dịch vụ <span> Hỗ trợ </span></h2>
+			<p>Hỗ trợ toàn diện giúp bạn từ bỏ thuốc lá thành công!</p>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-lg-4 col-md-12 d-flex">
+				<div class="service-type-cards w-100">
+					<!-- Dịch vụ bên trái -->
+					<div class="service-types" data-aos="fade-down">
+						<div class="doctor-image">
+							<a href="#"><img width="90" height="85" src="~/user-assets/assets/img/service/service-doctor-01.jpg" alt="Img"></a>
+						</div>
+						<div class="service-content">
+							<h4><a href="#">Tư vấn tâm lý</a></h4>
+							<a href="#" class="explore-link">Khám phá <i class="feather-arrow-right-circle"></i></a>
+						</div>
+					</div>
+					<div class="service-types" data-aos="fade-down">
+						<div class="doctor-image">
+							<a href="#"><img width="90" height="85" src="~/user-assets/assets/img/service/img1.jpg" alt="Img"></a>
+						</div>
+						<div class="service-content">
+							<h4><a href="#">Hỗ trợ thói quen</a></h4>
+							<a href="#" class="explore-link">Khám phá <i class="feather-arrow-right-circle"></i></a>
+						</div>
+					</div>
+					<div class="service-types" data-aos="fade-down">
+						<div class="doctor-image">
+							<a href="#"><img width="90" height="85" src="~/user-assets/assets/img/service/img2.jpg" alt="Img"></a>
+						</div>
+						<div class="service-content">
+							<h4><a href="#">Liệu pháp thay thế nicotine</a></h4>
+							<a href="#" class="explore-link">Khám phá <i class="feather-arrow-right-circle"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6 d-flex">
+				<!-- Hình minh họa trung tâm -->
+				<div class="services-img-col w-100">
+					<div class="sec-img-center">
+						<img src="~/user-assets/assets/img/banner1.png" alt="Img">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-12 d-flex">
+				<div class="service-type-cards w-100">
+					<!-- Dịch vụ bên phải -->
+					<div class="service-types service-type-right" data-aos="fade-down">
+						<div class="service-content">
+							<h4><a href="#">Khám sức khỏe hô hấp</a></h4>
+							<a href="#" class="explore-link">Khám phá <i class="feather-arrow-right-circle"></i></a>
+						</div>
+						<div class="doctor-image">
+							<a href="#"><img width="90" height="85" src="~/user-assets/assets/img/service/img3.jpg" alt="Img"></a>
+						</div>
+					</div>
+					<div class="service-types service-type-right" data-aos="fade-down">
+						<div class="service-content">
+							<h4><a href="#">Tư vấn online</a></h4>
+							<a href="#" class="explore-link">Khám phá <i class="feather-arrow-right-circle"></i></a>
+						</div>
+						<div class="doctor-image">
+							<a href="#"><img width="90" height="85" src="~/user-assets/assets/img/service/img4.jpg" alt="Img"></a>
+						</div>
+					</div>
+					<div class="service-types service-type-right" data-aos="fade-down">
+						<div class="service-content">
+							<h4><a href="#">Chăm sóc sau cai</a></h4>
+							<a href="#" class="explore-link">Khám phá <i class="feather-arrow-right-circle"></i></a>
+						</div>
+						<div class="doctor-image">
+							<a href="#"><img width="100" height="85" src="~/user-assets/assets/img/service/img5.jpg" alt="Img"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- /Service Section -->
+<!-- Pricing Section -->
+<section class="pricing-plane-sec">
+	<div class="container">
+		<div class="section-head-fourteen">
+			<h2>Gói <span>Dịch Vụ</span></h2>
+			<p>Không chi phí ẩn, không phụ thu bất ngờ</p>
+		</div>
+		<div class="price-sec-main">
+			<div class="row justify-content-center">
+				<!-- Gói Cơ Bản -->
+				<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+					<div class="price-plane-card">
+						<div class="price-head">
+							<h4>Cơ Bản</h4>
+							<h3>30.000đ <span>/tháng</span></h3>
+						</div>
+						<div class="plane-includes">
+							<h5>Gói bao gồm</h5>
+							<ul>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ khẩn cấp 24/7</li>
+								<li><i class="fa-solid fa-circle-check"></i>Chuyên gia hỗ trợ trực tiếp</li>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ y tế cai nghiện</li>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ tại nhà (khi cần)</li>
+								<li><i class="fa-solid fa-circle-xmark"></i>Ghi nhận tiến trình cá nhân</li>
+								<li><i class="fa-solid fa-circle-xmark"></i>Hỗ trợ tâm lý hàng tuần</li>
+								<li><i class="fa-solid fa-circle-xmark"></i>Lập kế hoạch bỏ thuốc cá nhân hóa</li>
+							</ul>
+						</div>
+						<div class="plane-btn">
+							<li>
+								<a class="btn btn-primary w-100" href="javascript:void(0);" onclick="handlePlanClick()">Chọn gói này</a>
+							</li>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- Gói Nâng Cao -->
+				<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+					<div class="price-plane-card active">
+						<div class="price-head">
+							<h4>Nâng Cao</h4>
+							<h3>60.000đ <span>/tháng</span></h3>
+						</div>
+						<div class="plane-includes">
+							<h5>Gói bao gồm</h5>
+							<ul>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ khẩn cấp 24/7</li>
+								<li><i class="fa-solid fa-circle-check"></i>Chuyên gia hỗ trợ trực tiếp</li>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ y tế cai nghiện</li>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ tại nhà (khi cần)</li>
+								<li><i class="fa-solid fa-circle-check"></i>Ghi nhận tiến trình cá nhân</li>
+								<li><i class="fa-solid fa-circle-xmark"></i>Hỗ trợ tâm lý hàng tuần</li>
+								<li><i class="fa-solid fa-circle-xmark"></i>Lập kế hoạch bỏ thuốc cá nhân hóa</li>
+							</ul>
+						</div>
+						<div class="plane-btn">
+							<li>
+								<a class="btn btn-primary w-100" href="javascript:void(0);" onclick="handlePlanClick()">Chọn gói này</a>
+							</li>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- Gói Toàn Diện -->
+				<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="900">
+					<div class="price-plane-card">
+						<div class="price-head">
+							<h4>Toàn Diện</h4>
+							<h3>90.000đ <span>/tháng</span></h3>
+						</div>
+						<div class="plane-includes">
+							<h5>Gói bao gồm</h5>
+							<ul>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ khẩn cấp 24/7</li>
+								<li><i class="fa-solid fa-circle-check"></i>Chuyên gia hỗ trợ trực tiếp</li>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ y tế cai nghiện</li>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ tại nhà (khi cần)</li>
+								<li><i class="fa-solid fa-circle-check"></i>Ghi nhận tiến trình cá nhân</li>
+								<li><i class="fa-solid fa-circle-check"></i>Hỗ trợ tâm lý hàng tuần</li>
+								<li><i class="fa-solid fa-circle-check"></i>Lập kế hoạch bỏ thuốc cá nhân hóa</li>
+							</ul>
+						</div>
+						<div class="plane-btn">
+							<li>
+								<a class="btn btn-primary w-100" href="javascript:void(0);" onclick="handlePlanClick()">Chọn gói này</a>
+							</li>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- /Pricing Section -->
+<!-- Faq Section -->
+<section class="faq-sec-fourteen">
+	<div class="container">
+		<div class="section-head-fourteen">
+			<h2>Bạn có <span>câu hỏi?</span></h2>
+			<p>Không phí ẩn, không chi phí phát sinh bất ngờ</p>
+		</div>
+		<div class="row align-items-center">
+			<div class="col-lg-7">
+				<div class="faq-main-cards" id="accordionExample">
+					<div class="faq-card aos" data-aos="fade-down">
+						<div class="faq-title">
+							<a data-bs-toggle="collapse" href="#faqOne" aria-expanded="true">
+								<span>Q</span>
+								<div class="faq-content">
+									<h6>Ứng dụng này có phù hợp với tôi không?</h6>
+									<div id="faqOne" class="card-collapse collapse show" data-bs-parent="#accordionExample">
+										<p>Nếu bạn đang cố gắng bỏ thuốc nhưng gặp khó khăn trong việc kiểm soát cơn thèm thuốc hoặc không biết bắt đầu từ đâu, ứng dụng này sẽ hỗ trợ bạn với lộ trình rõ ràng, theo dõi tiến trình, và hỗ trợ từ chuyên gia.</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+					<div class="faq-card aos" data-aos="fade-down">
+						<div class="faq-title">
+							<a class="collapsed" data-bs-toggle="collapse" href="#faqTwo" aria-expanded="false">
+								<span>Q</span>
+								<div class="faq-content">
+									<h6>Ứng dụng có giúp tôi kiểm soát cơn thèm thuốc không?</h6>
+									<div id="faqTwo" class="card-collapse collapse" data-bs-parent="#accordionExample">
+										<p>Có. Ứng dụng cung cấp các mẹo kiểm soát cơn thèm thuốc, bài tập hít thở, thiền định, và hệ thống nhắc nhở để giúp bạn vượt qua cơn thèm thuốc hiệu quả.</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+					<div class="faq-card aos" data-aos="fade-down">
+						<div class="faq-title">
+							<a class="collapsed" data-bs-toggle="collapse" href="#faqThree" aria-expanded="false">
+								<span>Q</span>
+								<div class="faq-content">
+									<h6>Tôi có thể theo dõi tiến trình cai thuốc như thế nào?</h6>
+									<div id="faqThree" class="card-collapse collapse" data-bs-parent="#accordionExample">
+										<p>Ứng dụng hiển thị số ngày không hút thuốc, số tiền tiết kiệm được và cải thiện sức khỏe của bạn theo thời gian thực. Bạn sẽ thấy động lực mỗi ngày!</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+					<div class="faq-card aos" data-aos="fade-down">
+						<div class="faq-title">
+							<a class="collapsed" data-bs-toggle="collapse" href="#faqFour" aria-expanded="false">
+								<span>Q</span>
+								<div class="faq-content">
+									<h6>Ứng dụng có hỗ trợ tư vấn tâm lý không?</h6>
+									<div id="faqFour" class="card-collapse collapse" data-bs-parent="#accordionExample">
+										<p>Có. Chúng tôi cung cấp nội dung hỗ trợ tinh thần, lời khuyên từ chuyên gia và có thể kết nối bạn với các chuyên viên tâm lý nếu cần thiết.</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+					<div class="faq-card aos" data-aos="fade-down">
+						<div class="faq-title">
+							<a class="collapsed" data-bs-toggle="collapse" href="#faqFive" aria-expanded="false">
+								<span>Q</span>
+								<div class="faq-content">
+									<h6>Ứng dụng có mất phí không?</h6>
+									<div id="faqFive" class="card-collapse collapse" data-bs-parent="#accordionExample">
+										<p>Ứng dụng cung cấp phiên bản miễn phí với đầy đủ chức năng cơ bản. Bạn có thể nâng cấp để nhận thêm các tính năng chuyên sâu và hỗ trợ cá nhân hóa.</p>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-5">
+				<div class="faq-sec-imgs">
+					<span class="faq-img-one"><img src="~/user-assets/assets/img/img6.jpg" alt="Ảnh 1"></span>
+					<span class="faq-img-two"><img src="~/user-assets/assets/img/faq-sec-img-02.png" alt="Ảnh 2"></span>
+					<span class="faq-img-three"><img src="~/user-assets/assets/img/faq-sec-img-03.png" alt="Ảnh 3"></span>
+					<span class="faq-img-four"><img src="~/user-assets/assets/img/faq-sec-img-04.png" alt="Ảnh 4"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.messenger-icon {
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		width: 60px;
+		height: 60px;
+		background-color: #0084ff;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+		z-index: 1000;
+	}
+	.messenger-icon a {
+		color: white;
+		font-size: 30px;
+	}
+</style>
+<div class="messenger-icon">
+	<a href="/chat"><i class="fab fa-facebook-messenger"></i></a>
+</div>
+<script>
+	function handlePlanClick() {
+		var isLoggedIn = @((isLoggedIn).ToString().ToLower());
+		var hasPlan = @((hasPlan).ToString().ToLower());
+
+		if (!isLoggedIn) {
+			window.location.href = "/Login/Index";
+			return;
+		}
+		if (!hasPlan) {
+			window.location.href = "/Payment/Plan";
+			return;
+		}
+		Toastify({
+			text: "Bạn đã có gói thành viên rồi!",
+			duration: 4000,
+			close: true,
+			gravity: "top",
+			position: "right",
+			backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+			stopOnFocus: true
+		}).showToast();
+	}
+</script>

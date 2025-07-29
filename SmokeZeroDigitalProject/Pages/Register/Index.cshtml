@@ -1,0 +1,162 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Register.IndexModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="description" content="Register for a Doccure account to access top doctors, clinics, and hospitals.">
+    <meta name="keywords" content="register, doccure, doctor appointment, signup">
+    <meta name="author" content="Practo Clone HTML Template - Doctor Booking Template">
+    <meta property="og:title" content="Register | Doccure">
+    <meta property="og:description" content="Register for a Doccure account to access top doctors, clinics, and hospitals.">
+    <meta property="og:image" content="/user-assets/assets/img/preview-banner.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Register | Doccure">
+    <meta name="twitter:description" content="Register for a Doccure account to access top doctors, clinics, and hospitals.">
+    <meta name="twitter:image" content="/user-assets/assets/img/preview-banner.jpg">
+    <title>Register - Doccure</title>
+    <link rel="shortcut icon" href="/user-assets/assets/img/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/user-assets/assets/img/apple-touch-icon.png">
+    <link rel="stylesheet" href="/user-assets/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/user-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/user-assets/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/user-assets/assets/css/iconsax.css">
+    <link rel="stylesheet" href="/user-assets/assets/css/feather.css">
+    <link rel="stylesheet" href="/user-assets/assets/css/custom.css">
+    <link rel="stylesheet" href="/toastify-js/toastify.min.css" />
+</head>
+<body class="login-body">
+    <div class="main-wrapper">
+        <div class="login-content-info">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-6">
+                        <div class="account-content">
+                            <div class="account-info">
+                                <div class="mb-4">
+                                    <a href="/" class="btn btn-primary">
+                                        ← Về trang chủ
+                                    </a>
+                                </div>
+                                <div class="login-title">
+                                    <h3>Đăng ký</h3>
+                                    <p class="mb-0">Nhập thông tin đăng nhập của bạn và tạo tài khoản</p>
+                                </div>
+                                <form method="post">
+                                    <div class="mb-3">
+                                        <label asp-for="RegisterRequest.Email" class="form-label">Email</label>
+                                        <input asp-for="RegisterRequest.Email" class="form-control">
+                                        <span asp-validation-for="RegisterRequest.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="RegisterRequest.Username" class="form-label">Tên đăng nhập</label>
+                                        <input asp-for="RegisterRequest.Username" class="form-control">
+                                        <span asp-validation-for="RegisterRequest.Username" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="RegisterRequest.FullName" class="form-label">Họ và tên</label>
+                                        <input asp-for="RegisterRequest.FullName" class="form-control">
+                                        <span asp-validation-for="RegisterRequest.FullName" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="RegisterRequest.DateOfBirth" class="form-label">Ngày sinh</label>
+                                        <input asp-for="RegisterRequest.DateOfBirth" class="form-control" type="date">
+                                        <span asp-validation-for="RegisterRequest.DateOfBirth" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="RegisterRequest.Gender" class="form-label">Giới tính</label>
+                                        <select asp-for="RegisterRequest.Gender" class="form-control">
+                                            <option value="0">Không xác định</option>
+                                            <option value="1">Nam</option>
+                                            <option value="2">Nữ</option>
+                                        </select>
+                                        <span asp-validation-for="RegisterRequest.Gender" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="RegisterRequest.Password" class="form-label">Mật khẩu</label>
+                                        <input asp-for="RegisterRequest.Password" class="form-control" type="password">
+                                        <span asp-validation-for="RegisterRequest.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="RegisterRequest.ConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                                        <input asp-for="RegisterRequest.ConfirmPassword" class="form-control" type="password">
+                                        <span asp-validation-for="RegisterRequest.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-3 form-check-box terms-check-box">
+                                        <div class="form-group-flex">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" type="checkbox" id="policy" name="policy" required>
+                                                <label class="form-check-label" for="policy">
+                                                    Tôi đã đọc và đồng ý với <a href="/terms-condition.html" target="_blank">Điều khoản dịch vụ</a> và <a href="/privacy-policy.html" target="_blank">Chính sách bảo mật</a>.
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary-gradient btn-xl w-100" type="submit">Đăng ký</button>
+                                    </div>
+                                    <div class="account-signup">
+                                        <p>Đã có tài khoản? <a href="/Login/Index">Đăng nhập</a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
+    </div>
+    <script src="/user-assets/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="/user-assets/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/user-assets/assets/js/feather.min.js"></script>
+    <script src="/user-assets/assets/js/script.js"></script>
+    @{
+        var toastMessage = TempData["ToastMessage"]?.ToString();
+        var toastType = "";
+        var toastText = "";
+        if (!string.IsNullOrEmpty(toastMessage))
+        {
+            var parts = toastMessage.Split(new[] { ':' }, 2);
+            if (parts.Length == 2)
+            {
+                toastType = parts[0];
+                toastText = parts[1];
+            }
+            else
+            {
+                toastText = toastMessage;
+            }
+        }
+    }
+    @if (!string.IsNullOrEmpty(toastText))
+    {
+        <script src="/toastify-js/toastify.min.js"></script>
+        <script>
+            var text = "@Html.Raw(System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(toastText))";
+            var type = "@toastType";
+            var bgColor = "linear-gradient(to right, #00b09b, #96c93d)";
+            if (type === 'error') {
+                bgColor = "linear-gradient(to right, #ff5f6d, #ffc371)";
+            } else if (type === 'warning') {
+                bgColor = "linear-gradient(to right, #ffb75e, #ed8f03)";
+            }
+            Toastify({
+                text: text,
+                duration: 4000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: bgColor,
+                stopOnFocus: true
+            }).showToast();
+        </script>
+    }
+</body>
+</html>

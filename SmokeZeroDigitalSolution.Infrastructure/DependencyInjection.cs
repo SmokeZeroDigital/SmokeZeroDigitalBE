@@ -1,0 +1,33 @@
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Blog;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.ProgressEntry;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.QuittingPlan;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.SmokingRecord;
+using SmokeZeroDigitalSolution.Infrastructure.ExternalServices.Notification;
+
+namespace SmokeZeroDigitalSolution.Infrastructure
+{
+    public static class DependencyInjection
+    {
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.RegisterDataAccess(configuration);
+            services.RegisterToken(configuration);
+            services.RegisterSecurityManager(configuration);
+            services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+            services.AddScoped<ICoachRepository, CoachRepository>();
+            services.AddScoped<ICoachService, CoachService>();
+            services.AddScoped<IConversationService, ConversationService>();
+            services.RegisterBlogFeature(configuration);
+            services.RegisterNotiFeature(configuration);
+            services.RegisterCommentFeature(configuration);
+            services.RegisterPaymentPlan(configuration);
+            services.RegisterGooglePlan(configuration);
+            services.RegisterChatRealTime();
+            services.RegisterSmokingRecordServices();
+            services.RegisterQuittingPlanServices();
+            services.RegisterProgressEntryServices();
+            return services;
+        }
+    }
+}

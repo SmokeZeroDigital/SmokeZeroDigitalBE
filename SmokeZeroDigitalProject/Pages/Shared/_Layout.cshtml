@@ -1,51 +1,505 @@
-﻿<!DOCTYPE html>
+﻿@using SmokeZeroDigitalProject.Common.Helper
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SmokeZeroDigitalProject</title>
+    @RenderSection("Meta", required: false)
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Site CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SmokeZeroDigitalProject.styles.css" asp-append-version="true" />
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" href="~/toastify-js/toastify.min.css" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/user-assets/assets/img/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/user-assets/assets/img/apple-touch-icon.png">
+    <!-- Các thư viện UI bổ sung -->
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/feather.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/iconsax.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/slick.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/aos.css">
+    <link rel="stylesheet" href="~/user-assets/assets/css/custom.css">
+    @RenderSection("Styles", required: false)
+    <style>
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+                color: white;
+            }
+
+            .btn-primary i {
+                margin-right: 5px;
+            }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .btn-primary i {
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+                color: white;
+            }
+
+            .btn-primary i {
+                margin-right: 5px;
+            }
+
+        /* Fix dropdown cho header */
+        .header-navbar-rht .dropdown {
+            position: relative;
+        }
+
+        .header-navbar-rht .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            min-width: 200px;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 0.375rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,.175);
+            margin-top: 0.125rem;
+        }
+
+            .header-navbar-rht .dropdown-menu.show {
+                display: block;
+            }
+
+        .header-navbar-rht .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 1rem;
+            clear: both;
+            font-weight: 400;
+            color: #212529;
+            text-align: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+        }
+
+            .header-navbar-rht .dropdown-item:hover {
+                background-color: #f8f9fa;
+                color: #1e2125;
+            }
+
+        /* Alternative: Submenu style nếu dùng has-submenu */
+        .header-navbar-rht .has-submenu {
+            position: relative;
+        }
+
+            .header-navbar-rht .has-submenu .submenu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: #fff;
+                min-width: 200px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                border-radius: 4px;
+                display: none;
+                z-index: 1000;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .header-navbar-rht .has-submenu:hover .submenu {
+                display: block;
+            }
+
+        .header-navbar-rht .submenu li a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-navbar-rht .submenu li:last-child a {
+            border-bottom: none;
+        }
+
+        .header-navbar-rht .submenu li a:hover {
+            background-color: #f8f9fa;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">SmokeZeroDigitalProject</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="main-wrapper home-pg-fourteen">
+        <header class="header header-custom header-fixed header-ten home-care-header">
+            <div class="header-top-wrap">
+                <div class="container">
+                    <div class="header-top-bar">
+                        <ul class="header-contact">
+                            <li><i class="fa-solid fa-envelope"></i><a href="#" class="__cf_email__">hotro@smokezerodigital.vn</a></li>
+                            <li><i class="fa-solid fa-location-dot"></i>FPTU HCMC</li>
+                        </ul>
+                        <ul class="social-icon">
+
+                            <li>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <div class="container">
+                <nav class="navbar navbar-expand-lg header-nav">
+                    <div class="navbar-header">
+                        <a id="mobile_btn" href="javascript:void(0);">
+                            <span class="bar-icon">
+                                <span></span><span></span><span></span>
+                            </span>
+                        </a>
+                        <a href="/" class="navbar-brand logo">
+                            <img src="~/user-assets/assets/img/logoszd.svg" class="img-fluid" alt="Logo">
+                        </a>
+                    </div>
+                    @{
+                        var fullName = Context.Session.GetString("FullName");
+                        var planId = Context.Session.GetString("PlanId");
+                        var token = Context.Session.GetString("Token");
+
+                        var isLoggedIn = !string.IsNullOrEmpty(fullName);
+                        var hasPlan = !string.IsNullOrEmpty(planId) && planId != "0";
+
+                        string role = string.Empty;
+                        if (!string.IsNullOrEmpty(token))
+                        {
+                            role = JwtTokenHelper.GetClaim(token, "role") ?? "";
+
+                        }
+
+                        bool isMember = role == "Member";
+
+                    }
+                    <div class="main-menu-wrapper">
+                        <div class="menu-header">
+                            <a href="/" class="menu-logo">
+                                <img src="~/user-assets/assets/img/logoszd.svg" class="img-fluid" alt="Logo">
+                            </a>
+                            <a id="menu_close" class="menu-close" href="javascript:void(0);"><i class="fas fa-times"></i></a>
+                        </div>
+                        <ul class="main-nav">
+                            <li class="has-submenu megamenu active"><a href="/">Trang chủ</a></li>
+                            <li><a asp-area="" asp-page="/Blog/Index">Bài viết</a></li>
+                            <li><a asp-area="" asp-page="/AboutUs">Về chúng tôi</a></li>
+                            @if (isLoggedIn)
+                            {
+                                <li><a asp-area="" asp-page="/Feedback/Create">Feedback</a></li>
+                                <li><a asp-area="" asp-page="/Achievements/Index">Thành Tựu</a></li>
+                            }
+
+                        </ul>
+                    </div>
+
+                    <ul class="nav header-navbar-rht">
+                        <li class="searchbar">
+                            <a href="javascript:void(0);"><i class="feather-search"></i></a>
+                            <div class="togglesearch">
+                                <form action="#">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Tìm kiếm...">
+                                        <button type="submit" class="btn btn-primary">Tìm</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="header-theme me-3">
+                            <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle"><i class="isax isax-sun-1"></i></a>
+                            <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle activate"><i class="isax isax-moon"></i></a>
+                        </li>
+
+                        
+                        @if (isLoggedIn)
+                        {
+                            <li class="register-btn">
+                                <span class="btn log-btn" style="cursor:default;"><i class="feather-user"></i>@fullName</span>
+                            </li>
+
+                            <li class="register-btn">
+                                @if (hasPlan)
+                                {
+                                    <span class="btn btn-primary" style="cursor:default;" title="Thành viên Hỗ trợ đặc biệt">
+                                        <i class="feather-crown"></i> Thành viên Pro
+                                    </span>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary" href="/Payment/Plan" title="Nâng cấp để nhận hỗ trợ chuyên sâu">
+                                        <i class="feather-credit-card"></i> Nâng cấp gói
+                                    </a>
+                                }
+                            </li>
+
+
+                            @if (isMember)
+                            {
+                                <li class="has-submenu">
+                                    <a href="#">Hỗ trợ cai thuốc <i class="fas fa-chevron-down ms-1"></i></a>
+                                    <ul class="submenu">
+                                        <li class="submenu-header"><span>Tạo mới</span></li>
+                                        <li><a href="/QuittingPlan/Create"><i class="fas fa-plus-circle me-2"></i>Tạo kế hoạch cai thuốc</a></li>
+                                        <li><a href="/ProgressEntry/Create"><i class="fas fa-plus-circle me-2"></i>Tạo tiến trình</a></li>
+                                        <li><a href="/SmokingRecord/Create"><i class="fas fa-plus-circle me-2"></i>Tạo bản ghi hút thuốc</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li class="submenu-header"><span>Quản lý</span></li>
+                                        <li><a href="/QuittingPlan/@(Context.Session.GetString("UserId"))"><i class="fas fa-list me-2"></i>Kế hoạch của tôi</a></li>
+                                        <li><a href="/ProgressEntry?userId=@(Context.Session.GetString("UserId"))"><i class="fas fa-chart-line me-2"></i>Tiến trình của tôi</a></li>
+                                        <li><a href="/SmokingRecord?userId=@(Context.Session.GetString("UserId"))"><i class="fas fa-history me-2"></i>Lịch sử hút thuốc</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+
+                            <li class="register-btn">
+                                <form method="post" asp-page="/Logout" style="display:inline;">
+                                    <button type="submit" class="btn reg-btn" style="padding:0;">
+                                        <i class="feather-lock"></i> Đăng xuất
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="register-btn">
+                                <a class="btn log-btn" asp-area="" asp-page="/Login/Index">
+                                    <i class="feather-lock"></i> Đăng nhập
+                                </a>
+                            </li>
+                            <li class="register-btn">
+                                <a class="btn reg-btn" asp-area="" asp-page="/Register/Index">
+                                    <i class="feather-user"></i> Đăng ký
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        @RenderBody()
+
+        <footer class="footer-simple">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="row">
+                        <!-- Logo và mô tả -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="footer-brand">
+                                <img src="~/user-assets/assets/img/logoszd.svg" alt="SmokeZero Digital" class="footer-logo">
+                                <p class="footer-description">
+                                    Đồng hành cùng bạn trên hành trình cai nghiện thuốc lá, 
+                                    hướng tới cuộc sống khỏe mạnh và tích cực.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Liên kết nhanh -->
+                        <div class="col-lg-2 col-md-3 col-6 mb-4">
+                            <h5 class="footer-title">Liên kết</h5>
+                            <ul class="footer-links">
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/AboutUs">Về chúng tôi</a></li>
+                                <li><a href="/Blog/Index">Bài viết</a></li>
+                                <li><a href="/Payment/Plan">Gói dịch vụ</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Dịch vụ -->
+                        <div class="col-lg-2 col-md-3 col-6 mb-4">
+                            <h5 class="footer-title">Dịch vụ</h5>
+                            <ul class="footer-links">
+                                <li><a href="#">Tư vấn online</a></li>
+                                <li><a href="#">Theo dõi tiến độ</a></li>
+                                <li><a href="#">Hỗ trợ 24/7</a></li>
+                                <li><a href="#">Cộng đồng</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Liên hệ -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <h5 class="footer-title">Liên hệ</h5>
+                            <div class="footer-contact">
+                                <p><i class="fa-solid fa-envelope"></i> hotro@smokezerodigital.vn</p>
+                                <p><i class="fa-solid fa-location-dot"></i> FPTU HCMC</p>
+                                <div class="footer-social">
+                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright -->
+                <div class="footer-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <p class="copyright-text">© 2025 SmokeZero Digital. All rights reserved.</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <div class="footer-policies">
+                                <a href="#">Chính sách bảo mật</a>
+                                <a href="#">Điều khoản</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - SmokeZeroDigitalProject - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
-
+    <div class="progress-wrap active-progress">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+                  style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919px, 307.919px; stroke-dashoffset: 228.265px;">
+            </path>
+        </svg>
+    </div>
+    <!-- JS Core -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <!-- Toastify JS -->
+    <script src="~/toastify-js/toastify.min.js"></script>
+    <!-- Các thư viện bổ sung -->
+    <script src="~/user-assets/assets/js/theme-script.js"></script>
+    <script src="~/user-assets/assets/js/feather.min.js"></script>
+    <script src="~/user-assets/assets/js/moment.min.js"></script>
+    <script src="~/user-assets/assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/user-assets/assets/js/owl.carousel.min.js"></script>
+    <script src="~/user-assets/assets/js/slick.js"></script>
+    <script src="~/user-assets/assets/js/aos.js"></script>
+    <script src="~/user-assets/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="~/user-assets/assets/js/backToTop.js"></script>
+    <script src="~/user-assets/assets/js/script.js"></script>
+    <!-- Email decode, Cloudflare, ... nếu thực sự cần thì giữ lại, nếu không thì bỏ -->
+    <!-- Toastify notification Razor logic giữ nguyên -->
     @await RenderSectionAsync("Scripts", required: false)
+    @{
+        // Toastify Razor logic giữ nguyên
+        var toastMessage = TempData["ToastMessage"]?.ToString();
+        var toastType = "";
+        var toastText = "";
+        if (!string.IsNullOrEmpty(toastMessage))
+        {
+            var parts = toastMessage.Split(new[] { ':' }, 2);
+            if (parts.Length == 2)
+            {
+                toastType = parts[0];
+                toastText = parts[1];
+            }
+            else
+            {
+                toastText = toastMessage;
+            }
+        }
+    }
+    @if (!string.IsNullOrEmpty(toastText))
+    {
+        <script>
+            var text = "@Html.Raw(System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(toastText))";
+            var type = "@toastType";
+            var bgColor = "linear-gradient(to right, #00b09b, #96c93d)"; // Mặc định là success
+            if (type === 'error') {
+                bgColor = "linear-gradient(to right, #ff5f6d, #ffc371)";
+            } else if (type === 'warning') {
+                bgColor = "linear-gradient(to right, #ffb75e, #ed8f03)";
+            }
+            Toastify({
+                text: text,
+                duration: 4000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: bgColor,
+                stopOnFocus: true
+            }).showToast();
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Fix Bootstrap dropdown
+                const dropdownElements = document.querySelectorAll('.dropdown-toggle');
+
+                dropdownElements.forEach(function (element) {
+                    element.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Đóng tất cả dropdown khác
+                        document.querySelectorAll('.dropdown-menu').forEach(function (menu) {
+                            menu.classList.remove('show');
+                        });
+
+                        // Toggle dropdown hiện tại
+                        const dropdownMenu = this.nextElementSibling;
+                        if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                            dropdownMenu.classList.toggle('show');
+                        }
+                    });
+                });
+
+                // Đóng dropdown khi click outside
+                document.addEventListener('click', function (e) {
+                    if (!e.target.closest('.dropdown')) {
+                        document.querySelectorAll('.dropdown-menu').forEach(function (menu) {
+                            menu.classList.remove('show');
+                        });
+                    }
+                });
+
+                // Debug: kiểm tra dropdown có tồn tại không
+                console.log('Dropdown elements found:', dropdownElements.length);
+        </script>
+    }
 </body>
 </html>

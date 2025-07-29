@@ -1,0 +1,302 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Payment.Checkout.IndexModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thanh toán</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/user-assets/assets/img/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/user-assets/assets/img/apple-touch-icon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/bootstrap.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/all.min.css">
+    <!-- Iconsax CSS-->
+    <link rel="stylesheet" href="~/user-assets/assets/css/iconsax.css">
+    <!-- Feathericon CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/feather.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/custom.css">
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" href="~/toastify-js/toastify.min.css" />
+    <style>
+        .checkout-summary {
+            border: 2px solid #e3e3e3;
+            border-radius: 1.25rem;
+            background: #fff;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkout-item {
+            border-bottom: 1px solid #f5f5f5;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .checkout-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #0de0fe;
+        }
+
+        .checkout-continue-btn {
+            background: linear-gradient(90deg, #0de0fe 0%, #3fbbc0 100%);
+            color: #fff;
+            border-radius: 2rem;
+            font-weight: 600;
+            min-width: 200px;
+            box-shadow: 0 2px 8px 0 rgba(13,224,254,0.10);
+            transition: background 0.2s;
+            border: none;
+            padding: 12px 24px;
+        }
+
+        .checkout-continue-btn:hover {
+            background: linear-gradient(90deg, #3fbbc0 0%, #0de0fe 100%);
+            color: #fff;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-title {
+            font-weight: 600;
+            color: #3fbbc0;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Header -->
+        <header class="header header-custom header-fixed inner-header relative">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg header-nav">
+                    <div class="navbar-header">
+                        <a id="mobile_btn" href="javascript:void(0);">
+                            <span class="bar-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </a>
+                        <a href="/" class="navbar-brand logo">
+                            <img src="~/user-assets/assets/img/logoszd.svg" class="img-fluid" alt="Logo">
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- /Header -->
+        <div class="doctor-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <div class="booking-wizard">
+                            <ul class="form-wizard-steps d-sm-flex align-items-center justify-content-center" id="progressbar2">
+                                <li>
+                                    <div class="profile-step">
+                                        <span class="multi-steps">1</span>
+                                        <div class="step-section"><h6>Chọn gói</h6></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="profile-step">
+                                        <span class="multi-steps">2</span>
+                                        <div class="step-section"><h6>Chọn Coach</h6></div>
+                                    </div>
+                                </li>
+                                <li class="progress-active">
+                                    <div class="profile-step">
+                                        <span class="multi-steps">3</span>
+                                        <div class="step-section"><h6>Thanh toán</h6></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="profile-step">
+                                        <span class="multi-steps">4</span>
+                                        <div class="step-section"><h6>Xác nhận</h6></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="booking-widget multistep-form mb-5">
+                            <fieldset id="first">
+                                <div class="card booking-card mb-0">
+                                    <div class="card-header bg-white border-0 pb-0">
+                                        <h4 class="mb-0" style="font-weight:700; color:#3fbbc0;">Xác nhận thanh toán</h4>
+                                    </div>
+                                    <div class="card-body booking-body">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <!-- Plan Info -->
+                                                @if (Model.SelectedPlan != null)
+                                                {
+                                                    <div class="info-card">
+                                                        <div class="info-title">
+                                                            <i class="feather-package me-2"></i>
+                                                            Gói đăng ký đã chọn
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <strong>Tên gói:</strong> @Model.SelectedPlan.Name
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <strong>Thời hạn:</strong> @Model.SelectedPlan.DurationInDays ngày
+                                                            </div>
+                                                            <div class="col-12 mt-2">
+                                                                <strong>Mô tả:</strong> @Model.SelectedPlan.Description
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                                <!-- Coach Info -->
+                                                @if (Model.SelectedCoach != null)
+                                                {
+                                                    <div class="info-card">
+                                                        <div class="info-title">
+                                                            <i class="feather-user me-2"></i>
+                                                            Huấn luyện viên đã chọn
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <strong>Tên:</strong> @Model.SelectedCoach.FullName
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <strong>Chuyên môn:</strong> @Model.SelectedCoach.Specialization
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <strong>Đánh giá:</strong> @Model.SelectedCoach.Rating.ToString("0.0")/5.0
+                                                            </div>
+                                                            <div class="col-md-6 mt-2">
+                                                                <strong>Trạng thái:</strong> 
+                                                                <span class="badge @(Model.SelectedCoach.IsAvailable ? "bg-success" : "bg-warning")">
+                                                                    @(Model.SelectedCoach.IsAvailable ? "Có sẵn" : "Bận")
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-12 mt-2">
+                                                                <strong>Tiểu sử:</strong> @Model.SelectedCoach.Bio
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <!-- Payment Summary -->
+                                                <div class="checkout-summary">
+                                                    <h5 class="mb-3" style="color: #3fbbc0; font-weight: 600;">
+                                                        <i class="feather-credit-card me-2"></i>
+                                                        Tóm tắt thanh toán
+                                                    </h5>
+                                                    @if (Model.SelectedPlan != null)
+                                                    {
+                                                        <div class="checkout-item">
+                                                            <span>Gói @Model.SelectedPlan.Name</span>
+                                                            <span>@Model.SelectedPlan.Price.ToString("C0")</span>
+                                                        </div>
+                                                        <div class="checkout-item">
+                                                            <span>Phí dịch vụ</span>
+                                                            <span>0₫</span>
+                                                        </div>
+                                                        <div class="checkout-item">
+                                                            <span>Tổng cộng</span>
+                                                            <span>@Model.SelectedPlan.Price.ToString("C0")</span>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-white border-0 pt-0">
+                                        <div class="d-flex align-items-center flex-wrap rpw-gap-2 justify-content-between">
+                                            <a href="/Payment/Coach" class="btn btn-outline-secondary rounded-pill">
+                                                <i class="isax isax-arrow-left-3 me-1"></i>
+                                                Quay lại
+                                            </a>
+                                            <form method="post">
+                                                <button type="submit" class="checkout-continue-btn">
+                                                    <i class="feather-credit-card me-2"></i>
+                                                    Thanh toán ngay
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="text-center">
+                            <p class="mb-0">Copyright © 2025. All Rights Reserved, Doccure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
+    </div>
+    <!-- JS Core -->
+    <script src="~/user-assets/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="~/user-assets/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/user-assets/assets/js/feather.min.js"></script>
+    <script src="~/user-assets/assets/js/script.js"></script>
+    <!-- Toastify JS -->
+    <script src="~/toastify-js/toastify.min.js"></script>
+    
+    @{
+        // Toastify notification logic
+        var toastMessage = TempData["ToastMessage"]?.ToString();
+        var toastType = "";
+        var toastText = "";
+        if (!string.IsNullOrEmpty(toastMessage))
+        {
+            var parts = toastMessage.Split(new[] { ':' }, 2);
+            if (parts.Length == 2)
+            {
+                toastType = parts[0];
+                toastText = parts[1];
+            }
+            else
+            {
+                toastText = toastMessage;
+            }
+        }
+    }
+    @if (!string.IsNullOrEmpty(toastText))
+    {
+        <script>
+            var text = "@Html.Raw(System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(toastText))";
+            var type = "@toastType";
+            var bgColor = "linear-gradient(to right, #00b09b, #96c93d)"; // Default success
+            if (type === 'error') {
+                bgColor = "linear-gradient(to right, #ff5f6d, #ffc371)";
+            } else if (type === 'warning') {
+                bgColor = "linear-gradient(to right, #ffb75e, #ed8f03)";
+            }
+            Toastify({
+                text: text,
+                duration: 4000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: bgColor,
+                stopOnFocus: true
+            }).showToast();
+        </script>
+    }
+</body>
+</html>

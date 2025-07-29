@@ -1,0 +1,31 @@
+@page
+@model SmokeZeroDigitalProject.Pages.Payment.Success.IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Thanh toán thành công";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-body p-5">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h2 class="text-success mb-3">Thanh toán thành công!</h2>
+                    <p class="mb-4">Cảm ơn bạn đã đăng ký gói dịch vụ của chúng tôi.</p>
+                    @if (!string.IsNullOrEmpty(Model.Amount))
+                    {
+                        <p class="mb-4">Số tiền đã thanh toán: <strong>@Model.Amount₫</strong></p>
+                    }
+                    
+                    <div class="d-grid gap-2">
+                        <a href="/" class="btn btn-primary">Về trang chủ</a>
+                        <a href="/Payment/Plan" class="btn btn-outline-secondary">Đăng ký thêm gói</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

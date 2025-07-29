@@ -1,0 +1,48 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.Feedback.IndexModel
+@{
+	ViewData["Title"] = "My Feedbacks";
+}
+<h2 class="text-center my-4">Phản hồi của tôi</h2>
+
+@if (!Model.Feedbacks.Any())
+{
+    <div class="alert alert-info text-center">
+        Không có phản hồi nào được tìm thấy.
+    </div>
+}
+else
+{
+    <div class="card shadow-sm border-0 w-75 mx-auto">
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Người đánh giá</th>
+                        <th scope="col">Nội dung</th>
+                        <th scope="col">Đánh giá</th>
+                        <th scope="col">Ngày phản hồi</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    @foreach (var feedback in Model.Feedbacks)
+                    {
+                        <tr>
+                            <td>@feedback.UserName</td>
+                            <td>@feedback.Content</td>
+                            <td>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <span style="color:@(i <= feedback.Rating ? "#ffc107" : "#e4e5e9")">★</span>
+                                }
+                            </td>
+                            <td>@feedback.FeedbackDate.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,179 @@
+﻿@page 
+@model LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+    <meta name="keywords" content="practo clone, doccure, doctor appointment, Practo clone html template, doctor booking template">
+    <meta name="author" content="Practo Clone HTML Template - Doctor Booking Template">
+    <meta property="og:url" content="https://doccure.dreamstechnologies.com/html/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Doctors Appointment HTML Website Templates | Doccure">
+    <meta property="og:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+    <meta property="og:image" content="~/user-assets/assets/img/preview-banner.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="https://doccure.dreamstechnologies.com/html/">
+    <meta property="twitter:url" content="https://doccure.dreamstechnologies.com/html/">
+    <meta name="twitter:title" content="Doctors Appointment HTML Website Templates | Doccure">
+    <meta name="twitter:description" content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
+    <meta name="twitter:image" content="~/user-assets/assets/img/preview-banner.jpg">
+    <title>@ViewData["Title"]</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/user-assets/assets/img/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/user-assets/assets/img/apple-touch-icon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/bootstrap.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/user-assets/assets/plugins/fontawesome/css/all.min.css">
+    <!-- Iconsax CSS-->
+    <link rel="stylesheet" href="~/user-assets/assets/css/iconsax.css">
+    <!-- Feathericon CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/feather.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/user-assets/assets/css/custom.css">
+    <link rel="stylesheet" href="/toastify-js/toastify.min.css" />
+</head>
+<body class="login-body">
+    <div class="main-wrapper">
+        <div class="login-content-info">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="account-content">
+                            <div class="account-info">
+                                <div class="mb-4">
+                                    <a href="/" class="btn btn-primary">
+                                        ← Về trang chủ
+                                    </a>
+                                </div>
+                                <div class="login-title">
+                                    <h3>Đăng nhập</h3>
+                                    <p>Chúng tôi sẽ gửi mã xác nhận đến email của bạn.</p>
+                                    <span>Đăng nhập bằng <a asp-page="/Login/Phone">Số điện thoại</a></span>
+                                </div>
+
+                                <form method="post">
+                                    <div class="mb-3">
+                                        <label asp-for="LoginRequest.UserName" class="form-label">Tên Người Dùng</label>
+                                        <input asp-for="LoginRequest.UserName" class="form-control" autocomplete="username" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="form-group-flex">
+                                            <label asp-for="LoginRequest.Password" class="form-label">Mật khẩu</label>
+                                            <a asp-page="/ForgotPassword" class="forgot-link">Quên mật khẩu?</a>
+                                        </div>
+                                        <div class="pass-group">
+                                            <input asp-for="LoginRequest.Password" class="form-control pass-input" type="password" autocomplete="current-password" />
+                                            <span class="feather-eye-off toggle-password"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 form-check-box">
+                                        <div class="form-group-flex">
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" type="checkbox" id="remember" name="RememberMe" />
+                                                <label class="form-check-label" for="remember">
+                                                    Ghi nhớ đăng nhập
+                                                </label>
+                                            </div>
+                                            <div class="form-check mb-0">
+                                                <input class="form-check-input" type="checkbox" id="loginWithOtp" name="LoginWithOtp" />
+                                                <label class="form-check-label" for="loginWithOtp">
+                                                    Đăng nhập bằng mã OTP
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary-gradient w-100" type="submit">Đăng nhập</button>
+                                    </div>
+                                </form>
+
+                                <div class="login-or">
+                                    <span class="or-line"></span>
+                                    <span class="span-or">hoặc</span>
+                                </div>
+
+                                <form asp-page-handler="GoogleLogin" method="post">
+                                    <div class="social-login-btn">
+                                        <button type="submit" class="btn w-100">
+                                            <img src="~/user-assets/assets/img/icons/google-icon.svg" alt="google-icon">Đăng nhập bằng Google
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <div class="account-signup">
+                                    <p>Chưa có tài khoản? <a asp-page="/Register/Index">Đăng ký</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>      
+        <!-- Cursor -->
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
+    </div>      
+    <!-- /Main Wrapper -->
+    <!-- jQuery -->
+    <script src="~/user-assets/assets/js/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="~/user-assets/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Feather Icon JS -->
+    <script src="~/user-assets/assets/js/feather.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/user-assets/assets/js/script.js"></script>
+    @{
+        var toastMessage = TempData["ToastMessage"]?.ToString();
+        var toastType = "";
+        var toastText = "";
+        if (!string.IsNullOrEmpty(toastMessage))
+        {
+            var parts = toastMessage.Split(new[] { ':' }, 2);
+            if (parts.Length == 2)
+            {
+                toastType = parts[0];
+                toastText = parts[1];
+            }
+            else
+            {
+                toastText = toastMessage;
+            }
+        }
+    }
+    @if (!string.IsNullOrEmpty(toastText))
+    {
+        <script src="/toastify-js/toastify.min.js"></script>
+        <script>
+            var text = "@Html.Raw(System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(toastText))";
+            var type = "@toastType";
+            var bgColor = "linear-gradient(to right, #00b09b, #96c93d)";
+            if (type === 'error') {
+                bgColor = "linear-gradient(to right, #ff5f6d, #ffc371)";
+            } else if (type === 'warning') {
+                bgColor = "linear-gradient(to right, #ffb75e, #ed8f03)";
+            }
+            Toastify({
+                text: text,
+                duration: 4000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: bgColor,
+                stopOnFocus: true
+            }).showToast();
+        </script>
+    }
+</body>
+</html>
