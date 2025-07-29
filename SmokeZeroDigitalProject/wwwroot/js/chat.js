@@ -19,17 +19,9 @@
 
     function scrollToBottom() {
         if (messageList) {
-            console.log("📜 Scroll từ:", messageList.scrollTop, "đến:", messageList.scrollHeight);
             messageList.scrollTop = messageList.scrollHeight;
-        } else {
-            console.warn("⚠️ scrollToBottom gọi nhưng messageList null");
         }
     }
-
-    connection.on("ReceiveMessage", (message) => {
-        console.log("📩 ReceiveMessage:", message);
-        appendMessage(message);
-    });
 
     function appendMessage(message) {
         const isMe = message.senderUserId.toLowerCase() === config.senderUserId.toLowerCase();
@@ -38,9 +30,7 @@
         const textAlign = isMe ? "text-end" : "text-start";
 
         const createdAt = new Date(message.createdAt).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false
+            hour: "2-digit", minute: "2-digit", hour12: false
         });
 
         const html = `
@@ -49,8 +39,7 @@
                 <div class="${textAlign}">${message.content}</div>
                 <small class="text-muted d-block ${textAlign}" style="font-size: 0.75rem;">${createdAt}</small>
             </div>
-        </div>
-        `;
+        </div>`;
 
         messageList.insertAdjacentHTML("beforeend", html);
         setTimeout(scrollToBottom, 50);
@@ -58,33 +47,33 @@
         const conversationItem = document.querySelector(`.conversation-item[data-id="${message.conversationId}"]`);
         if (conversationItem) {
             const lastMessageDiv = conversationItem.querySelector(".last-message");
-            if (lastMessageDiv) {
-                lastMessageDiv.textContent = message.content;
-            }
+            if (lastMessageDiv) lastMessageDiv.textContent = message.content;
 
             conversationItem.classList.add("bg-light");
-            setTimeout(() => {
-                conversationItem.classList.remove("bg-light");
-            }, 10000);
+            setTimeout(() => conversationItem.classList.remove("bg-light"), 5000);
         }
     }
 
+    connection.on("ReceiveMessage", (message) => {
+        console.log("📩 ReceiveMessage:", message);
+        appendMessage(message);
+    });
+
     connection.start()
         .then(() => {
-
+            console.log("✅ SignalR connected");
+            return connection.invoke("JoinConversation", config.conversationId);
+        })
+        .then(() => {
+            console.log("✅ Joined conversation group:", config.conversationId);
             setTimeout(scrollToBottom, 100);
         })
-        .catch((err) => {
-            console.error("❌ SignalR connection error:", err);
-        });
+        .catch((err) => console.error("❌ SignalR connection error:", err));
 
     sendForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const content = messageInput.value.trim();
-        if (!content) {
-            console.warn("⚠️ Message trống, không gửi");
-            return;
-        }
+        if (!content) return;
 
         const message = {
             conversationId: config.conversationId,
@@ -101,9 +90,7 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(message)
             });
-
             messageInput.value = "";
-            appendMessage(message);
         } catch (err) {
             console.error("❌ Error sending message:", err);
         }

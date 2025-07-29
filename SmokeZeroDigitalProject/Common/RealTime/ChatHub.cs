@@ -4,6 +4,8 @@ public class ChatHub : Hub
 {
     public async Task JoinConversation(string conversationId)
     {
+        Console.WriteLine($"✅ {Context.ConnectionId} joined conversation {conversationId}");
+
         await Groups.AddToGroupAsync(Context.ConnectionId, conversationId);
     }
 
