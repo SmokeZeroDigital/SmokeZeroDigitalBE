@@ -147,3 +147,4 @@ appsettings.json
 appsettings.Development.json
 /.vs/SmokeZeroDigitalSolution
 /.vs/ProjectEvaluation
+/SmokeZeroDigitalProject/Common/Helper/ApiEndpoints.cs
