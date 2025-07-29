@@ -13,8 +13,9 @@
         // Plan
         public const string GetAllPlan = "/api/PaymentPlan/all";
         public const string CreatePlan = "/api/PaymentPlan";
-        public const string GetPlan = "/api/PaymentPlan";
-        public const string CreatePaymentUrl = "/api/PaymentPlan/payment-url";
+        public const string GetPlan = "/api/PaymentPlan?Id={id}";
+        public const string UpdatePlan = "/api/PaymentPlan/Update";
+		public const string CreatePaymentUrl = "/api/PaymentPlan/payment-url";
         public const string VNPayCallback = "/api/PaymentPlan/callback";
 
 
