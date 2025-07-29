@@ -1,3 +1,6 @@
+using System.Text.Json;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.DTOs.Auth;
+
 namespace SmokeZeroDigitalProject.Pages.Register
 {
     public class IndexModel : PageModel
@@ -41,8 +44,38 @@ namespace SmokeZeroDigitalProject.Pages.Register
 
             if (response.IsSuccessStatusCode)
             {
-                TempData["ToastMessage"] = "success:Đăng ký thành công! Vui lòng đăng nhập.";
-                return RedirectToPage("/Login/Index");
+                try
+                {
+                    // Get the response content to extract userId
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var registerResult = JsonSerializer.Deserialize<RegisterResultDto>(responseContent, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    if (registerResult != null)
+                    {
+                        TempData["ToastMessage"] = "success:Vui lòng nhập mã OTP để hoàn tất đăng ký!";
+                        TempData["ConfirmEmail"] = RegisterRequest.Email;
+                        
+                        // Pass both email and userId to the ConfirmEmail page
+                        return RedirectToPage("/ConfirmEmail/Index", new { 
+                            email = RegisterRequest.Email, 
+                            userId = registerResult.UserId.ToString() 
+                        });
+                    }
+                    else
+                    {
+                        TempData["ToastMessage"] = "success:Vui lòng nhập mã OTP để hoàn tất đăng ký!";
+                        return RedirectToPage("/ConfirmEmail/Index", new { email = RegisterRequest.Email });
+                    }
+                }
+                catch (Exception)
+                {
+                    // Fallback if JSON parsing fails
+                    TempData["ToastMessage"] = "success:Vui lòng nhập mã OTP để hoàn tất đăng ký!";
+                    return RedirectToPage("/ConfirmEmail/Index", new { email = RegisterRequest.Email });
+                }
             }
             else
             {

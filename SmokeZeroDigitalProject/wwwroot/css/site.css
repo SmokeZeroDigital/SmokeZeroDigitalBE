@@ -1,0 +1,22 @@
+﻿<style >
+.hover-bg:hover {
+    background - color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.active-conv a {
+    background - color: #e7f1ff;
+    border-radius: 8px;
+}
+
+.text-truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.conversation-item {
+    transition: background-color 0.3s ease-in-out;
+}
+
+</style >

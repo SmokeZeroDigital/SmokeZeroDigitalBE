@@ -48,61 +48,73 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="account-content">
                             <div class="account-info">
-                                <div class="login-title">
-                                    <h3>Sign in</h3>
-                                    <p>We'll send a confirmation code to your email.</p>
-                                    <span>Sign in with <a asp-page="/Login/Phone">Phone Number</a></span>
+                                <div class="mb-4">
+                                    <a href="/" class="btn btn-primary">
+                                        ← Về trang chủ
+                                    </a>
                                 </div>
+                                <div class="login-title">
+                                    <h3>Đăng nhập</h3>
+                                    <p>Chúng tôi sẽ gửi mã xác nhận đến email của bạn.</p>
+                                    <span>Đăng nhập bằng <a asp-page="/Login/Phone">Số điện thoại</a></span>
+                                </div>
+
                                 <form method="post">
                                     <div class="mb-3">
-                                        <label asp-for="LoginRequest.UserName" class="form-label">E-mail</label>
+                                        <label asp-for="LoginRequest.UserName" class="form-label">Email</label>
                                         <input asp-for="LoginRequest.UserName" class="form-control" autocomplete="username" />
                                     </div>
+
                                     <div class="mb-3">
                                         <div class="form-group-flex">
-                                            <label asp-for="LoginRequest.Password" class="form-label">Password</label>
-                                            <a asp-page="/ForgotPassword" class="forgot-link">Forgot password?</a>
+                                            <label asp-for="LoginRequest.Password" class="form-label">Mật khẩu</label>
+                                            <a asp-page="/ForgotPassword" class="forgot-link">Quên mật khẩu?</a>
                                         </div>
                                         <div class="pass-group">
                                             <input asp-for="LoginRequest.Password" class="form-control pass-input" type="password" autocomplete="current-password" />
                                             <span class="feather-eye-off toggle-password"></span>
                                         </div>
                                     </div>
+
                                     <div class="mb-3 form-check-box">
                                         <div class="form-group-flex">
                                             <div class="form-check mb-0">
                                                 <input class="form-check-input" type="checkbox" id="remember" name="RememberMe" />
                                                 <label class="form-check-label" for="remember">
-                                                    Remember Me  
+                                                    Ghi nhớ đăng nhập
                                                 </label>
-                                            </div>                                                
+                                            </div>
                                             <div class="form-check mb-0">
                                                 <input class="form-check-input" type="checkbox" id="loginWithOtp" name="LoginWithOtp" />
                                                 <label class="form-check-label" for="loginWithOtp">
-                                                    Login with OTP  
+                                                    Đăng nhập bằng mã OTP
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="mb-3">
-                                        <button class="btn btn-primary-gradient w-100" type="submit">Sign in</button>
-                                    </div>
-                                    <div class="login-or">
-                                        <span class="or-line"></span>
-                                        <span class="span-or">or</span>
-                                    </div>
-                                    <div class="social-login-btn">
-                                        <a href="javascript:void(0);" class="btn w-100">
-                                            <img src="~/user-assets/assets/img/icons/google-icon.svg" alt="google-icon">Sign in With Google
-                                        </a>
-                                        <a href="javascript:void(0);" class="btn w-100">
-                                            <img src="~/user-assets/assets/img/icons/facebook-icon.svg" alt="fb-icon">Sign in With Facebook
-                                        </a>
-                                    </div>
-                                    <div class="account-signup">
-                                        <p>Don't have an account ? <a asp-page="/Register/Index">Sign up</a></p>
+                                        <button class="btn btn-primary-gradient w-100" type="submit">Đăng nhập</button>
                                     </div>
                                 </form>
+
+                                <div class="login-or">
+                                    <span class="or-line"></span>
+                                    <span class="span-or">hoặc</span>
+                                </div>
+
+                                <form asp-page-handler="GoogleLogin" method="post">
+                                    <div class="social-login-btn">
+                                        <button type="submit" class="btn w-100">
+                                            <img src="~/user-assets/assets/img/icons/google-icon.svg" alt="google-icon">Đăng nhập bằng Google
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <div class="account-signup">
+                                    <p>Chưa có tài khoản? <a asp-page="/Register/Index">Đăng ký</a></p>
+                                </div>
+
                             </div>
                         </div>
                     </div>

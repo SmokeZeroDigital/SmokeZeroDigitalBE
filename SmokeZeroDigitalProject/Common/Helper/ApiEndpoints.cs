@@ -6,13 +6,16 @@
         public const string Login = "/api/Auth/login";
         public const string Register = "/api/Auth/register";
         public const string GoogleLogin = "/api/Auth/google-login";
+        public const string ConfirmEmail = "/api/Auth/confirm-email";
+        public const string ConfirmEmailByEmail = "/api/Auth/confirm-email-by-email";
 
 
         // Plan
         public const string GetAllPlan = "/api/PaymentPlan/all";
         public const string CreatePlan = "/api/PaymentPlan";
-        public const string GetPlan = "/api/PaymentPlan";
-        public const string CreatePaymentUrl = "/api/PaymentPlan/payment-url";
+        public const string GetPlan = "/api/PaymentPlan?Id={id}";
+        public const string UpdatePlan = "/api/PaymentPlan/Update";
+		public const string CreatePaymentUrl = "/api/PaymentPlan/payment-url";
         public const string VNPayCallback = "/api/PaymentPlan/callback";
 
 

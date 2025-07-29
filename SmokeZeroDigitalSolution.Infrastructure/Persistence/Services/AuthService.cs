@@ -1,4 +1,8 @@
-﻿namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using SmokeZeroDigitalSolution.Application.Features.NotificationManager.Interface;
+using SmokeZeroDigitalSolution.Application.Features.UsersManager.Exceptions;
+
+namespace SmokeZeroDigitalSolution.Infrastructure.Persistence.Services;
 
 public class AuthService : IAuthService
 {
@@ -9,6 +13,7 @@ public class AuthService : IAuthService
     private readonly IdentitySettings _identitySettings;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IEmailService _emailService;
 
     public AuthService(
         UserManager<AppUser> userManager,
@@ -17,7 +22,8 @@ public class AuthService : IAuthService
         ApplicationDbContext context,
         IOptions<IdentitySettings> identitySettings,
         IHttpContextAccessor httpContextAccessor
-        , IUnitOfWork unitOfWork
+        , IUnitOfWork unitOfWork,
+        IEmailService emailService
     )
     {
         _userManager = userManager;
@@ -27,12 +33,14 @@ public class AuthService : IAuthService
         _identitySettings = identitySettings.Value;
         _httpContextAccessor = httpContextAccessor;
         _unitOfWork = unitOfWork;
+        _emailService = emailService;
     }
     public async Task<RegisterResultDto> RegisterAsync(RegisterUserDto registerUserDto, CancellationToken cancellationToken = default)
     {
         if (registerUserDto.Password != registerUserDto.ConfirmPassword)
             throw new Exception("Password and confirmation do not match.");
 
+        // Create a new user
         var user = new AppUser
         {
             Id = Guid.NewGuid(),
@@ -44,13 +52,22 @@ public class AuthService : IAuthService
             CreatedAt = registerUserDto.CreateAt,
         };
 
+        // Create the user in the database
         var result = await _userManager.CreateAsync(user, registerUserDto.Password);
-        await _userManager.AddToRoleAsync(user, "Member");
         if (!result.Succeeded)
             throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
 
+        // Generate a 6-digit numeric email confirmation token
+        var numericToken = await GenerateEmailConfirmationTokenAsync(user);
+
+        // Save the token in the database with an expiration time
+        var tokenExpiry = DateTime.UtcNow.AddMinutes(15); // Token valid for 15 minutes
+        await SaveTokenAsync(user.Id, numericToken, tokenExpiry);
+
+        // Return the registration result
         return new RegisterResultDto
         {
+            UserId = user.Id, // Add UserId so frontend can use it for email confirmation
             Email = user.Email,
             FullName = user.FullName,
             DateOfBirth = user.DateOfBirth,
@@ -64,6 +81,16 @@ public class AuthService : IAuthService
         if (user == null || user.IsDeleted == true)
             throw new Exception("Invalid credentials.");
 
+        if (!user.EmailConfirmed)
+        {
+            // Generate a new OTP and send it to the user
+            await ResendConfirmationTokenAsync(user);
+            throw new UnconfirmedEmailException("Email not confirmed. A new confirmation code has been sent to your email.")
+            {
+                UserId = user.Id,
+                Email = user.Email
+            };
+        }
 
         var result = await _signInManager.PasswordSignInAsync(user, password, true, false);
         if (!result.Succeeded) throw new Exception("Invalid login attempt.");
@@ -206,6 +233,9 @@ public class AuthService : IAuthService
         token.IPAddress = ipAddress;
         token.Device = deviceDescription;
 
+        var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        await _userManager.ConfirmEmailAsync(user, emailConfirmToken);
+
         await _context.AddAsync(token, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 
@@ -278,5 +308,176 @@ public class AuthService : IAuthService
         await _context.SaveChangesAsync(cancellationToken);
 
         return true;
+    }
+    public async Task<ConfirmEmailResultDto> ConfirmEmailAsync(string email, string code)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            return new ConfirmEmailResultDto { Success = false, Message = "Email cannot be empty." };
+
+        if (string.IsNullOrWhiteSpace(code))
+            return new ConfirmEmailResultDto { Success = false, Message = "Confirmation code is required." };
+
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user == null)
+            return new ConfirmEmailResultDto { Success = false, Message = "User not found." };
+
+        if (user.EmailConfirmed)
+            return new ConfirmEmailResultDto { Success = true, Message = "Email already confirmed." };
+
+        // Validate the token using the same logic as ConfirmEmailWithTokenAsync
+        if (!await ValidateTokenAsync(user.Id, code))
+            return new ConfirmEmailResultDto { Success = false, Message = "Invalid or expired token." };
+
+        // Confirm the email
+        user.EmailConfirmed = true;
+        var updateResult = await _userManager.UpdateAsync(user);
+
+        if (!updateResult.Succeeded)
+        {
+            var errors = string.Join(", ", updateResult.Errors.Select(e => e.Description));
+            return new ConfirmEmailResultDto { Success = false, Message = $"Failed to confirm email: {errors}" };
+        }
+
+        // Assign the "Member" role after email confirmation
+        if (!await _userManager.IsInRoleAsync(user, "Member"))
+        {
+            var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+            if (!roleResult.Succeeded)
+            {
+                var error = roleResult.Errors.FirstOrDefault()?.Description ?? "Unknown error while assigning role.";
+                return new ConfirmEmailResultDto { Success = false, Message = $"Email confirmed, but failed to assign role: {error}" };
+            }
+        }
+
+        // Revoke the token after successful confirmation
+        await RevokeTokenAsync(user.Id, code);
+
+        return new ConfirmEmailResultDto { Success = true, Message = "Email confirmed successfully." };
+    }
+
+    public async Task<ConfirmEmailResultDto> ConfirmEmailWithTokenAsync(Guid userId, string token)
+    {
+        // Validate input parameters
+        if (userId == Guid.Empty)
+            return new ConfirmEmailResultDto { Success = false, Message = "Invalid user ID." };
+
+        if (string.IsNullOrWhiteSpace(token))
+            return new ConfirmEmailResultDto { Success = false, Message = "Token is required." };
+
+        // Validate the token first
+        if (!await ValidateTokenAsync(userId, token))
+            return new ConfirmEmailResultDto { Success = false, Message = "Invalid or expired token." };
+
+        // Find the user
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+            return new ConfirmEmailResultDto { Success = false, Message = "User not found." };
+
+        // Check if user is already confirmed
+        if (user.EmailConfirmed)
+            return new ConfirmEmailResultDto { Success = true, Message = "Email already confirmed." };
+
+        // Confirm the email
+        user.EmailConfirmed = true;
+        var updateResult = await _userManager.UpdateAsync(user);
+
+        if (!updateResult.Succeeded)
+        {
+            var errors = string.Join(", ", updateResult.Errors.Select(e => e.Description));
+            return new ConfirmEmailResultDto { Success = false, Message = $"Failed to confirm email: {errors}" };
+        }
+
+        // Assign the "Member" role after email confirmation
+        if (!await _userManager.IsInRoleAsync(user, "Member"))
+        {
+            var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+            if (!roleResult.Succeeded)
+            {
+                var error = roleResult.Errors.FirstOrDefault()?.Description ?? "Unknown error while assigning role.";
+                return new ConfirmEmailResultDto { Success = false, Message = $"Email confirmed, but failed to assign role: {error}" };
+            }
+        }
+
+        // Revoke the token after successful confirmation
+        await RevokeTokenAsync(userId, token);
+
+        return new ConfirmEmailResultDto { Success = true, Message = "Email confirmed successfully." };
+    }
+
+    public async Task RevokeTokenAsync(Guid userId, string token)
+    {
+        var tokenEntity = await _context.Tokens
+            .Where(t => t.UserId == userId && t.RefreshToken == token)
+            .FirstOrDefaultAsync();
+
+        if (tokenEntity != null)
+        {
+            tokenEntity.IsRevoked = true;
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<bool> ValidateTokenAsync(Guid userId, string submittedToken)
+    {
+        var tokenEntity = await _context.Tokens
+            .Where(t => t.UserId == userId && t.RefreshToken == submittedToken)
+            .FirstOrDefaultAsync();
+
+        if (tokenEntity == null)
+            return false; // Token not found
+
+        if (tokenEntity.ExpiryDate < DateTime.UtcNow)
+            return false; // Token expired
+
+        if (tokenEntity.IsRevoked)
+            return false; // Token already used or revoked
+
+        return true; // Token is valid
+    }
+
+    public async Task SaveTokenAsync(Guid userId, string token, DateTime expiry)
+    {
+        var tokenEntity = new Token
+        {
+            UserId = userId,
+            RefreshToken = token, // Reuse the `RefreshToken` field for email confirmation tokens
+            ExpiryDate = expiry,
+            IsRevoked = false,
+            IPAddress = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString(),
+            Device = "Email Confirmation" // Mark this as an email confirmation token
+        };
+
+        await _context.Tokens.AddAsync(tokenEntity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<string> GenerateEmailConfirmationTokenAsync(AppUser user)
+    {
+        var numericToken = GenerateNumericToken();
+        var subject = "Email Confirmation";
+        var message = $"Here is your email confirmation code: {numericToken}";
+        
+        if (!string.IsNullOrEmpty(user.Email))
+        {
+            await _emailService.SendAsync(user.Email, subject, message);
+        }
+        
+        return numericToken;
+    }
+
+    private string GenerateNumericToken()
+    {
+        var random = new Random();
+        return random.Next(100000, 999999).ToString();
+    }
+
+    public async Task ResendConfirmationTokenAsync(AppUser user)
+    {
+        // Generate a new 6-digit numeric email confirmation token
+        var numericToken = await GenerateEmailConfirmationTokenAsync(user);
+
+        // Save the token in the database with an expiration time
+        var tokenExpiry = DateTime.UtcNow.AddMinutes(15); // Token valid for 15 minutes
+        await SaveTokenAsync(user.Id, numericToken, tokenExpiry);
     }
 }

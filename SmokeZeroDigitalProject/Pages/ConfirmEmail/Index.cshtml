@@ -1,0 +1,49 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.ConfirmEmail.IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Xác nhận email";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6">
+            <div class="account-content">
+                <div class="account-info">
+                    <div class="login-title">
+                        <h3>Xác nhận email</h3>
+                        <p class="mb-0">Nhập mã OTP đã được gửi đến email của bạn</p>
+                    </div>
+                    <form method="post">
+                        <input type="hidden" name="email" value="@Request.Query["email"]" />
+                        <input type="hidden" name="userId" value="@Request.Query["userId"]" />
+                        <div class="mb-3 text-center">
+                            <div class="mb-4">
+                                <i class="fas fa-envelope-open text-primary" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="OtpCode" class="form-label">Mã OTP</label>
+                            <input asp-for="OtpCode" class="form-control text-center" 
+                                   placeholder="Nhập mã 6 số" maxlength="6" required
+                                   style="font-size: 1.2rem; letter-spacing: 0.5rem;">
+                            <span asp-validation-for="OtpCode" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <small class="text-muted">
+                                Không nhận được mã? 
+                                <a href="#" id="resendOtp" class="text-primary">Gửi lại</a>
+                            </small>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="/Register" class="text-muted">Quay lại đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

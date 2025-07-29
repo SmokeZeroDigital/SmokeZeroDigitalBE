@@ -10,6 +10,6 @@
         Task UpdateAsync(Conversation conversation, CancellationToken cancellationToken = default);
         Task<List<UserInfoDto>> GetUsersByCoachIdAsync(Guid coachId);
         Task<List<UserInfoDto>> GetCoachsByUserIdAsync(Guid userId);
-
+        Task<List<Conversation>> GetConversationByUserId(Guid appUserId, CancellationToken cancellationToken);
     }
 }
