@@ -16,10 +16,10 @@ namespace SmokeZeroDigitalProject.Pages.Admin.Plan
 		public UpdatePlanDto UpdatePlanDto { get; set; } = new();
 		public async Task<IActionResult> OnGetAsync(Guid guid)
 		{
-			var apiUrl = _apiConfig.GetEndpoint(ApiEndpoints.GetPlan).Replace("{id}", guid.ToString());
+			var apiUrl = _apiConfig.GetEndpoint(ApiEndpoints.GetPlan) + $"?id={guid}";
 
 
-			using var httpClient = new HttpClient();
+            using var httpClient = new HttpClient();
 			var response = await httpClient.GetAsync(apiUrl);
 
 			if (!response.IsSuccessStatusCode)
