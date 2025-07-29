@@ -1,0 +1,50 @@
+﻿@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create Quit Plan";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="container">
+        <div class="card p-4 mt-4">
+            <div class="card-header">
+                <h4 class="card-title text-primary-gradient">Create Quitting Plan</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" asp-for="PlanDto.UserId" />
+
+                    <div class="mb-3">
+                        <label asp-for="PlanDto.ReasonToQuit" class="form-label">Reason to Quit</label>
+                        <textarea asp-for="PlanDto.ReasonToQuit" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PlanDto.StartDate" class="form-label">Start Date</label>
+                        <input asp-for="PlanDto.StartDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PlanDto.ExpectedEndDate" class="form-label">Target Quit Date</label>
+                        <input asp-for="PlanDto.ExpectedEndDate" type="date" class="form-control" value="@DateTime.Now.AddDays(30).ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PlanDto.InitialCigarettesPerDay" class="form-label">Cigarettes per Day</label>
+                        <input asp-for="PlanDto.InitialCigarettesPerDay" type="number" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PlanDto.InitialCostPerCigarette" class="form-label">Cost per Cigarette (VND)</label>
+                        <input asp-for="PlanDto.InitialCostPerCigarette" type="number" step="0.01" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PlanDto.Stages" class="form-label">Plan Stages</label>
+                        <textarea asp-for="PlanDto.Stages" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PlanDto.CustomNotes" class="form-label">Custom Notes</label>
+                        <textarea asp-for="PlanDto.CustomNotes" class="form-control" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary-gradient rounded-pill">Create Plan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

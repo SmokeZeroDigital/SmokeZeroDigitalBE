@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace SmokeZeroDigitalProject.Pages.Login
 {
@@ -54,7 +54,6 @@ namespace SmokeZeroDigitalProject.Pages.Login
                 Token = idToken
             };
             var response = await httpClient.PostAsJsonAsync(loginUrl, googleLoginRequest);
-
             if (response.IsSuccessStatusCode)
             {
                 var responseBodyAsString = await response.Content.ReadAsStringAsync();
@@ -94,7 +93,7 @@ namespace SmokeZeroDigitalProject.Pages.Login
 
             var loginUrl = _apiConfig.GetEndpoint(ApiEndpoints.Login);
             using var httpClient = new HttpClient();
-            
+
             try
             {
                 var response = await httpClient.PostAsJsonAsync(loginUrl, LoginRequest);
@@ -107,16 +106,19 @@ namespace SmokeZeroDigitalProject.Pages.Login
                         PropertyNameCaseInsensitive = true
                     };
                     var apiResult = System.Text.Json.JsonSerializer.Deserialize<ApiSuccessResult<AuthResponseDto>>(responseBodyAsString, options);
-
                     var fullName = apiResult?.Content?.UserName;
                     var userId = apiResult?.Content?.UserId;
                     var planId = apiResult?.Content?.PlanId;
+                    var token = apiResult?.Content?.Token;
+
                     if (string.IsNullOrWhiteSpace(fullName))
                         fullName = apiResult?.Content?.UserName ?? apiResult?.Content?.UserName ?? "";
 
                     HttpContext.Session.SetString("FullName", fullName);
                     HttpContext.Session.SetString("PlanId", planId?.ToString() ?? string.Empty);
                     HttpContext.Session.SetString("UserId", userId.ToString() ?? string.Empty);
+                    HttpContext.Session.SetString("Token", token ?? string.Empty);
+
                     TempData["ToastMessage"] = "success:Đăng nhập thành công!";
                     return RedirectToPage("/Index");
                 }
@@ -124,7 +126,7 @@ namespace SmokeZeroDigitalProject.Pages.Login
                 {
                     // Check if the error is due to unconfirmed email
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    
+
                     // Try to parse the error response
                     try
                     {
@@ -133,7 +135,7 @@ namespace SmokeZeroDigitalProject.Pages.Login
                             PropertyNameCaseInsensitive = true
                         };
                         var errorResult = System.Text.Json.JsonSerializer.Deserialize<ApiErrorResult>(errorContent, options);
-                        
+
                         if (errorResult?.Error != null && errorResult.Error.InnerException != null && errorResult.Error.InnerException.StartsWith("EMAIL_NOT_CONFIRMED:"))
                         {
                             // Parse the error message format: "EMAIL_NOT_CONFIRMED:userId:email:message"
@@ -143,9 +145,10 @@ namespace SmokeZeroDigitalProject.Pages.Login
                                 var userId = parts[1];
                                 var email = parts[2];
                                 var message = parts[3];
-                                
+
                                 TempData["ToastMessage"] = "info:Email chưa được xác nhận. Mã OTP mới đã được gửi đến email của bạn.";
-                                return RedirectToPage("/ConfirmEmail/Index", new { 
+                                return RedirectToPage("/ConfirmEmail/Index", new
+                                {
                                     email = email,
                                     userId = userId
                                 });
@@ -162,7 +165,7 @@ namespace SmokeZeroDigitalProject.Pages.Login
                             return RedirectToPage("/ConfirmEmail/Index", new { email = email });
                         }
                     }
-                    
+
                     TempData["ToastMessage"] = "error:Tên đăng nhập hoặc mật khẩu không đúng.";
                     return Page();
                 }

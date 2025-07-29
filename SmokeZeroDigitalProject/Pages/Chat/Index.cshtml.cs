@@ -27,10 +27,11 @@ public class ChatPageModel : PageModel
     public async Task<IActionResult> OnGetAsync(Guid? conversationId = null)
     {
         var token = HttpContext.Session.GetString("Token");
+        Console.WriteLine("token" + token);
         if (string.IsNullOrEmpty(token))
         {
             TempData["ToastMessage"] = "error:Bạn chưa đăng nhập.";
-            return RedirectToPage("/Login");
+            return Redirect("/Login");
         }
 
 
