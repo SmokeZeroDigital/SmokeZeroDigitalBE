@@ -1,0 +1,50 @@
+﻿@page
+@model SmokeZeroDigitalProject.Pages.ProgressEntry.CreateModel
+@{
+    ViewData["Title"] = "Create Progress Entry";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="container">
+        <div class="card p-4 mt-4">
+            <div class="card-header">
+                <h4 class="card-title text-primary-gradient">Create Progress Entry</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" asp-for="ProgressDto.UserId" />
+
+                    <div class="mb-3">
+                        <label asp-for="ProgressDto.EntryDate" class="form-label">Entry Date</label>
+                        <input asp-for="ProgressDto.EntryDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProgressDto.CigarettesSmokedToday" class="form-label">Cigarettes Smoked Today</label>
+                        <input asp-for="ProgressDto.CigarettesSmokedToday" type="number" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProgressDto.MoneySavedToday" class="form-label">Money Saved Today (VND)</label>
+                        <input asp-for="ProgressDto.MoneySavedToday" type="number" step="0.01" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProgressDto.HealthStatusNotes" class="form-label">Health Status Notes</label>
+                        <textarea asp-for="ProgressDto.HealthStatusNotes" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProgressDto.CravingLevel" class="form-label">Craving Level (1-10)</label>
+                        <input asp-for="ProgressDto.CravingLevel" type="number" min="1" max="10" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProgressDto.Challenges" class="form-label">Challenges</label>
+                        <textarea asp-for="ProgressDto.Challenges" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ProgressDto.Successes" class="form-label">Successes</label>
+                        <textarea asp-for="ProgressDto.Successes" class="form-control" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary-gradient rounded-pill">Create Entry</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
