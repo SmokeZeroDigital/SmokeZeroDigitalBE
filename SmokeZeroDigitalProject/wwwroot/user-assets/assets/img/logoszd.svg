@@ -1,0 +1,22 @@
+
+<svg width="400" height="100" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- No smoking circle with diagonal line and cigarette -->
+  <g transform="translate(20, 20)">
+    <circle cx="30" cy="30" r="30" fill="none" stroke="url(#blueGradient)" stroke-width="5"/>
+    <line x1="10" y1="50" x2="50" y2="10" stroke="url(#blueGradient)" stroke-width="5"/>
+    <rect x="15" y="28" width="30" height="6" fill="#4facfe"/>
+    <rect x="40" y="28" width="5" height="6" fill="red"/>
+  </g>
+
+  <!-- Brand text -->
+  <text x="90" y="60" font-family="Arial, sans-serif" font-size="30" fill="url(#blueGradient)" font-weight="bold">
+    SmokeZeroDigital
+  </text>
+</svg>
